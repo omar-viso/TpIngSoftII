@@ -28,19 +28,19 @@ namespace TpIngSoftII.Services
         {
             var query = this.entityRepository.GetAll();
             var entities = query.ToList();
-            IEnumerable<ProyectoDto> dtos = Mapper.Map<IEnumerable<Proyecto>, IEnumerable<ProyectoDto>>(query.ToList());
+            IEnumerable<ProyectoDto> dtos = Mapper.Map<IEnumerable<Proyecto>, IEnumerable<ProyectoDto>>(entities);
 
             return dtos;
         }
         /*
-        public IEnumerable<ProyectoDto>(int id)
+        public override IEnumerable<ProyectoDto> GetById(int id)
         {
             var enti = this.entityRepository.GetSingle(id);
-            var dtos = Mapper.Map<E, D>(enti);
+            var dtos = Mapper.Map<IEnumerable<Proyecto>, IEnumerable<ProyectoDto>>(enti);
 
             return dtos;
         }
-
+        
         public virtual void DeleteById(int id)
         {
             using (var scope = new TransactionScope())

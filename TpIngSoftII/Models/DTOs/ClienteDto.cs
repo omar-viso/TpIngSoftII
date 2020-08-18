@@ -10,6 +10,6 @@ namespace TpIngSoftII.Models.DTOs
     {
         public int ID { get; set; }
         public string Nombre { get; set; }
-        public virtual ICollection<Proyecto> Proyecto { get; set; }
+        //public virtual ICollection<Proyecto> Proyecto { get; set; }
     }
 }

@@ -20,9 +20,10 @@ namespace TpIngSoftII.Controllers
         {
             this.proyectoService = proyectoService;
         }
-        /*
+        
+        // Ver UPDATES (NO ESTA GUARDANDO CAMBIOS)!
         [HttpPost]
-        //[ProducesResponseType(typeof(IEnumerable<ProyectoDto>))]
+        [ResponseType(typeof(IEnumerable<ProyectoDto>))]
         [Route("UpdateProyecto")]
         public HttpResponseMessage Update(HttpRequestMessage request, [FromBody] ProyectoDto dto)
         {
@@ -35,13 +36,13 @@ namespace TpIngSoftII.Controllers
             else
             {
                 var dtoUpdated = proyectoService.Update(dto);
-                response = request.CreateResponse(HttpStatusCode.OK);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
             }
 
             return response;
 
         }
-        */
+        
         [HttpGet]
         [ResponseType(typeof(IEnumerable<ProyectoDto>))]
         [Route("GetProyectos")]
@@ -64,7 +65,7 @@ namespace TpIngSoftII.Controllers
         }
 
         [HttpGet]
-        [Route("details/{id:int}")]
+        [Route("{id:int}")]
         [ResponseType(typeof(ProyectoDto))]
         public HttpResponseMessage GetProyecto(HttpRequestMessage request, int id)
         {
@@ -76,8 +77,8 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-               // var dtoUpdated = proyectoService.GetById(id);
-                response = request.CreateResponse(HttpStatusCode.OK);
+                var dtoUpdated = proyectoService.GetById(id);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
             }
 
             return response;

@@ -22,11 +22,11 @@ namespace TpIngSoftII
             UnityConfig.RegisterComponents();
 
             HttpConfiguration config = GlobalConfiguration.Configuration;
-
+            
             config.Formatters.JsonFormatter
                         .SerializerSettings
                         .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-
+            
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();

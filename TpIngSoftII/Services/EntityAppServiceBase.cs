@@ -16,7 +16,9 @@ namespace TpIngSoftII.Services
     {
         //protected readonly IUnitOfWork unitOfWork;
         protected readonly IEntityBaseRepository<E> entityRepository;
-        private DBGestionDeProyectosContext dbContext; // ver si funciona
+        private DBGestionDeProyectosContext dbContext = new DBGestionDeProyectosContext(); // ver si funciona
+
+
 
         public EntityAppServiceBase(IEntityBaseRepository<E> entityRepository)
         {
@@ -58,8 +60,10 @@ namespace TpIngSoftII.Services
 
         public virtual D Update(D dto)
         {
-           /* using (var scope = new TransactionScope())
-            { */
+            /* using (var scope = new TransactionScope())
+             { */
+            using (dbContext)
+            {
                 E entity = null;
                 entity = Mapper.Map<D, E>(dto);
                 var isNew = (dto.ID == 0);
@@ -76,7 +80,7 @@ namespace TpIngSoftII.Services
                 }
 
                 //this.unitOfWork.Commit(); // aca commitear el update o insert de base
-                dbContext.Commit();
+                this.dbContext.Commit();
 
                 if (entity != null)
                 {
@@ -87,7 +91,7 @@ namespace TpIngSoftII.Services
 
                 /*scope.Complete();
             } */
-
+            }
             return dto;
         }
 
