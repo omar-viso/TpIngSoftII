@@ -3,7 +3,7 @@ namespace TpIngSoftII.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class InitialCreate_Proyecto_Abm : DbMigration
     {
         public override void Up()
         {
@@ -21,25 +21,20 @@ namespace TpIngSoftII.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        IdCliente = c.Int(nullable: false),
+                        ClienteID = c.Int(nullable: false),
                         Nombre = c.String(nullable: false, maxLength: 50),
                         EstadoProyecto = c.Int(nullable: false),
-                        Cliente_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Clientes", t => t.IdCliente, cascadeDelete: true)
-                .ForeignKey("dbo.Clientes", t => t.Cliente_ID)
-                .Index(t => t.IdCliente)
-                .Index(t => t.Cliente_ID);
+                .ForeignKey("dbo.Clientes", t => t.ClienteID, cascadeDelete: true)
+                .Index(t => new { t.ClienteID, t.Nombre });
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Proyectos", "Cliente_ID", "dbo.Clientes");
-            DropForeignKey("dbo.Proyectos", "IdCliente", "dbo.Clientes");
-            DropIndex("dbo.Proyectos", new[] { "Cliente_ID" });
-            DropIndex("dbo.Proyectos", new[] { "IdCliente" });
+            DropForeignKey("dbo.Proyectos", "ClienteID", "dbo.Clientes");
+            DropIndex("dbo.Proyectos", new[] { "ClienteID", "Nombre" });
             DropTable("dbo.Proyectos");
             DropTable("dbo.Clientes");
         }

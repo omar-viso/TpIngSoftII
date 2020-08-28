@@ -7,13 +7,13 @@ namespace TpIngSoftII.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class InitialCreate_Proyecto_Abm : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate_Proyecto_Abm));
         
         string IMigrationMetadata.Id
         {
-            get { return "202008171947404_InitialCreate"; }
+            get { return "202008280256185_InitialCreate_Proyecto_Abm"; }
         }
         
         string IMigrationMetadata.Source

@@ -14,15 +14,17 @@ namespace TpIngSoftII.Services
         where E : class, IEntityBase, new()
         where D : class, IDto, new()
     {
-        //protected readonly IUnitOfWork unitOfWork;
+        protected readonly IUnitOfWork unitOfWork;
         protected readonly IEntityBaseRepository<E> entityRepository;
-        private DBGestionDeProyectosContext dbContext = new DBGestionDeProyectosContext(); // ver si funciona
+       // private DBGestionDeProyectosContext dbContext = new DBGestionDeProyectosContext(); // ver si funciona
 
 
 
-        public EntityAppServiceBase(IEntityBaseRepository<E> entityRepository)
+        public EntityAppServiceBase(IEntityBaseRepository<E> entityRepository, IUnitOfWork unitOfWork)
         {
             this.entityRepository = entityRepository;
+            this.unitOfWork = unitOfWork;
+
         }
 
         public virtual IEnumerable<D> GetAll()
@@ -50,8 +52,8 @@ namespace TpIngSoftII.Services
             */
             this.ValidarEntityDeleting(id);
             this.entityRepository.DeleteById(id);
-            //this.unitOfWork.Commit(); // aca commitear el borrado en base
-            dbContext.Commit();
+            this.unitOfWork.Commit(); // aca commitear el borrado en base
+            //dbContext.Commit();
             /*
             scope.Complete();
             }
@@ -62,8 +64,7 @@ namespace TpIngSoftII.Services
         {
             /* using (var scope = new TransactionScope())
              { */
-            using (dbContext)
-            {
+
                 E entity = null;
                 entity = Mapper.Map<D, E>(dto);
                 var isNew = (dto.ID == 0);
@@ -78,9 +79,9 @@ namespace TpIngSoftII.Services
                 {
                     this.entityRepository.Edit(entity);
                 }
-
-                //this.unitOfWork.Commit(); // aca commitear el update o insert de base
-                this.dbContext.Commit();
+                
+                this.unitOfWork.Commit(); // aca commitear el update o insert de base
+                //this.dbContext.Commit();
 
                 if (entity != null)
                 {
@@ -91,7 +92,7 @@ namespace TpIngSoftII.Services
 
                 /*scope.Complete();
             } */
-            }
+            
             return dto;
         }
 

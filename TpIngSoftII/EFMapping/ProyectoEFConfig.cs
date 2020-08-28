@@ -14,16 +14,19 @@ namespace TpIngSoftII.EFMapping
             /* Se definen las restricciones para cada propiedad en base */
 
             this.ToTable("Proyectos");
-            this.Property(p => p.IdCliente).IsRequired();
+            this.Property(p => p.ClienteID).IsRequired();
             this.Property(p => p.Nombre).HasMaxLength(50).IsRequired();
             this.Property(p => p.EstadoProyecto).IsRequired();
+
+            /* El Cliente - Nombre del Proyecto es UNICO (no puede repetirse) */
+            this.HasIndex(x => new { x.ClienteID, x.Nombre });
 
             /* Se definen las relaciones y cardinalidades */
 
             /* Un Proyecto tiene un Cliente, un Cliente pertece a 1 o muchos Proyectos */
             this.HasRequired(x => x.Cliente)
-                .WithMany()
-                .HasForeignKey(x => x.IdCliente)
+                .WithMany(y => y.Proyectos)
+                .HasForeignKey(x => x.ClienteID)
                 .WillCascadeOnDelete(true);
 
         }

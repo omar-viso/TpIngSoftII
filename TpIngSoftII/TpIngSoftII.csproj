@@ -61,6 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -212,9 +213,9 @@
     <Compile Include="Interfaces\Services\IProyectoService.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\MappingProfile.cs" />
-    <Compile Include="Migrations\202008171947404_InitialCreate.cs" />
-    <Compile Include="Migrations\202008171947404_InitialCreate.Designer.cs">
-      <DependentUpon>202008171947404_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202008280256185_InitialCreate_Proyecto_Abm.cs" />
+    <Compile Include="Migrations\202008280256185_InitialCreate_Proyecto_Abm.Designer.cs">
+      <DependentUpon>202008280256185_InitialCreate_Proyecto_Abm.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbFactory.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Models\Entities\Proyecto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Services\EntityAppServiceBase.cs" />
     <Compile Include="Services\ProyectoService.cs" />
   </ItemGroup>
@@ -315,8 +317,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202008171947404_InitialCreate.resx">
-      <DependentUpon>202008171947404_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008280256185_InitialCreate_Proyecto_Abm.resx">
+      <DependentUpon>202008280256185_InitialCreate_Proyecto_Abm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

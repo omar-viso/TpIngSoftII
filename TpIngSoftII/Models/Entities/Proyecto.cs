@@ -9,7 +9,7 @@ namespace TpIngSoftII.Models.Entities
     public class Proyecto : IEntityBase
     {
         public int ID { get; set; }
-        public int IdCliente { get; set; }
+        public int ClienteID { get; set; }
         public virtual Cliente Cliente { get; set; }
         public string Nombre { get; set; }
         public Estado EstadoProyecto { get; set; }

@@ -12,18 +12,19 @@ namespace TpIngSoftII.Models
     public class DBGestionDeProyectosContext : DbContext
     {
         /* Definir la propiedad "DbSet" para cada entity */
-        
+
         public DBGestionDeProyectosContext() : base(@"Data Source=DESKTOP-8PRIJ3M\SQLEXPRESS;Initial Catalog=DBGestionDeProyectos;Integrated Security=True")
+        //public DBGestionDeProyectosContext() : base("DBGestionDeProyectos")
         {
-            //Database.SetInitializer<DBGestionDeProyectosContext>(null);
+            Database.SetInitializer<DBGestionDeProyectosContext>(null);
         }
         
         public DbSet<Proyecto> Proyectos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
 
-        
-        
-       
+
+
+
 
         public virtual void Commit()
         {
@@ -46,11 +47,11 @@ namespace TpIngSoftII.Models
             
             modelBuilder.Entity<Proyecto>().ToTable("Proyectos");
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
-            
+
             modelBuilder.Configurations.Add(new ProyectoEFConfig());
             modelBuilder.Configurations.Add(new ClienteEFConfig());
 
-            
+
 
         }
 

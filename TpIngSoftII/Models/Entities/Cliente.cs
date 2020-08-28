@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TpIngSoftII.Interfaces;
 
 namespace TpIngSoftII.Models.Entities
 {
-    public class Cliente
+    public class Cliente : IEntityBase
     {
         public int ID { get; set; }
         public string Nombre { get; set; }

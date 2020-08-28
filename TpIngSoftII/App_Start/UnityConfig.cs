@@ -24,6 +24,7 @@ namespace TpIngSoftII
             container.RegisterType(typeof(IEntityAppServiceBase<,>), typeof(EntityAppServiceBase<,>));
             container.RegisterType(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>));
             container.RegisterType(typeof(IDbFactory<>), typeof(DbFactory<>));
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

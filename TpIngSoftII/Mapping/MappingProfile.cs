@@ -13,8 +13,10 @@ namespace TpIngSoftII.Mapping
         public MappingProfile()
         {
             /* Definir los Mapeos por Cada Dto con su Entity */
-            CreateMap<ProyectoDto, Proyecto>().ReverseMap();
+            CreateMap<ProyectoDto, Proyecto>().ReverseMap()
+                .ForMember(dest => dest.ClienteNombre, opt => opt.MapFrom(src => src.Cliente.Nombre));
             CreateMap<ClienteDto, Cliente>().ReverseMap();
+
         }
     }
 }
