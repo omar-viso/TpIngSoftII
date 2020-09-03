@@ -21,10 +21,9 @@ namespace TpIngSoftII.Controllers
             this.proyectoService = proyectoService;
         }
         
-        // Ver UPDATES (NO ESTA GUARDANDO CAMBIOS)!
         [HttpPost]
         [ResponseType(typeof(IEnumerable<ProyectoDto>))]
-        [Route("UpdateProyecto")]
+        [Route("update")]
         public HttpResponseMessage Update(HttpRequestMessage request, [FromBody] ProyectoDto dto)
         {
             HttpResponseMessage response = null;
@@ -45,7 +44,7 @@ namespace TpIngSoftII.Controllers
         
         [HttpGet]
         [ResponseType(typeof(IEnumerable<ProyectoDto>))]
-        [Route("GetProyectos")]
+        [Route()]
         public HttpResponseMessage Get(HttpRequestMessage request)
         {
             HttpResponseMessage response = null;
@@ -67,7 +66,7 @@ namespace TpIngSoftII.Controllers
         [HttpGet]
         [Route("{id:int}")]
         [ResponseType(typeof(ProyectoDto))]
-        public HttpResponseMessage GetProyecto(HttpRequestMessage request, int id)
+        public HttpResponseMessage Get(HttpRequestMessage request, int id)
         {
             HttpResponseMessage response = null;
 
@@ -85,7 +84,26 @@ namespace TpIngSoftII.Controllers
 
         }
 
-        // CREAR EL RESTO DE LOS METODOS, DTO Y SERVICES
+        [HttpDelete]
+        [Route("{id:int}")]
+        public HttpResponseMessage Delete(HttpRequestMessage request, int id)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest, new { sucess = false });
+            }
+            else
+            {
+                this.proyectoService.DeleteById(id);
+                response = request.CreateResponse(HttpStatusCode.OK , new { sucess = true });
+            }
+
+            return response;
+
+        }
+
     }
 
 }

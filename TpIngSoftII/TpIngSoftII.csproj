@@ -198,7 +198,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="EFMapping\ClienteEFConfig.cs" />
     <Compile Include="EFMapping\ProyectoEFConfig.cs" />
     <Compile Include="Global.asax.cs">
@@ -213,9 +212,9 @@
     <Compile Include="Interfaces\Services\IProyectoService.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\MappingProfile.cs" />
-    <Compile Include="Migrations\202008280256185_InitialCreate_Proyecto_Abm.cs" />
-    <Compile Include="Migrations\202008280256185_InitialCreate_Proyecto_Abm.Designer.cs">
-      <DependentUpon>202008280256185_InitialCreate_Proyecto_Abm.cs</DependentUpon>
+    <Compile Include="Migrations\202009030011594_Proyecto_ABM_Ejemplo.cs" />
+    <Compile Include="Migrations\202009030011594_Proyecto_ABM_Ejemplo.Designer.cs">
+      <DependentUpon>202009030011594_Proyecto_ABM_Ejemplo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbFactory.cs" />
@@ -317,8 +316,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202008280256185_InitialCreate_Proyecto_Abm.resx">
-      <DependentUpon>202008280256185_InitialCreate_Proyecto_Abm.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009030011594_Proyecto_ABM_Ejemplo.resx">
+      <DependentUpon>202009030011594_Proyecto_ABM_Ejemplo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

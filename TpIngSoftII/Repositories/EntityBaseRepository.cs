@@ -71,7 +71,7 @@ namespace TpIngSoftII.Repositories
         public virtual void Add(T entity)
         {
             DbEntityEntry dbEntityEntry = DbContext.Entry<T>(entity);
-            dbEntityEntry.State = EntityState.Modified;
+            DbContext.Set<T>().Add(entity);
         }
 
         public virtual void Edit(T entity)

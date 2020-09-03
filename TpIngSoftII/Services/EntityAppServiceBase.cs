@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using TpIngSoftII.Interfaces;
 using TpIngSoftII.Interfaces.Repositories;
 using TpIngSoftII.Interfaces.Services;
@@ -62,8 +63,8 @@ namespace TpIngSoftII.Services
 
         public virtual D Update(D dto)
         {
-            /* using (var scope = new TransactionScope())
-             { */
+             using (var scope = new TransactionScope())
+             { 
 
                 E entity = null;
                 entity = Mapper.Map<D, E>(dto);
@@ -90,8 +91,8 @@ namespace TpIngSoftII.Services
 
                 this.ValidarEntityUpdated(entity, dto, isNew);
 
-                /*scope.Complete();
-            } */
+                scope.Complete();
+            } 
             
             return dto;
         }

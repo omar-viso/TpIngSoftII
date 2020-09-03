@@ -16,7 +16,6 @@ namespace TpIngSoftII.Mapping
             CreateMap<ProyectoDto, Proyecto>().ReverseMap()
                 .ForMember(dest => dest.ClienteNombre, opt => opt.MapFrom(src => src.Cliente.Nombre));
             CreateMap<ClienteDto, Cliente>().ReverseMap();
-
         }
     }
 }

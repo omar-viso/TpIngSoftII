@@ -13,8 +13,8 @@ namespace TpIngSoftII.Models
     {
         /* Definir la propiedad "DbSet" para cada entity */
 
-        public DBGestionDeProyectosContext() : base(@"Data Source=DESKTOP-8PRIJ3M\SQLEXPRESS;Initial Catalog=DBGestionDeProyectos;Integrated Security=True")
-        //public DBGestionDeProyectosContext() : base("DBGestionDeProyectos")
+        //public DBGestionDeProyectosContext() : base(@"Data Source=DESKTOP-8PRIJ3M\SQLEXPRESS;Initial Catalog=DBGestionDeProyectos;Integrated Security=True;MultipleActiveResultSets=true")
+        public DBGestionDeProyectosContext() : base("DBGestionDeProyectos")
         {
             Database.SetInitializer<DBGestionDeProyectosContext>(null);
         }
@@ -47,6 +47,8 @@ namespace TpIngSoftII.Models
             
             modelBuilder.Entity<Proyecto>().ToTable("Proyectos");
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
+
+            /* Agregar cada configuracion de EF de las Entities */
 
             modelBuilder.Configurations.Add(new ProyectoEFConfig());
             modelBuilder.Configurations.Add(new ClienteEFConfig());

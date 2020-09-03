@@ -3,7 +3,7 @@ namespace TpIngSoftII.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate_Proyecto_Abm : DbMigration
+    public partial class Proyecto_ABM_Ejemplo : DbMigration
     {
         public override void Up()
         {
