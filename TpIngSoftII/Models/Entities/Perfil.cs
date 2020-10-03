@@ -10,7 +10,9 @@ namespace TpIngSoftII.Models.Entities
     {
         public int ID { get; set; }
         public Tipo TipoPerfil { get; set; }
-        public float ValorHorario { get; set; }
+        public decimal ValorHorario { get; set; }
+
+        public virtual ICollection<EmpleadoPerfil> Empleados { get; set; }
 
         public enum Tipo
         {

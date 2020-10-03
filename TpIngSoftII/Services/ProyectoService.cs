@@ -19,8 +19,9 @@ namespace TpIngSoftII.Services
         public ProyectoService(IEntityBaseRepository<Proyecto> entityRepository, IUnitOfWork unitOfWork) : base(entityRepository, unitOfWork)
         {
         }
+        
 
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
-        
+
     }
 }

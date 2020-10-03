@@ -13,7 +13,7 @@ namespace TpIngSoftII.Models.DTOs
         public int IDEmpleado { get; set; }
         public int IDPerfil { get; set; }
         public string Nombre { get; set; }
-        public float HorasEstimadas { get; set; }
-        public float HorasOB { get; set; }
+        public decimal HorasEstimadas { get; set; }
+        public decimal HorasOB { get; set; }
     }
 }

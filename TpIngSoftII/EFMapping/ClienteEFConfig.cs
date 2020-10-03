@@ -15,7 +15,13 @@ namespace TpIngSoftII.EFMapping
 
             this.ToTable("Clientes");
             this.Property(p => p.Nombre).HasMaxLength(50).IsRequired();
-                        
+            this.Property(p => p.Apellido).HasMaxLength(50).IsRequired();
+            this.Property(p => p.Direccion).HasMaxLength(50).IsRequired();
+            this.Property(p => p.Email).HasMaxLength(50).IsOptional();
+            this.Property(p => p.RazonSocial).HasMaxLength(50).IsRequired();
+            this.Property(p => p.TelefonoCelular).IsOptional();
+            this.Property(p => p.TelefonoFijo).IsOptional();
+
         }
     }
 }

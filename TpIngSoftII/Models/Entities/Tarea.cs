@@ -9,12 +9,16 @@ namespace TpIngSoftII.Models.Entities
     public class Tarea : IEntityBase
     {
         public int ID { get; set; }
-        public int IDProyecto { get; set; }
-        public int IDEmpleado { get; set; }
-        public int IDPerfil { get; set; }
+
+        public int ProyectoID { get; set; }
+        public virtual Proyecto Proyecto { get; set; }
+
+        public int EmpleadoPerfilID { get; set; }
+        public virtual EmpleadoPerfil EmpleadoPerfil { get; set; }
+
         public string Nombre { get; set; }
-        public float HorasEstimadas { get; set; }
-        public float HorasOB { get; set; }
+        public decimal HorasEstimadas { get; set; }
+        public decimal HorasOB { get; set; }
         public virtual ICollection<HorasTrabajadas> HorasTrabajadas { get; set; }
     }
 }

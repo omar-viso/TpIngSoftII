@@ -14,11 +14,11 @@ namespace TpIngSoftII.Controllers
     [RoutePrefix("api/Empleados")]
     public class EmpleadoController : ApiController
     {
-        private readonly IEmpleadoService EmpleadoService;
+        private readonly IEmpleadoService empleadoService;
 
-        public EmpleadoController(IEmpleadoService EmpleadoService)
+        public EmpleadoController(IEmpleadoService empleadoService)
         {
-            this.EmpleadoService = EmpleadoService;
+            this.empleadoService = empleadoService;
         }
 
         [HttpPost]
@@ -34,7 +34,7 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-                var dtoUpdated = EmpleadoService.Update(dto);
+                var dtoUpdated = empleadoService.Update(dto);
                 response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
             }
 
@@ -55,7 +55,7 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-                var dtoUpdated = EmpleadoService.GetAll();
+                var dtoUpdated = empleadoService.GetAll();
                 response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
             }
 
@@ -76,7 +76,7 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-                var dtoUpdated = EmpleadoService.GetById(id);
+                var dtoUpdated = empleadoService.GetById(id);
                 response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
             }
 
@@ -96,7 +96,7 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-                this.EmpleadoService.DeleteById(id);
+                this.empleadoService.DeleteById(id);
                 response = request.CreateResponse(HttpStatusCode.OK, new { sucess = true });
             }
 
