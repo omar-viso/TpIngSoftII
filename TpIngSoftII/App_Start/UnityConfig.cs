@@ -23,6 +23,9 @@ namespace TpIngSoftII
 
             // e.g. container.RegisterType<ITestService, TestService>();
             container.RegisterType<IProyectoService, ProyectoService>(new PerResolveLifetimeManager());
+            container.RegisterType<IEmpleadoService, EmpleadoService>(new PerResolveLifetimeManager());
+            container.RegisterType<ITareaService, TareaService>(new PerResolveLifetimeManager());
+            container.RegisterType<IPerfilService, PerfilService>(new PerResolveLifetimeManager());
 
             container.RegisterType(typeof(IEntityAppServiceBase<,>), typeof(EntityAppServiceBase<,>), new PerResolveLifetimeManager());
             container.RegisterType(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>), new PerResolveLifetimeManager());

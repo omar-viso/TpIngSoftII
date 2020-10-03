@@ -13,6 +13,7 @@ namespace TpIngSoftII.Models.Entities
         public virtual Cliente Cliente { get; set; }
         public string Nombre { get; set; }
         public Estado EstadoProyecto { get; set; }
+        public virtual ICollection<Tarea> Tareas { get; set; }
         //private List<Tarea> tareas = new List<Tarea>();
 
 
