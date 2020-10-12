@@ -47,11 +47,23 @@ namespace TpIngSoftII.Models
             
             modelBuilder.Entity<Proyecto>().ToTable("Proyectos");
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
+            modelBuilder.Entity<Cliente>().ToTable("Empleados");
+            modelBuilder.Entity<Cliente>().ToTable("Perfiles");
+            modelBuilder.Entity<Cliente>().ToTable("EmpleadosPerfiles");
+            modelBuilder.Entity<Cliente>().ToTable("EscalaAumentoxAntiguedades");
+            modelBuilder.Entity<Cliente>().ToTable("EscalaAumentoxHoras");
+            modelBuilder.Entity<Cliente>().ToTable("EscalaAumentoxPerfiles");
 
             /* Agregar cada configuracion de EF de las Entities */
 
             modelBuilder.Configurations.Add(new ProyectoEFConfig());
             modelBuilder.Configurations.Add(new ClienteEFConfig());
+            modelBuilder.Configurations.Add(new EmpleadoEFConfig());
+            modelBuilder.Configurations.Add(new PerfilEFConfig());
+            modelBuilder.Configurations.Add(new EmpleadoPerfilEFConfig());
+            modelBuilder.Configurations.Add(new EscalaAumentoxAntiguedadEFConfig());
+            modelBuilder.Configurations.Add(new EscalaAumentoxHoraEFConfig());
+            modelBuilder.Configurations.Add(new EscalaAumentoxPerfilEFConfig());
 
 
 

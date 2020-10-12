@@ -10,6 +10,6 @@ namespace TpIngSoftII.Models.Entities
     {
         public int ID { get; set; }
         public int Limiteanios { get; set; }
-        public float PorcentajeAumento { get; set; }
+        public decimal PorcentajeAumento { get; set; }
     }
 }

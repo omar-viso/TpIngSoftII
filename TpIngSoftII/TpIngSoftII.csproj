@@ -201,6 +201,12 @@
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\TareaController.cs" />
+    <Compile Include="EFMapping\EscalaAumentoxPerfilEFConfig.cs" />
+    <Compile Include="EFMapping\EscalaAumentoxHoraEFConfig.cs" />
+    <Compile Include="EFMapping\EscalaAumentoxAntiguedadEFConfig.cs" />
+    <Compile Include="EFMapping\EmpleadoPerfilEFConfig.cs" />
+    <Compile Include="EFMapping\PerfilEFConfig.cs" />
+    <Compile Include="EFMapping\EmpleadoEFConfig.cs" />
     <Compile Include="EFMapping\ClienteEFConfig.cs" />
     <Compile Include="EFMapping\ProyectoEFConfig.cs" />
     <Compile Include="Global.asax.cs">
@@ -232,6 +238,7 @@
     <Compile Include="Models\DTOs\PerfilDto.cs" />
     <Compile Include="Models\DTOs\ProyectoDto.cs" />
     <Compile Include="Models\DTOs\TareaDto.cs" />
+    <Compile Include="Models\Entities\EmpleadoPerfil.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxAntiguedad.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxPerfil.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxHora.cs" />

@@ -9,7 +9,7 @@ namespace TpIngSoftII.Models.Entities
     public class EscalaAumentoxHora : IEntityBase
     {
         public int ID { get; set; }
-        public float LimiteHoras { get; set; }
-        public float PorcentajeAumento { get; set; }
+        public decimal LimiteHoras { get; set; }
+        public decimal PorcentajeAumento { get; set; }
     }
 }

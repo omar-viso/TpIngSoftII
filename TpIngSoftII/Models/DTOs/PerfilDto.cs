@@ -10,7 +10,7 @@ namespace TpIngSoftII.Models.DTOs
     {
         public int ID { get; set; }
         public int TipoPerfil { get; set; }
-        public float ValorHorario { get; set; }
+        public decimal ValorHorario { get; set; }
 
     }
 }
