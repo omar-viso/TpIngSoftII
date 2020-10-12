@@ -13,6 +13,7 @@ namespace TpIngSoftII.Models.DTOs
         public int TareaID { get; set; }
         public decimal CantHoras { get; set; }
         public DateTime Fecha { get; set; }
-        public int EstadoHoras { get; set; }
+        public int HorasTrabajadasEstadoID { get; set; }
+        public string HorasTrabajadasEstadoDescripcion { get; set; }
     }
 }

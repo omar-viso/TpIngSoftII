@@ -201,10 +201,16 @@
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\TareaController.cs" />
+    <Compile Include="EFMapping\HorasTrabajadasEFConfig.cs" />
+    <Compile Include="EFMapping\HorasTrabajadasEstadoEFConfig.cs" />
+    <Compile Include="EFMapping\EscalaHoraOBEFConfig.cs" />
     <Compile Include="EFMapping\EscalaAumentoxPerfilEFConfig.cs" />
     <Compile Include="EFMapping\EscalaAumentoxHoraEFConfig.cs" />
     <Compile Include="EFMapping\EscalaAumentoxAntiguedadEFConfig.cs" />
     <Compile Include="EFMapping\EmpleadoPerfilEFConfig.cs" />
+    <Compile Include="EFMapping\TareaEFConfig.cs" />
+    <Compile Include="EFMapping\ProyectoEstadoEFConfig.cs" />
+    <Compile Include="EFMapping\PerfilTipoEFConfig.cs" />
     <Compile Include="EFMapping\PerfilEFConfig.cs" />
     <Compile Include="EFMapping\EmpleadoEFConfig.cs" />
     <Compile Include="EFMapping\ClienteEFConfig.cs" />
@@ -233,19 +239,31 @@
     <Compile Include="Models\DBGestionDeProyectosContext.cs" />
     <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\DTOs\ClienteDto.cs" />
+    <Compile Include="Models\DTOs\EmpleadoPerfilDto.cs" />
     <Compile Include="Models\DTOs\EmpleadoDto.cs" />
+    <Compile Include="Models\DTOs\EscalaHoraOBDto.cs" />
+    <Compile Include="Models\DTOs\EscalaAumentoxPerfilDto.cs" />
+    <Compile Include="Models\DTOs\EscalaAumentoxHoraDto.cs" />
+    <Compile Include="Models\DTOs\EscalaAumentoxAntiguedadDto.cs" />
+    <Compile Include="Models\DTOs\HorasTrabajadasEstadoDto.cs" />
     <Compile Include="Models\DTOs\HorasTrabajadasDto.cs" />
+    <Compile Include="Models\DTOs\PerfilTipoDto.cs" />
     <Compile Include="Models\DTOs\PerfilDto.cs" />
+    <Compile Include="Models\DTOs\ProyectoEstadoDto.cs" />
     <Compile Include="Models\DTOs\ProyectoDto.cs" />
     <Compile Include="Models\DTOs\TareaDto.cs" />
     <Compile Include="Models\Entities\EmpleadoPerfil.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxAntiguedad.cs" />
+    <Compile Include="Models\Entities\PerfilTipo.cs" />
+    <Compile Include="Models\Entities\HorasTrabajadasEstado.cs" />
+    <Compile Include="Models\Entities\EscalaHoraOB.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxPerfil.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxHora.cs" />
     <Compile Include="Models\Entities\Cliente.cs" />
     <Compile Include="Models\Entities\Empleado.cs" />
     <Compile Include="Models\Entities\HorasTrabajadas.cs" />
     <Compile Include="Models\Entities\Perfil.cs" />
+    <Compile Include="Models\Entities\ProyectoEstado.cs" />
     <Compile Include="Models\Entities\Proyecto.cs" />
     <Compile Include="Models\Entities\Tarea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -312,6 +330,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Constantes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

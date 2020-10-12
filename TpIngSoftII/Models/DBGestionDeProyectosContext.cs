@@ -21,6 +21,10 @@ namespace TpIngSoftII.Models
         
         public DbSet<Proyecto> Proyectos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Empleado> Empleados { get; set; }
+        public DbSet<Perfil> Perfiles { get; set; }
+        public DbSet<PerfilTipo> PerfilTipos { get; set; }
+        public DbSet<EmpleadoPerfil> EmpleadosPerfiles { get; set; }
 
 
 
@@ -46,25 +50,33 @@ namespace TpIngSoftII.Models
         {   /* Mapear cada Entity con la tabala de la base de dato relacionada */
             
             modelBuilder.Entity<Proyecto>().ToTable("Proyectos");
+            modelBuilder.Entity<ProyectoEstado>().ToTable("ProyectoEstados");
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
-            modelBuilder.Entity<Cliente>().ToTable("Empleados");
-            modelBuilder.Entity<Cliente>().ToTable("Perfiles");
-            modelBuilder.Entity<Cliente>().ToTable("EmpleadosPerfiles");
-            modelBuilder.Entity<Cliente>().ToTable("EscalaAumentoxAntiguedades");
-            modelBuilder.Entity<Cliente>().ToTable("EscalaAumentoxHoras");
-            modelBuilder.Entity<Cliente>().ToTable("EscalaAumentoxPerfiles");
+            modelBuilder.Entity<Empleado>().ToTable("Empleados");
+            modelBuilder.Entity<Perfil>().ToTable("Perfiles");
+            modelBuilder.Entity<PerfilTipo>().ToTable("PerfilTipos");
+            modelBuilder.Entity<EmpleadoPerfil>().ToTable("EmpleadosPerfiles");
+            modelBuilder.Entity<EscalaAumentoxAntiguedad>().ToTable("EscalaAumentoxAntiguedades");
+            modelBuilder.Entity<EscalaAumentoxHora>().ToTable("EscalaAumentoxHoras");
+            modelBuilder.Entity<EscalaAumentoxPerfil>().ToTable("EscalaAumentoxPerfiles");
+            modelBuilder.Entity<EscalaHoraOB>().ToTable("EscalaHorasOB");
+            modelBuilder.Entity<HorasTrabajadasEstado>().ToTable("HorasTrabajadasEstados");
+            modelBuilder.Entity<Tarea>().ToTable("Tareas");
 
             /* Agregar cada configuracion de EF de las Entities */
-
+            modelBuilder.Configurations.Add(new ProyectoEstadoEFConfig());
             modelBuilder.Configurations.Add(new ProyectoEFConfig());
             modelBuilder.Configurations.Add(new ClienteEFConfig());
             modelBuilder.Configurations.Add(new EmpleadoEFConfig());
+            modelBuilder.Configurations.Add(new PerfilTipoEFConfig());
             modelBuilder.Configurations.Add(new PerfilEFConfig());
             modelBuilder.Configurations.Add(new EmpleadoPerfilEFConfig());
             modelBuilder.Configurations.Add(new EscalaAumentoxAntiguedadEFConfig());
             modelBuilder.Configurations.Add(new EscalaAumentoxHoraEFConfig());
             modelBuilder.Configurations.Add(new EscalaAumentoxPerfilEFConfig());
-
+            modelBuilder.Configurations.Add(new EscalaHoraOBEFConfig());
+            modelBuilder.Configurations.Add(new HorasTrabajadasEstadoEFConfig());
+            modelBuilder.Configurations.Add(new TareaEFConfig());
 
 
         }

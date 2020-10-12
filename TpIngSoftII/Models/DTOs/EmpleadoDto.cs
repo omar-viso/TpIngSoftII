@@ -14,5 +14,7 @@ namespace TpIngSoftII.Models.DTOs
         public string Usuario { get; set; }
         public string Clave { get; set; }
 
+        public virtual ICollection<EmpleadoPerfilDto> Perfiles { get; set; }
+
     }
 }

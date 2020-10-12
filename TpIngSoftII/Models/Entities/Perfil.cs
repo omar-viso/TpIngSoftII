@@ -9,11 +9,15 @@ namespace TpIngSoftII.Models.Entities
     public class Perfil : IEntityBase
     {
         public int ID { get; set; }
-        public Tipo TipoPerfil { get; set; }
+        public int PerfilTipoID { get; set; }
+        public virtual PerfilTipo PerfilTipo { get; set; }
+
         public decimal ValorHorario { get; set; }
 
         public virtual ICollection<EmpleadoPerfil> Empleados { get; set; }
 
+        /* -- Los valores indicados en los enums, se insertaran con ID FIJOS al correr las
+         * Configuraciones de base, y en Constanstes.cs se definiran para poder utilizar el nombre y no por ID --
         public enum Tipo
         {
             analista,
@@ -23,5 +27,6 @@ namespace TpIngSoftII.Models.Entities
             capacitador,
             supervisor
         }
+        */
     }
 }
