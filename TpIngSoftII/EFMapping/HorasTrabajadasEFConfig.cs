@@ -14,13 +14,26 @@ namespace TpIngSoftII.EFMapping
             /* Se definen las restricciones para cada propiedad en base */
 
             this.ToTable("HorasTrabajadas");
-            this.Property(p => p.ProyectoID).IsRequired();
-            this.Property(p => p.TareaID).IsRequired();
+            
             this.Property(p => p.CantHoras).IsRequired();
             this.Property(p => p.Fecha).IsRequired();
-            this.Property(p => p.EstadoHoras).IsRequired();
+            this.Property(p => p.HorasTrabajadasEstadoID).IsRequired();
+            this.Property(p => p.ProyectoID).IsRequired();
+            this.Property(p => p.TareaID).IsRequired();
 
-            
+
+            /* Un HorasTrabajadas tiene un HorasTrabajadasEstado, un HorasTrabajadasEstado pertece a 1 o muchos HorasTrabajadas */
+            this.HasRequired(x => x.HorasTrabajadasEstado)
+                .WithMany(y => y.HorasTrabajadas)
+                .HasForeignKey(x => x.HorasTrabajadasEstadoID)
+                .WillCascadeOnDelete(true);
+
+            /* Un HorasTrabajadas tiene un Tarea, un Tarea pertece a 1 o muchos HorasTrabajadas */
+            this.HasRequired(x => x.Tarea)
+                .WithMany(y => y.HorasTrabajadas)
+                .HasForeignKey(x => x.TareaID)
+                .WillCascadeOnDelete(true);
+
         }
     }
 }

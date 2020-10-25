@@ -6,14 +6,14 @@ using TpIngSoftII.Interfaces;
 
 namespace TpIngSoftII.Models.DTOs
 {
-    public class TareaDto : IDto
+    public class EmpleadoPerfilDto : IDto
     {
         public int ID { get; set; }
-        public int ProyectoID { get; set; }
+
         public int EmpleadoID { get; set; }
+        public string EmpleadoNombre { get; set; }
+
         public int PerfilID { get; set; }
-        public string Nombre { get; set; }
-        public decimal HorasEstimadas { get; set; }
-        public decimal HorasOB { get; set; }
+        public string TipoPerfilDescripcion { get; set; }
     }
 }

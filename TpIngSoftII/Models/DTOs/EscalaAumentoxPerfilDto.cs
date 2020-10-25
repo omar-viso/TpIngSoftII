@@ -6,11 +6,10 @@ using TpIngSoftII.Interfaces;
 
 namespace TpIngSoftII.Models.DTOs
 {
-    public class PerfilDto : IDto
+    public class EscalaAumentoxPerfilDto : IDto
     {
         public int ID { get; set; }
-        public int PerfilTipoID { get; set; }
-        public string PerfilTipoDescripcion { get; set; }
-        public decimal ValorHorario { get; set; }
+        public int LimitecantPerfiles { get; set; }
+        public decimal PorcentajeAumento { get; set; }
     }
 }

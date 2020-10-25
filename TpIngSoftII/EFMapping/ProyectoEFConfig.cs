@@ -16,7 +16,7 @@ namespace TpIngSoftII.EFMapping
             this.ToTable("Proyectos");
             this.Property(p => p.ClienteID).IsRequired();
             this.Property(p => p.Nombre).HasMaxLength(50).IsRequired();
-            this.Property(p => p.EstadoProyecto).IsRequired();
+            this.Property(p => p.ProyectoEstadoID).IsRequired();
 
             /* El Cliente - Nombre del Proyecto es UNICO (no puede repetirse) */
             this.HasIndex(x => new { x.ClienteID, x.Nombre });
@@ -29,6 +29,11 @@ namespace TpIngSoftII.EFMapping
                 .HasForeignKey(x => x.ClienteID)
                 .WillCascadeOnDelete(true);
 
+            /* Un Proyecto tiene un ProyectoEstado, un ProyectoEstado pertece a 1 o muchos Proyectos */
+            this.HasRequired(x => x.ProyectoEstado)
+                .WithMany(y => y.Proyectos)
+                .HasForeignKey(x => x.ProyectoEstadoID)
+                .WillCascadeOnDelete(true);
         }
     }
 }

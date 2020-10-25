@@ -12,11 +12,12 @@ namespace TpIngSoftII.Models.Entities
         public int ClienteID { get; set; }
         public virtual Cliente Cliente { get; set; }
         public string Nombre { get; set; }
-        public Estado EstadoProyecto { get; set; }
+        public int ProyectoEstadoID { get; set; }
+        public virtual ProyectoEstado ProyectoEstado { get; set; }
         public virtual ICollection<Tarea> Tareas { get; set; }
         //private List<Tarea> tareas = new List<Tarea>();
 
-
+        /*
         public enum Estado
         {
             Vigente,
@@ -24,7 +25,7 @@ namespace TpIngSoftII.Models.Entities
             Pausado,
             Cancelado
         }
-        /*
+        
         public void agregarTareas(Tarea tarea)
         {
             tareas.Add(tarea);

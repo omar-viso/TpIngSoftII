@@ -14,8 +14,17 @@ namespace TpIngSoftII.EFMapping
             /* Se definen las restricciones para cada propiedad en base */
 
             this.ToTable("Perfiles");
-            this.Property(p => p.TipoPerfil).IsRequired();
+            this.Property(p => p.PerfilTipoID).IsRequired();
             this.Property(p => p.ValorHorario).IsRequired();
+
+
+            /* Se definen las relaciones y cardinalidades */
+
+            /* Un Perfil tiene un PerfilTipo, un PerfilTipo pertece a 1 o muchos Perfiles */
+            this.HasRequired(x => x.PerfilTipo)
+                .WithMany(y => y.Perfiles)
+                .HasForeignKey(x => x.PerfilTipoID)
+                .WillCascadeOnDelete(true);
         }
     }
 }

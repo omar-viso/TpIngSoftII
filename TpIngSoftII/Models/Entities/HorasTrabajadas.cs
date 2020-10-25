@@ -11,14 +11,18 @@ namespace TpIngSoftII.Models.Entities
         public int ID { get; set; }
         public int ProyectoID { get; set; }
         public int TareaID { get; set; }
+        public virtual Tarea Tarea { get; set; }
         public decimal CantHoras { get; set; }
         public DateTime Fecha { get; set; }
-        public Estado EstadoHoras { get; set; }
+        public int HorasTrabajadasEstadoID { get; set; }
+        public virtual HorasTrabajadasEstado HorasTrabajadasEstado { get; set; }
+
+        /*
         public enum Estado
         {
             pagadas,
             adeudadas
         }
-        
+        */
     }
 }

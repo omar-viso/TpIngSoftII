@@ -11,6 +11,7 @@ namespace TpIngSoftII.Models.Entities
         public int ID { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public int Dni { get; set; }
         public string RazonSocial { get; set; }
         public string Direccion { get; set; }
         public int? TelefonoFijo { get; set; }
