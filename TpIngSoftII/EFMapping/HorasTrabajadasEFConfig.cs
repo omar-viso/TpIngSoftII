@@ -14,6 +14,7 @@ namespace TpIngSoftII.EFMapping
             /* Se definen las restricciones para cada propiedad en base */
 
             this.ToTable("HorasTrabajadas");
+            
             this.Property(p => p.CantHoras).IsRequired();
             this.Property(p => p.Fecha).IsRequired();
             this.Property(p => p.HorasTrabajadasEstadoID).IsRequired();
@@ -32,6 +33,7 @@ namespace TpIngSoftII.EFMapping
                 .WithMany(y => y.HorasTrabajadas)
                 .HasForeignKey(x => x.TareaID)
                 .WillCascadeOnDelete(true);
+
         }
     }
 }
