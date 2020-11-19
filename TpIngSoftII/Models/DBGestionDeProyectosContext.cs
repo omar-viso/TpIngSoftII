@@ -25,6 +25,14 @@ namespace TpIngSoftII.Models
         public DbSet<Perfil> Perfiles { get; set; }
         public DbSet<PerfilTipo> PerfilTipos { get; set; }
         public DbSet<EmpleadoPerfil> EmpleadosPerfiles { get; set; }
+        public DbSet<ProyectoEstado> ProyectoEstados { get; set; }
+        public DbSet<EscalaAumentoxAntiguedad> EscalaAumentoxAntiguedades { get; set; }
+        public DbSet<EscalaAumentoxHora> EscalaAumentoxHoras { get; set; }
+        public DbSet<EscalaAumentoxPerfil> EscalaAumentoxPerfiles { get; set; }
+        public DbSet<EscalaHoraOB> EscalaHorasOB { get; set; }
+        public DbSet<HorasTrabajadasEstado> HorasTrabajadasEstados { get; set; }
+        public DbSet<Tarea> Tareas { get; set; }
+        public DbSet<HorasTrabajadas> HorasTrabajadas { get; set; }
 
 
 
@@ -62,6 +70,7 @@ namespace TpIngSoftII.Models
             modelBuilder.Entity<EscalaHoraOB>().ToTable("EscalaHorasOB");
             modelBuilder.Entity<HorasTrabajadasEstado>().ToTable("HorasTrabajadasEstados");
             modelBuilder.Entity<Tarea>().ToTable("Tareas");
+            modelBuilder.Entity<HorasTrabajadas>().ToTable("HorasTrabajadas");
 
             /* Agregar cada configuracion de EF de las Entities */
             modelBuilder.Configurations.Add(new ProyectoEstadoEFConfig());
@@ -77,6 +86,7 @@ namespace TpIngSoftII.Models
             modelBuilder.Configurations.Add(new EscalaHoraOBEFConfig());
             modelBuilder.Configurations.Add(new HorasTrabajadasEstadoEFConfig());
             modelBuilder.Configurations.Add(new TareaEFConfig());
+            modelBuilder.Configurations.Add(new HorasTrabajadasEFConfig());
 
 
         }

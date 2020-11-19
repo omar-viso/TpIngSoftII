@@ -232,9 +232,9 @@
     <Compile Include="Interfaces\Services\ITareaService.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\MappingProfile.cs" />
-    <Compile Include="Migrations\202009030011594_Proyecto_ABM_Ejemplo.cs" />
-    <Compile Include="Migrations\202009030011594_Proyecto_ABM_Ejemplo.Designer.cs">
-      <DependentUpon>202009030011594_Proyecto_ABM_Ejemplo.cs</DependentUpon>
+    <Compile Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.cs" />
+    <Compile Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.Designer.cs">
+      <DependentUpon>202011182351439_Proyecto_Segunda_Migracion.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbFactory.cs" />
@@ -365,8 +365,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009030011594_Proyecto_ABM_Ejemplo.resx">
-      <DependentUpon>202009030011594_Proyecto_ABM_Ejemplo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.resx">
+      <DependentUpon>202011182351439_Proyecto_Segunda_Migracion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
