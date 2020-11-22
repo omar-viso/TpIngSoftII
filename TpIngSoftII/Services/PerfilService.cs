@@ -21,6 +21,13 @@ namespace TpIngSoftII.Services
         }
 
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
+        protected override void ValidarEntityUpdating(Perfil entity, PerfilDto dto, bool isNew)
+        {
+            if (string.IsNullOrWhiteSpace(dto.PerfilTipoID.ToString())) throw new System.ArgumentException("El tipo de perfil es obligatorio");
+            if (string.IsNullOrWhiteSpace(dto.ValorHorario.ToString()) || dto.ValorHorario<0) throw new System.ArgumentException("El valor es obligatorio y debe ser mayor a 0");
+            if (string.IsNullOrWhiteSpace(dto.PerfilTipoDescripcion)) throw new System.ArgumentException("La descripcion del perfil es obligatoria");
 
+            
+        }
     }
 }
