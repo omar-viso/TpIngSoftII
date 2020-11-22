@@ -19,6 +19,6 @@ namespace TpIngSoftII.Models.DTOs
         public int? TelefonoCelular { get; set; }
         public string Email { get; set; }
         
-        public virtual ICollection<ProyectoDto> Proyecto { get; set; }
+        public virtual ICollection<ProyectoDto> Proyectos { get; set; }
     }
 }
