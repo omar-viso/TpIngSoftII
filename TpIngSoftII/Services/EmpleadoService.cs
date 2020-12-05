@@ -36,5 +36,14 @@ namespace TpIngSoftII.Services
                 }
             }
         }
+
+        public bool ValidarCredenciales(LoginRequest login)
+        {
+            // CAMBIAR POR AllIncludinAsNoTracking!!!!
+            var credencialEncontrada = this.entityRepository.AllIncluding().Any(x => x.Usuario == login.Username
+                                                                                     && x.Clave == login.Password);
+
+            return credencialEncontrada;
+        }
     }
 }
