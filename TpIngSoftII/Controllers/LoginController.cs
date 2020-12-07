@@ -44,7 +44,7 @@ namespace TpIngSoftII.Controllers
             bool isCredentialValid = this.empleadoService.ValidarCredenciales(login);
             if (isCredentialValid)
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Username);
+                var token = TokenGenerator.GenerateTokenJwt(login.Username, login.Password);
                 return Ok(token);
             }
             else
