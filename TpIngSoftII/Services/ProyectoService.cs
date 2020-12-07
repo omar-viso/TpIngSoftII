@@ -18,13 +18,16 @@ namespace TpIngSoftII.Services
         private readonly IEntityBaseRepository<HorasTrabajadas> horasTrabajadasRepository;
 
 
-        public ProyectoService(IEntityBaseRepository<Proyecto> entityRepository, IUnitOfWork unitOfWork) : base(entityRepository, unitOfWork)
+        public ProyectoService(IEntityBaseRepository<Proyecto> entityRepository,
+            IEntityBaseRepository<HorasTrabajadas> horasTrabajadasRepository, 
+            IUnitOfWork unitOfWork) : base(entityRepository, unitOfWork)
         {
+            this.horasTrabajadasRepository = horasTrabajadasRepository;
         }
 
         public decimal HorasTrabajadasPorProyecto(int proyectoID)
         {
-            var proyectoTemp = this.entityRepository.AllIncluding().Where(x => x.ID == proyectoID);
+            var proyectoTemp = this.entityRepository.AllIncludingAsNoTracking().Where(x => x.ID == proyectoID);
             if (proyectoTemp == null)
             {
                throw new Exception("No existe proyecto para el id indicado");
