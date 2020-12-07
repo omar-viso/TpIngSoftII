@@ -22,7 +22,7 @@ namespace TpIngSoftII.Controllers
         }
 
         [HttpPost]
-        [ResponseType(typeof(IEnumerable<EmpleadoDto>))]
+        [ResponseType(typeof(EmpleadoDto))]
         [Route("update")]
         public HttpResponseMessage Update(HttpRequestMessage request, [FromBody] EmpleadoDto dto)
         {

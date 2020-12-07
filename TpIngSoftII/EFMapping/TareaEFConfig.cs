@@ -19,7 +19,11 @@ namespace TpIngSoftII.EFMapping
             this.Property(p => p.HorasOB).IsRequired();
             this.Property(p => p.Nombre).HasMaxLength(50).IsRequired();
             this.Property(p => p.ProyectoID).IsRequired();
-
+            /* Una tarea puede tener varios proyectos, un proyecto pertece a 1 o muchos Tareas */
+            this.HasRequired(x => x.Proyecto)
+                .WithMany(y => y.Tareas)
+                .HasForeignKey(x => x.ProyectoID)
+                .WillCascadeOnDelete(true);
         }
     }
 }

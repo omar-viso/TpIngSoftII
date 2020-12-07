@@ -22,7 +22,7 @@ namespace TpIngSoftII.Controllers
         }
 
         [HttpPost]
-        [ResponseType(typeof(IEnumerable<PerfilDto>))]
+        [ResponseType(typeof(PerfilDto))]
         [Route("update")]
         public HttpResponseMessage Update(HttpRequestMessage request, [FromBody] PerfilDto dto)
         {
