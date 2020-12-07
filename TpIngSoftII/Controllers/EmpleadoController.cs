@@ -65,6 +65,7 @@ namespace TpIngSoftII.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
+        [Authorize()]
         [ResponseType(typeof(EmpleadoDto))]
         public HttpResponseMessage Get(HttpRequestMessage request, int id)
         {
