@@ -48,6 +48,16 @@ namespace TpIngSoftII.Repositories
             }
         }
 
+        public virtual IQueryable<T> AllIncludingAsNoTracking(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = DbContext.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            return query.AsNoTracking();
+        }
+
         public virtual IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = DbContext.Set<T>();

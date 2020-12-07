@@ -9,6 +9,7 @@ namespace TpIngSoftII.Interfaces.Repositories
 {
     public interface IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
+        IQueryable<T> AllIncludingAsNoTracking(params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> All { get; }
         IQueryable<T> GetAll();
