@@ -15,5 +15,7 @@ namespace TpIngSoftII.Models.Entities
 
         public int PerfilID { get; set; }
         public virtual Perfil Perfil { get; set; }
+
+        public virtual ICollection<Tarea> Tareas { get; set; }
     }
 }
