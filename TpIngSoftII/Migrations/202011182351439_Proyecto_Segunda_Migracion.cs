@@ -1,4 +1,4 @@
-namespace TpIngSoftII.Migrations
+﻿namespace TpIngSoftII.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -175,7 +175,32 @@ namespace TpIngSoftII.Migrations
                         PorcentajeAumento = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.ID);
-            
+
+
+            // INSERTS
+            Sql("SET IDENTITY_INSERT [dbo].[PerfilTipos] ON");
+            Sql("INSERT INTO [dbo].[PerfilTipos] ([ID], [Descripcion]) Values (1, 'Analista')");
+            Sql("INSERT INTO [dbo].[PerfilTipos] ([ID], [Descripcion]) Values (2, 'Desarrollador')");
+            Sql("INSERT INTO [dbo].[PerfilTipos] ([ID], [Descripcion]) Values (3, 'Tester')");
+            Sql("INSERT INTO [dbo].[PerfilTipos] ([ID], [Descripcion]) Values (4, 'Implementador')");
+            Sql("INSERT INTO [dbo].[PerfilTipos] ([ID], [Descripcion]) Values (5, 'Capacitador')");
+            Sql("INSERT INTO [dbo].[PerfilTipos] ([ID], [Descripcion]) Values (6, 'Supervisor')");
+            Sql("SET IDENTITY_INSERT [dbo].[PerfilTipos] OFF");
+
+            Sql("SET IDENTITY_INSERT [dbo].[ProyectoEstados] ON");
+            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) Values (1, 'Vigente')");
+            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) Values (2, 'No Vigente')");
+            Sql("SET IDENTITY_INSERT [dbo].[ProyectoEstados] OFF");
+
+            Sql("SET IDENTITY_INSERT [dbo].[HorasTrabajadasEstados] ON");
+            Sql("INSERT INTO [dbo].[HorasTrabajadasEstados] ([ID], [Descripcion]) Values (1, 'Pagadas')");
+            Sql("INSERT INTO [dbo].[HorasTrabajadasEstados] ([ID], [Descripcion]) Values (2, 'Adeudadas')");
+            Sql("SET IDENTITY_INSERT [dbo].[HorasTrabajadasEstados] OFF");
+
+
+
+
+
         }
         
         public override void Down()
@@ -212,6 +237,14 @@ namespace TpIngSoftII.Migrations
             DropTable("dbo.ProyectoEstados");
             DropTable("dbo.Proyectos");
             DropTable("dbo.Clientes");
+
+
+            // DELETES
+            Sql("DELETE FROM [dbo].[PerfilTipos] WHERE ID IN (1,2,3,4,5,6)");
+            Sql("DELETE FROM [dbo].[ProyectoEstados] WHERE ID IN (1,2)");
+            Sql("DELETE FROM [dbo].[HorasTrabajadasEstados] WHERE ID IN (1,2)");
+
+            
         }
     }
 }
