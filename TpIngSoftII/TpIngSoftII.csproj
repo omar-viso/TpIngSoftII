@@ -250,6 +250,7 @@
       <DependentUpon>202011182351439_Proyecto_Segunda_Migracion.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Constantes\Const.cs" />
     <Compile Include="Models\DbFactory.cs" />
     <Compile Include="Models\DBGestionDeProyectosContext.cs" />
     <Compile Include="Models\Disposable.cs" />
@@ -349,7 +350,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Constantes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

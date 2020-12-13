@@ -11,6 +11,6 @@ namespace TpIngSoftII.Interfaces.Services
     public interface IEmpleadoService : IEntityAppServiceBase<Empleado, EmpleadoDto>
     {
         bool ValidarCredenciales(LoginRequest login);
-
+        decimal Antiguedad(int empleadoID);
     }
 }
