@@ -15,6 +15,7 @@ namespace TpIngSoftII.Models.Entities
         public decimal CantHoras { get; set; }
         public DateTime Fecha { get; set; }
         public int HorasTrabajadasEstadoID { get; set; }
+        public bool EsOB { get; set; }
         public virtual HorasTrabajadasEstado HorasTrabajadasEstado { get; set; }
 
         /*
