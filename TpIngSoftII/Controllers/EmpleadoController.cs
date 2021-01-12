@@ -105,6 +105,27 @@ namespace TpIngSoftII.Controllers
 
         }
 
+        [HttpGet]
+        [Route("DameMisDatos")]
+        [Authorize()]
+        [ResponseType(typeof(EmpleadoDto))]
+        public HttpResponseMessage DameMisDatos(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = empleadoService.DameMisDatos();
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+
+        }
     }
 
 }

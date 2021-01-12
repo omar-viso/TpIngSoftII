@@ -16,7 +16,7 @@ namespace TpIngSoftII.Services
     public class HorasTrabajadasService : EntityAppServiceBase<HorasTrabajadas, HorasTrabajadasDto>, IHorasTrabajadasService
     {
 
-        public HorasTrabajadasService(IEntityBaseRepository<HorasTrabajadas> entityRepository, IUnitOfWork unitOfWork) : base(entityRepository, unitOfWork)
+        public HorasTrabajadasService(IEntityBaseRepository<HorasTrabajadas> entityRepository, IUnitOfWork unitOfWork, IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
         {
         }
 

@@ -12,5 +12,7 @@ namespace TpIngSoftII.Interfaces.Services
     {
         bool ValidarCredenciales(LoginRequest login);
         decimal Antiguedad(int empleadoID);
+        EmpleadoDto DameMisDatos();
+        int GetEmpleadoUsuarioPassword(string nombreUsuario, string passwordUsuario);
     }
 }

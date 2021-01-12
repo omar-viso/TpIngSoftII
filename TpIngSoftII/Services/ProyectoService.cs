@@ -27,14 +27,15 @@ namespace TpIngSoftII.Services
         private readonly IEmpleadoService empleadoService;
 
         public ProyectoService(IEntityBaseRepository<Proyecto> entityRepository,
-            IEntityBaseRepository<HorasTrabajadas> horasTrabajadasRepository, 
+            IEntityBaseRepository<HorasTrabajadas> horasTrabajadasRepository,
             IEntityBaseRepository<Perfil> perfilRepository,
             IEntityBaseRepository<Empleado> empleadoRepository,
             IEntityBaseRepository<EscalaAumentoxAntiguedad> escalaAumentoxAntiguedad,
             IEntityBaseRepository<EscalaAumentoxPerfil> escalaAumentoxPerfil,
             IEntityBaseRepository<EscalaAumentoxHora> escalaAumentoxhora,
             IUnitOfWork unitOfWork,
-            IEmpleadoService empleadoService) : base(entityRepository, unitOfWork)
+            IEmpleadoService empleadoService, 
+            IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
         {
             this.horasTrabajadasRepository = horasTrabajadasRepository;
             this.perfilRepository = perfilRepository;

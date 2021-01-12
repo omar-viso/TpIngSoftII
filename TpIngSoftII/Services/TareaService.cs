@@ -16,7 +16,7 @@ namespace TpIngSoftII.Services
     public class TareaService : EntityAppServiceBase<Tarea, TareaDto>, ITareaService
     {
 
-        public TareaService(IEntityBaseRepository<Tarea> entityRepository, IUnitOfWork unitOfWork) : base(entityRepository, unitOfWork)
+        public TareaService(IEntityBaseRepository<Tarea> entityRepository, IUnitOfWork unitOfWork, IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
         {
         }
 
