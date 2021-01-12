@@ -198,21 +198,28 @@ namespace TpIngSoftII.Services
                                                                                        x.Tarea.EmpleadoPerfil.EmpleadoID == empleadoID &&
                                                                                        DbFunctions.TruncateTime(x.Fecha) >= desde && DbFunctions.TruncateTime(x.Fecha) <= hasta &&
                                                                                        x.HorasTrabajadasEstadoID == Const.HoraTrabajadaEstado.Adeudada);
-                decimal totalHorasTrabajadasPerfil = 0;
+                var horasTrabajadasPerfilEmpleadoOB = horasTrabajadasPerfilEmpleado.Where(x => x.EsOB == true);
+
+                decimal totalHorasTrabajadasPerfilEmpleado = 0;
                 if (horasTrabajadasPerfilEmpleado.Any())
                 {
-                    foreach (var hsProyecto in horasTrabajadasPerfilEmpleado)
-                    {
-                        totalHorasTrabajadasPerfil += hsProyecto.CantHoras;
-                    }
+                    totalHorasTrabajadasPerfilEmpleado = horasTrabajadasPerfilEmpleado.Sum(x => x.CantHoras);
+                    //foreach (var hsProyecto in horasTrabajadasPerfilEmpleado)
+                    //{
+                    //    totalHorasTrabajadasPerfil += hsProyecto.CantHoras;
+                    //}
                 }
-                //decimal hsob = this.calcularhsobadeudadas(desde, hasta, empleadoid);
-                //totalhorastrabajadasperfil = totalhorastrabajadasperfil - hsob;
-                costoLiquidacion += empleadoPerfil.Perfil.ValorHorario * totalHorasTrabajadasPerfil;
-                //costoLiquidacion += hsOB * ...;
-                //horasTotales += totalHorasTrabajadasPerfil + hsOB;
-
-                //cantPerfiles++;
+                decimal totalHorasTrabajadasPerfilEmpleadoOB = 0;
+                if (horasTrabajadasPerfilEmpleadoOB.Any())
+                {
+                    totalHorasTrabajadasPerfilEmpleadoOB = horasTrabajadasPerfilEmpleadoOB.Sum(x => x.CantHoras);
+                }
+                decimal totalHorasTrabajadasPerfilEmpleadoSinOB = totalHorasTrabajadasPerfilEmpleado - totalHorasTrabajadasPerfilEmpleadoOB;
+                //Calculamos el costo = las horas trabajadas que no son OB x el valor del perfil
+                costoLiquidacion += empleadoPerfil.Perfil.ValorHorario * totalHorasTrabajadasPerfilEmpleadoSinOB;
+                //Calculamos el costo = las horas trabajadas que  son OB x el valor del perfil(se pagan al 50%)
+                costoLiquidacion += empleadoPerfil.Perfil.ValorHorario * totalHorasTrabajadasPerfilEmpleadoOB*50/100;
+                
             }
 
             cantPerfiles = empleadoTmp.Perfiles.Count;

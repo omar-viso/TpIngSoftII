@@ -20,7 +20,7 @@ namespace TpIngSoftII.EFMapping
             this.Property(p => p.HorasTrabajadasEstadoID).IsRequired();
             this.Property(p => p.ProyectoID).IsRequired();
             this.Property(p => p.TareaID).IsRequired();
-
+            this.Property(p => p.EsOB);
 
             /* Un HorasTrabajadas tiene un HorasTrabajadasEstado, un HorasTrabajadasEstado pertece a 1 o muchos HorasTrabajadas */
             this.HasRequired(x => x.HorasTrabajadasEstado)
