@@ -10,5 +10,6 @@ namespace TpIngSoftII.Interfaces.Services
 {
     public interface IHorasTrabajadasService : IEntityAppServiceBase<HorasTrabajadas, HorasTrabajadasDto>
     {
+        decimal CantidadHsOB(HorasTrabajadasDto dto);
     }
 }

@@ -104,6 +104,27 @@ namespace TpIngSoftII.Controllers
 
         }
 
+        [HttpGet]
+        [Route("getHsOB")]
+        [ResponseType(typeof(decimal))]
+        public HttpResponseMessage getHsOB(HttpRequestMessage request, HorasTrabajadasDto dto)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = horasTrabajadasService.CantidadHsOB(dto);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+
+        }
+
     }
 
 }
