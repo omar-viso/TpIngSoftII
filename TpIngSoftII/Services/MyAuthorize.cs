@@ -20,13 +20,6 @@ namespace TpIngSoftII.Services
     public class MyAuthorize : AuthorizeAttribute
     {
         //public string Permisos { get; set; }
-        private readonly IEmpleadoService empleadoService;
-
-
-        public MyAuthorize(IEmpleadoService empleadoService)
-        {
-            this.empleadoService = empleadoService;
-        }
 
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
@@ -48,10 +41,9 @@ namespace TpIngSoftII.Services
                 var claims = ((ClaimsIdentity)principal.Identity).Claims;
                 var nombreUsuario = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
                 var passwordUsuario = claims.FirstOrDefault(c => c.Type == "Password");
+                var usuarioId = claims.FirstOrDefault(c => c.Type == "UsuarioID");
 
-                
-
-                appContext.SetEmpleado(this.empleadoService.GetEmpleadoUsuarioPassword(nombreUsuario.Value, passwordUsuario.Value));
+                appContext.SetEmpleado(Int32.Parse(usuarioId.Value));
             }
         }
 

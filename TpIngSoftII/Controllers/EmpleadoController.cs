@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
+using TpIngSoftII.Services;
 
 namespace TpIngSoftII.Controllers
 {
@@ -107,7 +108,7 @@ namespace TpIngSoftII.Controllers
 
         [HttpGet]
         [Route("DameMisDatos")]
-        [Authorize()]
+        [MyAuthorize()]
         [ResponseType(typeof(EmpleadoDto))]
         public HttpResponseMessage DameMisDatos(HttpRequestMessage request)
         {

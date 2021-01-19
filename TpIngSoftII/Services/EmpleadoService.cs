@@ -38,13 +38,15 @@ namespace TpIngSoftII.Services
             }
         }
 
-        public bool ValidarCredenciales(LoginRequest login)
+        public int ValidarCredenciales(LoginRequest login)
         {
             // CAMBIAR POR AllIncludinAsNoTracking!!!!
-            var credencialEncontrada = this.entityRepository.AllIncludingAsNoTracking().Any(x => x.Usuario == login.Username
+            var credencialEncontrada = this.entityRepository.AllIncludingAsNoTracking().FirstOrDefault(x => x.Usuario == login.Username
                                                                                                  && x.Clave == login.Password);
+            /* Devuelve id si lo encontro al usuario sino 0 */
+            var usuarioId = credencialEncontrada?.ID ?? 0;
 
-            return credencialEncontrada;
+            return usuarioId;
         }
 
         public decimal Antiguedad(int empleadoID)
