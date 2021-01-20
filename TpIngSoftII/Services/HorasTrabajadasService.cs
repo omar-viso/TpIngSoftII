@@ -19,7 +19,8 @@ namespace TpIngSoftII.Services
 
         public HorasTrabajadasService(IEntityBaseRepository<HorasTrabajadas> entityRepository,
                                       IUnitOfWork unitOfWork,
-                                      IEntityBaseRepository<Tarea> tareaRepository) : base(entityRepository, unitOfWork, IAppContext appContext)
+                                      IAppContext appContext,
+                                      IEntityBaseRepository<Tarea> tareaRepository) : base(entityRepository, unitOfWork, appContext)
         {
             this.tareaRepository = tareaRepository;
         }
