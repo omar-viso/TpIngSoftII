@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -35,6 +36,18 @@ namespace TpIngSoftII.Services
             if (string.IsNullOrWhiteSpace(dto.ProyectoID.ToString())) throw new System.ArgumentException("El id de proyecto es obligatorio");
             if (string.IsNullOrWhiteSpace(dto.TareaID.ToString())) throw new System.ArgumentException("La id de tarea es obligatoria");
             if (string.IsNullOrWhiteSpace(dto.HorasTrabajadasEstadoID.ToString())) throw new System.ArgumentException("La id del estado de horas trabajadas es obligatoria");
+
+            var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea, x => x.Tarea.EmpleadoPerfil)
+                                                             .Where(x => DbFunctions.TruncateTime(x.Fecha) == dto.Fecha.Date &&
+                                                                          x.Tarea.EmpleadoPerfil.EmpleadoID == this.appContext.EmpleadoID);
+            decimal cantHsTrabajadasDelDia = 0;
+            if (registrosHsTrabajadasDelDia.Any())
+            {
+                cantHsTrabajadasDelDia = registrosHsTrabajadasDelDia.Select(x => x.CantHoras).Sum();
+            }              
+            
+            /* Si se quiere cargar mas de 10hs de trabajo en un mismo dia, el sistema no lo permite */
+            if (cantHsTrabajadasDelDia + dto.CantHoras > 10) throw new System.ArgumentException("No se permiten cargas de horas superiores a las 10hs diarias.");
 
 
             this.LogicaCantidadHorasTarea(dto);
@@ -100,5 +113,20 @@ namespace TpIngSoftII.Services
             }
             return hsOBACargar;
         }
+
+        public decimal InformeSemanalHsOB()
+        {
+            var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking()
+                                                             .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DateTime.Now.AddDays(-7).Date &&
+                                                                         DbFunctions.TruncateTime(x.Fecha) <= DateTime.Now.Date && x.EsOB);
+            decimal hsTotalesOB = 0;
+            if (registrosHsTrabajadasDelDia.Any())
+            {
+                hsTotalesOB = registrosHsTrabajadasDelDia.Select(x => x.CantHoras).Sum();
+            }
+            // FALTA TAREAS CON SUS SUBTOTALES OB!!!
+            return hsTotalesOB;
+        }
+
     }
 }
