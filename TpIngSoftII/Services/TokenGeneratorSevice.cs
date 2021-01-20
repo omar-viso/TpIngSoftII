@@ -7,7 +7,7 @@ namespace TpIngSoftII.Services
 {
     internal static class TokenGenerator
     {
-        public static string GenerateTokenJwt(string username, string password)
+        public static string GenerateTokenJwt(string username, string password, int usuarioId)
         {
             // appsetting for Token JWT
             var secretKey = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
@@ -21,7 +21,8 @@ namespace TpIngSoftII.Services
             // create a claimsIdentity
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) });
             claimsIdentity.AddClaim(new Claim("Password", password));
-
+            claimsIdentity.AddClaim(new Claim("UsuarioID", usuarioId.ToString()));
+            
             // create token to the user
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
             var jwtSecurityToken = tokenHandler.CreateJwtSecurityToken(

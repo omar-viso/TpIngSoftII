@@ -15,8 +15,9 @@ namespace TpIngSoftII.Services
 {
     public class EmpleadoService : EntityAppServiceBase<Empleado, EmpleadoDto>, IEmpleadoService
     {
-
-        public EmpleadoService(IEntityBaseRepository<Empleado> entityRepository, IUnitOfWork unitOfWork) : base(entityRepository, unitOfWork)
+        public EmpleadoService(IEntityBaseRepository<Empleado> entityRepository, 
+                               IUnitOfWork unitOfWork, 
+                               IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
         {
         }
 
@@ -37,13 +38,15 @@ namespace TpIngSoftII.Services
             }
         }
 
-        public bool ValidarCredenciales(LoginRequest login)
+        public int ValidarCredenciales(LoginRequest login)
         {
             // CAMBIAR POR AllIncludinAsNoTracking!!!!
-            var credencialEncontrada = this.entityRepository.AllIncluding().Any(x => x.Usuario == login.Username
-                                                                                     && x.Clave == login.Password);
+            var credencialEncontrada = this.entityRepository.AllIncludingAsNoTracking().FirstOrDefault(x => x.Usuario == login.Username
+                                                                                                 && x.Clave == login.Password);
+            /* Devuelve id si lo encontro al usuario sino 0 */
+            var usuarioId = credencialEncontrada?.ID ?? 0;
 
-            return credencialEncontrada;
+            return usuarioId;
         }
 
         public decimal Antiguedad(int empleadoID)
@@ -56,6 +59,18 @@ namespace TpIngSoftII.Services
                 antiguedad = DateTime.Today.Year - empleadoTmp.FechaIngreso.Year;
             }
             return antiguedad;
+        }
+
+        public EmpleadoDto DameMisDatos()
+        {
+            return this.GetById(this.appContext.EmpleadoID);
+        }
+
+        public int GetEmpleadoUsuarioPassword(string nombreUsuario, string passwordUsuario)
+        {   /* Devuelve id del usuario si lo encuentro, 0 si NO */
+            return (this.entityRepository.AllIncludingAsNoTracking()
+                                           .FirstOrDefault(x => x.Usuario == nombreUsuario
+                                                                && x.Clave == passwordUsuario))?.ID ?? 0;
         }
     }
 }

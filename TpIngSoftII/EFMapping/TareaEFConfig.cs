@@ -25,7 +25,7 @@ namespace TpIngSoftII.EFMapping
                 .HasForeignKey(x => x.ProyectoID)
                 .WillCascadeOnDelete(true);
 
-            /* Una tarea puede tener varios EmpleadoPerfil, un EmpleadoPerfil pertece a 1 o muchos Tareas */
+            /* Una tarea puede tener un EmpleadoPerfil, un EmpleadoPerfil pertece a 1 o muchos Tareas */
             this.HasRequired(x => x.EmpleadoPerfil)
                 .WithMany(y => y.Tareas)
                 .HasForeignKey(x => x.EmpleadoPerfilID)

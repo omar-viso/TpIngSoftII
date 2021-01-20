@@ -17,15 +17,17 @@ namespace TpIngSoftII.Services
     {
         protected readonly IUnitOfWork unitOfWork;
         protected readonly IEntityBaseRepository<E> entityRepository;
-       // private DBGestionDeProyectosContext dbContext = new DBGestionDeProyectosContext(); // ver si funciona
+        protected readonly IAppContext appContext;
+
+        // private DBGestionDeProyectosContext dbContext = new DBGestionDeProyectosContext(); // ver si funciona
 
 
 
-        public EntityAppServiceBase(IEntityBaseRepository<E> entityRepository, IUnitOfWork unitOfWork)
+        public EntityAppServiceBase(IEntityBaseRepository<E> entityRepository, IUnitOfWork unitOfWork, IAppContext appContext)
         {
             this.entityRepository = entityRepository;
             this.unitOfWork = unitOfWork;
-
+            this.appContext = appContext;
         }
 
         public virtual IEnumerable<D> GetAll()

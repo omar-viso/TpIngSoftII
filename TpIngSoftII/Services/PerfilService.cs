@@ -16,7 +16,7 @@ namespace TpIngSoftII.Services
     public class PerfilService : EntityAppServiceBase<Perfil, PerfilDto>, IPerfilService
     {
 
-        public PerfilService(IEntityBaseRepository<Perfil> entityRepository, IUnitOfWork unitOfWork) : base(entityRepository, unitOfWork)
+        public PerfilService(IEntityBaseRepository<Perfil> entityRepository, IUnitOfWork unitOfWork, IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
         {
         }
 

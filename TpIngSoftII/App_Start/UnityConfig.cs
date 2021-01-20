@@ -33,6 +33,7 @@ namespace TpIngSoftII
             container.RegisterType(typeof(IDbFactory<>), typeof(DbFactory<>), new HierarchicalLifetimeManager());
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
             container.RegisterType<DbContext, DBGestionDeProyectosContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IAppContext, AppContext>(new HierarchicalLifetimeManager());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

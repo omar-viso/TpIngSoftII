@@ -41,10 +41,10 @@ namespace TpIngSoftII.Controllers
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
             //TODO: Validate credentials Correctly, this code is only for demo !!
-            bool isCredentialValid = this.empleadoService.ValidarCredenciales(login);
-            if (isCredentialValid)
+            int isCredentialValid = this.empleadoService.ValidarCredenciales(login);
+            if (isCredentialValid != 0)
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Username, login.Password);
+                var token = TokenGenerator.GenerateTokenJwt(login.Username, login.Password, isCredentialValid);
                 return Ok(token);
             }
             else
