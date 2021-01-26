@@ -63,7 +63,6 @@ namespace TpIngSoftII.Services
 
             var hayHsOB = dto.CantHoras + hsTotalesTarea > hsEstimadas;
 
-            // VER COMO AGREGAR ALERTAR CUANDO SE ESTAN POR CARGAR HS OB
             if (hayHsOB)
             {
                 decimal hsOBACargar = 0;
@@ -85,7 +84,7 @@ namespace TpIngSoftII.Services
             }
 
         }
-
+        /* Metodo para Front, antes de llamar al Update para alertar si hay HS OB en la carga a realizar */
         public decimal CantidadHsOB(HorasTrabajadasDto dto)
         {
             var hsTotalesTarea = this.entityRepository.AllIncludingAsNoTracking()
@@ -113,19 +112,44 @@ namespace TpIngSoftII.Services
             }
             return hsOBACargar;
         }
-
-        public decimal InformeSemanalHsOB()
+        // PROBAR ESTE INFORME CUANDO NO HAY HS OB VER QUE NO ROMPA!!
+        public InformeSemanalHsOBDto InformeSemanalHsOB()
         {
-            var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking()
+            var registrosHsTrabajadasOBSemanales = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea)
                                                              .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DateTime.Now.AddDays(-7).Date &&
                                                                          DbFunctions.TruncateTime(x.Fecha) <= DateTime.Now.Date && x.EsOB);
+
+            //var subTotalesHsOBporTarea = registrosHsTrabajadasOBSemanales.GroupBy(x => new { TareaID = x.TareaID })
+            //                                                             .Select(TareaSubTotalHsOB => new
+            //                                                             {
+            //                                                                 TareadID = TareaSubTotalHsOB.Key,
+            //                                                                 SubTotalHsOB = TareaSubTotalHsOB.Sum(x => x.CantHoras)
+            //                                                             }).ToList();
+            // VER QUE AGRUPE LA TareaID con su Subtotal de HS OB !!!!
+            IEnumerable<SubtotalHsOBDto> subTotalesHsOBporTarea = registrosHsTrabajadasOBSemanales
+                                                            .GroupBy(t => t.TareaID)
+                                                            .SelectMany(ths => ths.Select(
+                                                                TareaSubTotalHsOB => new SubtotalHsOBDto
+                                                                {
+                                                                    TareaID = TareaSubTotalHsOB.TareaID,
+                                                                    TareaNombre = TareaSubTotalHsOB.Tarea.Nombre,
+                                                                    SubtotalHsOB = ths.Sum(hs => hs.CantHoras),
+                                                                })).ToList();
+
+
             decimal hsTotalesOB = 0;
-            if (registrosHsTrabajadasDelDia.Any())
+            if (registrosHsTrabajadasOBSemanales.Any())
             {
-                hsTotalesOB = registrosHsTrabajadasDelDia.Select(x => x.CantHoras).Sum();
+                hsTotalesOB = registrosHsTrabajadasOBSemanales.Select(x => x.CantHoras).Sum();
             }
-            // FALTA TAREAS CON SUS SUBTOTALES OB!!!
-            return hsTotalesOB;
+
+            InformeSemanalHsOBDto resultado = new InformeSemanalHsOBDto
+            {
+                TareasSubtotalesHsOB = subTotalesHsOBporTarea,
+                HsOBTotales = hsTotalesOB
+            };
+
+            return resultado;
         }
 
     }

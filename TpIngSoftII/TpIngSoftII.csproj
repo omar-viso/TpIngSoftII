@@ -257,8 +257,10 @@
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\DTOs\ClienteDto.cs" />
-    <Compile Include="Models\DTOs\EmpleadoPerfilDto.cs" />
+    <Compile Include="Models\DTOs\SubtotalHsOBDto.cs" />
+    <Compile Include="Models\DTOs\InformeSemanalHsOBDto.cs" />
     <Compile Include="Models\DTOs\EmpleadoDto.cs" />
+    <Compile Include="Models\DTOs\EmpleadoPerfilDto.cs" />
     <Compile Include="Models\DTOs\EscalaHoraOBDto.cs" />
     <Compile Include="Models\DTOs\EscalaAumentoxPerfilDto.cs" />
     <Compile Include="Models\DTOs\EscalaAumentoxHoraDto.cs" />
