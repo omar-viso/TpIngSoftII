@@ -14,7 +14,7 @@ namespace TpIngSoftII.Models
         /* Definir la propiedad "DbSet" para cada entity */
 
         //public DBGestionDeProyectosContext() : base(@"Data Source=DESKTOP-8PRIJ3M\SQLEXPRESS;Initial Catalog=DBGestionDeProyectos;Integrated Security=True;MultipleActiveResultSets=true")
-        public DBGestionDeProyectosContext() : base("DBGestionDeProyectos")
+        public DBGestionDeProyectosContext() : base("DBGestionProyectos")
         {
             Database.SetInitializer<DBGestionDeProyectosContext>(null);
         }

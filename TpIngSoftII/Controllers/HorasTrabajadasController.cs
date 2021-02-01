@@ -122,9 +122,27 @@ namespace TpIngSoftII.Controllers
             }
 
             return response;
-
         }
 
+        [HttpGet]
+        [Route("informeSemanalHsOB")]
+        [ResponseType(typeof(InformeSemanalHsOBDto))]
+        public HttpResponseMessage informeSemanalHsOB(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = horasTrabajadasService.InformeSemanalHsOB();
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+        }
     }
 
 }

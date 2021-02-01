@@ -7,13 +7,13 @@ namespace TpIngSoftII.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Proyecto_Segunda_Migracion : IMigrationMetadata
+    public sealed partial class Migracion_Final : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Proyecto_Segunda_Migracion));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Migracion_Final));
         
         string IMigrationMetadata.Id
         {
-            get { return "202011182351439_Proyecto_Segunda_Migracion"; }
+            get { return "202102012219364_Migracion_Final"; }
         }
         
         string IMigrationMetadata.Source

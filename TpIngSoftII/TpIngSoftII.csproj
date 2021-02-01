@@ -246,9 +246,9 @@
     <Compile Include="Interfaces\Services\ITareaService.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\MappingProfile.cs" />
-    <Compile Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.cs" />
-    <Compile Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.Designer.cs">
-      <DependentUpon>202011182351439_Proyecto_Segunda_Migracion.cs</DependentUpon>
+    <Compile Include="Migrations\202102012219364_Migracion_Final.cs" />
+    <Compile Include="Migrations\202102012219364_Migracion_Final.Designer.cs">
+      <DependentUpon>202102012219364_Migracion_Final.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Constantes\Const.cs" />
@@ -387,8 +387,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.resx">
-      <DependentUpon>202011182351439_Proyecto_Segunda_Migracion.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102012219364_Migracion_Final.resx">
+      <DependentUpon>202102012219364_Migracion_Final.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
