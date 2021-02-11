@@ -155,9 +155,12 @@ namespace TpIngSoftII.Services
         // PROBAR ESTE INFORME CUANDO NO HAY HS OB VER QUE NO ROMPA!!
         public InformeSemanalHsOBDto InformeSemanalHsOB()
         {
+            var fechaDesde = DateTime.Now.AddDays(-7).Date;
+            var fechaDeHoy = DateTime.Now.Date;
+
             var registrosHsTrabajadasOBSemanales = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea)
-                                                             .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DateTime.Now.AddDays(-7).Date &&
-                                                                         DbFunctions.TruncateTime(x.Fecha) <= DateTime.Now.Date && x.EsOB);
+                                                             .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DbFunctions.TruncateTime(fechaDesde) &&
+                                                                         DbFunctions.TruncateTime(x.Fecha) <= DbFunctions.TruncateTime(fechaDeHoy) && x.EsOB);
 
             //var subTotalesHsOBporTarea = registrosHsTrabajadasOBSemanales.GroupBy(x => new { TareaID = x.TareaID })
             //                                                             .Select(TareaSubTotalHsOB => new
