@@ -15,7 +15,7 @@ namespace TpIngSoftII.Models.DTOs
 
         public int EmpleadoPerfilID { get; set; }
         public string EmpleadoPerfilNombreEmplado { get; set; }
-        public string EmpleadoPerfilDescripcionPerfil { get; set; }
+        public string EmpleadoPerfilDescripcion { get; set; }
 
         public string Nombre { get; set; }
         public decimal HorasEstimadas { get; set; }

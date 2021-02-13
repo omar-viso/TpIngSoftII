@@ -10,6 +10,7 @@ namespace TpIngSoftII.Models.DTOs
     {
         public int ID { get; set; } 
         public string Nombre { get; set; }
+        public string Apellido { get; set; }
         public DateTime FechaIngreso { get; set; }
         public string Usuario { get; set; }
         public string Clave { get; set; }

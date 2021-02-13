@@ -24,6 +24,7 @@ namespace TpIngSoftII.Services
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
         protected override void ValidarEntityUpdating(Empleado entity, EmpleadoDto dto, bool isNew)
         {
+            AGREGAR VALIDACIONES DE PROPIEDADES FALTANTES Y VALIDAR QUE NO EXISTA USUARIO
             if (string.IsNullOrWhiteSpace(dto.Nombre)) throw new System.ArgumentException("El Nombre es obligatorio");
             if (dto.FechaIngreso == null || dto.FechaIngreso == DateTime.MinValue) throw new System.ArgumentException("La Fecha de Ingreso es obligatoria");
             if (string.IsNullOrWhiteSpace(dto.Usuario)) throw new System.ArgumentException("El Usuario es obligatorio");

@@ -15,10 +15,14 @@ namespace TpIngSoftII.EFMapping
 
             this.ToTable("Empleados");
             this.Property(p => p.Nombre).HasMaxLength(50).IsRequired();
+            this.Property(p => p.Apellido).HasMaxLength(50).IsRequired();
+            this.Property(p => p.Dni).IsRequired();
             this.Property(p => p.Clave).HasMaxLength(50).IsRequired();
             this.Property(p => p.FechaIngreso).IsRequired();
             this.Property(p => p.Usuario).HasMaxLength(50).IsRequired();
 
+            /* El Empleado es UNICO por DNI, no puede repetirse */
+            this.HasIndex(x => new { x.Dni }).IsUnique();
         }
     }
 }
