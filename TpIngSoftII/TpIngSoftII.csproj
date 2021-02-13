@@ -251,6 +251,10 @@
     <Compile Include="Migrations\202102012219364_Migracion_Final.Designer.cs">
       <DependentUpon>202102012219364_Migracion_Final.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102132145018_Migracion_Final_2.cs" />
+    <Compile Include="Migrations\202102132145018_Migracion_Final_2.Designer.cs">
+      <DependentUpon>202102132145018_Migracion_Final_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Constantes\Const.cs" />
     <Compile Include="Models\DbFactory.cs" />
@@ -389,6 +393,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202102012219364_Migracion_Final.resx">
       <DependentUpon>202102012219364_Migracion_Final.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102132145018_Migracion_Final_2.resx">
+      <DependentUpon>202102132145018_Migracion_Final_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
