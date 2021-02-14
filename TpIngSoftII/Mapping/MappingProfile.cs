@@ -20,14 +20,12 @@ namespace TpIngSoftII.Mapping
             CreateMap<EmpleadoDto, Empleado>().ReverseMap();
             CreateMap<EmpleadoPerfilDto, EmpleadoPerfil>().ReverseMap()
                 .ForMember(dest => dest.EmpleadoNombre, opt => opt.MapFrom(src => src.Empleado.Nombre))
-                .ForMember(dest => dest.TipoPerfilDescripcion, opt => opt.MapFrom(src => src.Perfil.PerfilTipo.Descripcion));
+                .ForMember(dest => dest.PerfilDescripcion, opt => opt.MapFrom(src => src.Perfil.Descripcion));
             CreateMap<TareaDto, Tarea>().ReverseMap()
-                .ForMember(dest => dest.EmpleadoPerfilDescripcionPerfil, opt => opt.MapFrom(src => src.EmpleadoPerfil.Perfil.PerfilTipo.Descripcion))
+                .ForMember(dest => dest.EmpleadoPerfilDescripcion, opt => opt.MapFrom(src => src.EmpleadoPerfil.Perfil.Descripcion))
                 .ForMember(dest => dest.EmpleadoPerfilNombreEmplado, opt => opt.MapFrom(src => src.EmpleadoPerfil.Empleado.Nombre))
                 .ForMember(dest => dest.ProyectoNombre, opt => opt.MapFrom(src => src.Proyecto.Nombre));
-            CreateMap<PerfilTipoDto, PerfilTipo>().ReverseMap();
-            CreateMap<PerfilDto, Perfil>().ReverseMap()
-                .ForMember(dest => dest.PerfilTipoDescripcion, opt => opt.MapFrom(src => src.PerfilTipo.Descripcion));
+            CreateMap<PerfilDto, Perfil>().ReverseMap();
             CreateMap<HorasTrabajadasDto, HorasTrabajadas>().ReverseMap()
                 .ForMember(dest => dest.HorasTrabajadasEstadoDescripcion, opt => opt.MapFrom(src => src.HorasTrabajadasEstado.Descripcion));
             CreateMap<EscalaAumentoxAntiguedadDto, EscalaAumentoxAntiguedad>().ReverseMap();

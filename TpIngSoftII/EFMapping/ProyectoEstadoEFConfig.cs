@@ -16,6 +16,7 @@ namespace TpIngSoftII.EFMapping
             this.ToTable("ProyectoEstados");
             this.Property(p => p.Descripcion).HasMaxLength(50).IsRequired();
 
+            this.HasIndex(x => new { x.Descripcion }).IsUnique();
         }
     }
 }

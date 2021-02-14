@@ -208,6 +208,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -224,7 +225,6 @@
     <Compile Include="EFMapping\EmpleadoPerfilEFConfig.cs" />
     <Compile Include="EFMapping\TareaEFConfig.cs" />
     <Compile Include="EFMapping\ProyectoEstadoEFConfig.cs" />
-    <Compile Include="EFMapping\PerfilTipoEFConfig.cs" />
     <Compile Include="EFMapping\PerfilEFConfig.cs" />
     <Compile Include="EFMapping\EmpleadoEFConfig.cs" />
     <Compile Include="EFMapping\ClienteEFConfig.cs" />
@@ -237,6 +237,7 @@
     <Compile Include="Interfaces\IAppContext.cs" />
     <Compile Include="Interfaces\Repositories\IEntityBaseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\Services\IClienteService.cs" />
     <Compile Include="Interfaces\Services\IEmpleadoService.cs" />
     <Compile Include="Interfaces\Services\IEntityAppServiceBase.cs" />
     <Compile Include="Interfaces\IEntityBase.cs" />
@@ -246,9 +247,13 @@
     <Compile Include="Interfaces\Services\ITareaService.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\MappingProfile.cs" />
-    <Compile Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.cs" />
-    <Compile Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.Designer.cs">
-      <DependentUpon>202011182351439_Proyecto_Segunda_Migracion.cs</DependentUpon>
+    <Compile Include="Migrations\202102012219364_Migracion_Final.cs" />
+    <Compile Include="Migrations\202102012219364_Migracion_Final.Designer.cs">
+      <DependentUpon>202102012219364_Migracion_Final.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102132145018_Migracion_Final_2.cs" />
+    <Compile Include="Migrations\202102132145018_Migracion_Final_2.Designer.cs">
+      <DependentUpon>202102132145018_Migracion_Final_2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Constantes\Const.cs" />
@@ -257,15 +262,16 @@
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\DTOs\ClienteDto.cs" />
-    <Compile Include="Models\DTOs\EmpleadoPerfilDto.cs" />
+    <Compile Include="Models\DTOs\SubtotalHsOBDto.cs" />
+    <Compile Include="Models\DTOs\InformeSemanalHsOBDto.cs" />
     <Compile Include="Models\DTOs\EmpleadoDto.cs" />
+    <Compile Include="Models\DTOs\EmpleadoPerfilDto.cs" />
     <Compile Include="Models\DTOs\EscalaHoraOBDto.cs" />
     <Compile Include="Models\DTOs\EscalaAumentoxPerfilDto.cs" />
     <Compile Include="Models\DTOs\EscalaAumentoxHoraDto.cs" />
     <Compile Include="Models\DTOs\EscalaAumentoxAntiguedadDto.cs" />
     <Compile Include="Models\DTOs\HorasTrabajadasEstadoDto.cs" />
     <Compile Include="Models\DTOs\HorasTrabajadasDto.cs" />
-    <Compile Include="Models\DTOs\PerfilTipoDto.cs" />
     <Compile Include="Models\DTOs\PerfilDto.cs" />
     <Compile Include="Models\DTOs\ProyectoEstadoDto.cs" />
     <Compile Include="Models\DTOs\ProyectoDto.cs" />
@@ -273,7 +279,6 @@
     <Compile Include="Models\Entities\LoginRequest.cs" />
     <Compile Include="Models\Entities\EmpleadoPerfil.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxAntiguedad.cs" />
-    <Compile Include="Models\Entities\PerfilTipo.cs" />
     <Compile Include="Models\Entities\HorasTrabajadasEstado.cs" />
     <Compile Include="Models\Entities\EscalaHoraOB.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxPerfil.cs" />
@@ -289,6 +294,7 @@
     <Compile Include="Repositories\EntityBaseRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Models\ApiControllerBase.cs" />
+    <Compile Include="Services\ClienteService.cs" />
     <Compile Include="Services\MyAuthorize.cs" />
     <Compile Include="Services\TokenValidationHandlerSevice.cs" />
     <Compile Include="Services\TokenGeneratorSevice.cs" />
@@ -385,8 +391,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011182351439_Proyecto_Segunda_Migracion.resx">
-      <DependentUpon>202011182351439_Proyecto_Segunda_Migracion.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102012219364_Migracion_Final.resx">
+      <DependentUpon>202102012219364_Migracion_Final.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102132145018_Migracion_Final_2.resx">
+      <DependentUpon>202102132145018_Migracion_Final_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

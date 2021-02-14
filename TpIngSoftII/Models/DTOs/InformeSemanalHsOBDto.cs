@@ -6,9 +6,9 @@ using TpIngSoftII.Interfaces;
 
 namespace TpIngSoftII.Models.DTOs
 {
-    public class PerfilTipoDto : IDto
+    public class InformeSemanalHsOBDto
     {
-        public int ID { get; set; }
-        public string Descripcion { get; set; }
+        public IEnumerable<SubtotalHsOBDto> TareasSubtotalesHsOB { get; set; }
+        public decimal HsOBTotales { get; set; }
     }
 }

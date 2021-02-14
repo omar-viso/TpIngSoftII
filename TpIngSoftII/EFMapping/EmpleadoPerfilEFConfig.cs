@@ -18,7 +18,7 @@ namespace TpIngSoftII.EFMapping
             this.Property(p => p.PerfilID).IsRequired();
 
             /* El Cliente - Perfil es UNICO (no puede repetirse) */
-            this.HasIndex(x => new { x.EmpleadoID, x.PerfilID });
+            this.HasIndex(x => new { x.EmpleadoID, x.PerfilID }).IsUnique();
 
             /* Se definen las relaciones y cardinalidades */
 

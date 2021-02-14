@@ -8,9 +8,8 @@ using TpIngSoftII.Models.Entities;
 
 namespace TpIngSoftII.Interfaces.Services
 {
-    public interface IHorasTrabajadasService : IEntityAppServiceBase<HorasTrabajadas, HorasTrabajadasDto>
+    public interface IClienteService : IEntityAppServiceBase<Cliente, ClienteDto>
     {
-        InformeSemanalHsOBDto InformeSemanalHsOB();
-        decimal CantidadHsOB(HorasTrabajadasDto dto);
+
     }
 }

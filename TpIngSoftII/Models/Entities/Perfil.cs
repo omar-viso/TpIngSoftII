@@ -9,8 +9,7 @@ namespace TpIngSoftII.Models.Entities
     public class Perfil : IEntityBase
     {
         public int ID { get; set; }
-        public int PerfilTipoID { get; set; }
-        public virtual PerfilTipo PerfilTipo { get; set; }
+        public string Descripcion { get; set; }
 
         public decimal ValorHorario { get; set; }
 

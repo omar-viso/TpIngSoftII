@@ -14,7 +14,7 @@ namespace TpIngSoftII.Models
         /* Definir la propiedad "DbSet" para cada entity */
 
         //public DBGestionDeProyectosContext() : base(@"Data Source=DESKTOP-8PRIJ3M\SQLEXPRESS;Initial Catalog=DBGestionDeProyectos;Integrated Security=True;MultipleActiveResultSets=true")
-        public DBGestionDeProyectosContext() : base("DBGestionDeProyectos")
+        public DBGestionDeProyectosContext() : base("DBGestionProyectos")
         {
             Database.SetInitializer<DBGestionDeProyectosContext>(null);
         }
@@ -23,7 +23,6 @@ namespace TpIngSoftII.Models
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Empleado> Empleados { get; set; }
         public DbSet<Perfil> Perfiles { get; set; }
-        public DbSet<PerfilTipo> PerfilTipos { get; set; }
         public DbSet<EmpleadoPerfil> EmpleadosPerfiles { get; set; }
         public DbSet<ProyectoEstado> ProyectoEstados { get; set; }
         public DbSet<EscalaAumentoxAntiguedad> EscalaAumentoxAntiguedades { get; set; }
@@ -62,7 +61,6 @@ namespace TpIngSoftII.Models
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
             modelBuilder.Entity<Empleado>().ToTable("Empleados");
             modelBuilder.Entity<Perfil>().ToTable("Perfiles");
-            modelBuilder.Entity<PerfilTipo>().ToTable("PerfilTipos");
             modelBuilder.Entity<EmpleadoPerfil>().ToTable("EmpleadosPerfiles");
             modelBuilder.Entity<EscalaAumentoxAntiguedad>().ToTable("EscalaAumentoxAntiguedades");
             modelBuilder.Entity<EscalaAumentoxHora>().ToTable("EscalaAumentoxHoras");
@@ -77,7 +75,6 @@ namespace TpIngSoftII.Models
             modelBuilder.Configurations.Add(new ProyectoEFConfig());
             modelBuilder.Configurations.Add(new ClienteEFConfig());
             modelBuilder.Configurations.Add(new EmpleadoEFConfig());
-            modelBuilder.Configurations.Add(new PerfilTipoEFConfig());
             modelBuilder.Configurations.Add(new PerfilEFConfig());
             modelBuilder.Configurations.Add(new EmpleadoPerfilEFConfig());
             modelBuilder.Configurations.Add(new EscalaAumentoxAntiguedadEFConfig());

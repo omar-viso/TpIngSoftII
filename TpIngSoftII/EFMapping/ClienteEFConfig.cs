@@ -24,7 +24,7 @@ namespace TpIngSoftII.EFMapping
             this.Property(p => p.TelefonoFijo).IsOptional();
 
             /* El Cliente es UNICO por DNI, no puede repetirse */
-            this.HasIndex(x => new { x.Dni });
+            this.HasIndex(x => new { x.Dni }).IsUnique();
         }
     }
 }

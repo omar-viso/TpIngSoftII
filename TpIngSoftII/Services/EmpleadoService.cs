@@ -24,11 +24,14 @@ namespace TpIngSoftII.Services
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
         protected override void ValidarEntityUpdating(Empleado entity, EmpleadoDto dto, bool isNew)
         {
-            if (string.IsNullOrWhiteSpace(dto.Nombre)) throw new System.ArgumentException("El Nombre es obligatorio");
-            if (dto.FechaIngreso == null || dto.FechaIngreso == DateTime.MinValue) throw new System.ArgumentException("La Fecha de Ingreso es obligatoria");
-            if (string.IsNullOrWhiteSpace(dto.Usuario)) throw new System.ArgumentException("El Usuario es obligatorio");
-            if (string.IsNullOrWhiteSpace(dto.Clave)) throw new System.ArgumentException("La Clave es obligatoria");
-
+            if (string.IsNullOrWhiteSpace(dto.Nombre)) throw new System.ArgumentException("El Nombre es obligatorio.");
+            if (string.IsNullOrWhiteSpace(dto.Apellido)) throw new System.ArgumentException("El Apellido es obligatorio.");
+            if (dto.Dni <= 0) throw new System.ArgumentException("El DNI indicado no es válido.");
+            if (dto.FechaIngreso == null || dto.FechaIngreso == DateTime.MinValue) throw new System.ArgumentException("La Fecha de Ingreso es obligatoria.");
+            if (string.IsNullOrWhiteSpace(dto.Usuario)) throw new System.ArgumentException("El Usuario es obligatorio.");
+            if (this.ValidarUsuarioExistente(dto)) throw new System.ArgumentException("El Usuario indicado ya se encuentra en uso. Intente con otro nuevamente.");
+            if (string.IsNullOrWhiteSpace(dto.Clave)) throw new System.ArgumentException("La Clave es obligatoria.");
+            /* Validaciones sobre Perfiles */
             if (dto.Perfiles != null)
             {
                 if (dto.Perfiles.Count > 0)
@@ -40,7 +43,6 @@ namespace TpIngSoftII.Services
 
         public int ValidarCredenciales(LoginRequest login)
         {
-            // CAMBIAR POR AllIncludinAsNoTracking!!!!
             var credencialEncontrada = this.entityRepository.AllIncludingAsNoTracking().FirstOrDefault(x => x.Usuario == login.Username
                                                                                                  && x.Clave == login.Password);
             /* Devuelve id si lo encontro al usuario sino 0 */
@@ -71,6 +73,22 @@ namespace TpIngSoftII.Services
             return (this.entityRepository.AllIncludingAsNoTracking()
                                            .FirstOrDefault(x => x.Usuario == nombreUsuario
                                                                 && x.Clave == passwordUsuario))?.ID ?? 0;
+        }
+
+        private bool ValidarUsuarioExistente(EmpleadoDto dto)
+        {
+            bool resultado = false;
+            /* Se busca si existe un Empleado con el Usuario ingresado en el dto */
+            var entity = this.entityRepository.AllIncludingAsNoTracking()
+                                              .FirstOrDefault(x => x.Usuario == dto.Usuario);
+            /* Si no se encuentra, se puede utilizar dicho Usuario */
+            if (entity == null) resultado = false;
+            /* Si se encuentra resultado y coinciden los IDs, el usuario es el mismo por lo tanto no hay problema */
+            else if (entity?.ID == dto.ID) resultado = false;
+            /* Si no ocurre ninguna de las 2 anteriores, es porque ya se esta utilizando por otro Empleado dicho Usuario */
+            else resultado = true;
+
+            return resultado;
         }
     }
 }

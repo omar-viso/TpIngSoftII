@@ -8,23 +8,24 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
+using TpIngSoftII.Services;
 
 namespace TpIngSoftII.Controllers
 {
-    [RoutePrefix("api/HorasTrabajadas")]
-    public class HorasTrabajadasController : ApiController
+    [RoutePrefix("api/Clientes")]
+    public class ClienteController : ApiController
     {
-        private readonly IHorasTrabajadasService horasTrabajadasService;
+        private readonly IClienteService clienteService;
 
-        public HorasTrabajadasController(IHorasTrabajadasService horasTrabajadasService)
+        public ClienteController(IClienteService clienteService)
         {
-            this.horasTrabajadasService = horasTrabajadasService;
+            this.clienteService = clienteService;
         }
 
         [HttpPost]
-        [ResponseType(typeof(HorasTrabajadasDto))]
+        [ResponseType(typeof(ClienteDto))]
         [Route("update")]
-        public HttpResponseMessage Update(HttpRequestMessage request, [FromBody] HorasTrabajadasDto dto)
+        public HttpResponseMessage Update(HttpRequestMessage request, [FromBody] ClienteDto dto)
         {
             HttpResponseMessage response = null;
 
@@ -34,7 +35,7 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-                var dtoUpdated = horasTrabajadasService.Update(dto);
+                var dtoUpdated = clienteService.Update(dto);
                 response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
             }
 
@@ -43,7 +44,7 @@ namespace TpIngSoftII.Controllers
         }
 
         [HttpGet]
-        [ResponseType(typeof(IEnumerable<HorasTrabajadasDto>))]
+        [ResponseType(typeof(IEnumerable<ClienteDto>))]
         [Route()]
         public HttpResponseMessage Get(HttpRequestMessage request)
         {
@@ -55,7 +56,7 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-                var dtoUpdated = horasTrabajadasService.GetAll();
+                var dtoUpdated = clienteService.GetAll();
                 response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
             }
 
@@ -65,7 +66,8 @@ namespace TpIngSoftII.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        [ResponseType(typeof(HorasTrabajadasDto))]
+        [Authorize()]
+        [ResponseType(typeof(ClienteDto))]
         public HttpResponseMessage Get(HttpRequestMessage request, int id)
         {
             HttpResponseMessage response = null;
@@ -76,7 +78,7 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-                var dtoUpdated = horasTrabajadasService.GetById(id);
+                var dtoUpdated = clienteService.GetById(id);
                 response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
             }
 
@@ -96,52 +98,12 @@ namespace TpIngSoftII.Controllers
             }
             else
             {
-                this.horasTrabajadasService.DeleteById(id);
+                this.clienteService.DeleteById(id);
                 response = request.CreateResponse(HttpStatusCode.OK, new { sucess = true });
             }
 
             return response;
 
-        }
-
-        [HttpGet]
-        [Route("getHsOB")]
-        [ResponseType(typeof(decimal))]
-        public HttpResponseMessage getHsOB(HttpRequestMessage request, HorasTrabajadasDto dto)
-        {
-            HttpResponseMessage response = null;
-
-            if (!ModelState.IsValid)
-            {
-                response = request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-            else
-            {
-                var dtoUpdated = horasTrabajadasService.CantidadHsOB(dto);
-                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
-            }
-
-            return response;
-        }
-
-        [HttpGet]
-        [Route("informeSemanalHsOB")]
-        [ResponseType(typeof(InformeSemanalHsOBDto))]
-        public HttpResponseMessage informeSemanalHsOB(HttpRequestMessage request)
-        {
-            HttpResponseMessage response = null;
-
-            if (!ModelState.IsValid)
-            {
-                response = request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-            else
-            {
-                var dtoUpdated = horasTrabajadasService.InformeSemanalHsOB();
-                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
-            }
-
-            return response;
         }
     }
 

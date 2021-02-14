@@ -26,8 +26,15 @@ namespace TpIngSoftII.Services
             this.tareaRepository = tareaRepository;
         }
 
+        public override HorasTrabajadasDto Update(HorasTrabajadasDto dto)
+        {
+            this.ValidacionesUpdate(dto);
+
+            return base.Update(dto);
+        }
+
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
-        protected override void ValidarEntityUpdating(HorasTrabajadas entity, HorasTrabajadasDto dto, bool isNew)
+        private void ValidacionesUpdate(HorasTrabajadasDto dto)
         {
             if (dto.CantHoras < 0) throw new System.ArgumentException("La cantidad de horas no puede ser negativo");
             if (dto.CantHoras > 10) throw new System.ArgumentException("La cantidad de horas no puede ser superior a 10 horas");
@@ -63,7 +70,9 @@ namespace TpIngSoftII.Services
 
             var hayHsOB = dto.CantHoras + hsTotalesTarea > hsEstimadas;
 
-            // VER COMO AGREGAR ALERTAR CUANDO SE ESTAN POR CARGAR HS OB
+            /* Variable para saber si se cargan hs OB por desdoble */
+            bool seDesdoblaCarga = false;
+
             if (hayHsOB)
             {
                 decimal hsOBACargar = 0;
@@ -74,18 +83,48 @@ namespace TpIngSoftII.Services
                     hsOBACargar = dto.CantHoras;
                     hsNoOBACargar = 0;
                 }
+                /* Si no son todas OB hay que separar en 2 cargas */
                 else
                 {
                     hsOBACargar = dto.CantHoras + hsTotalesTarea - hsEstimadas;
                     hsNoOBACargar = dto.CantHoras - hsOBACargar;
+                    seDesdoblaCarga = true;
                 }
 
-                // HACER OVERRIDE DEL UPDATE PARA MODIFICAR LA CANTIDAD DE HS A CARGAR
-                // EN PPIO. SE HARIA EL UPDATE PONIENDO LAS CANTHS NO OB Y VER EL CASO CUANDO HAY OB
+                /* Valido si hay que desdoblar la carga de Hs */
+                if (seDesdoblaCarga)
+                {
+                    HorasTrabajadasDto hsTrabajadasOBDto = new HorasTrabajadasDto
+                    {
+                        ID = 0,
+                        CantHoras = hsOBACargar,
+                        Fecha = dto.Fecha,
+                        HorasTrabajadasEstadoID = dto.HorasTrabajadasEstadoID,
+                        ProyectoID = dto.ProyectoID,
+                        TareaID = dto.TareaID
+                    };
+                    /* Se cargan las hs OB */
+                    hsTrabajadasOBDto = base.Update(hsTrabajadasOBDto);
+                    using (var scope = new TransactionScope())
+                    {
+                        /* Se marcan las mismas como Hs OB */
+                        var hsTrabajadasOBentity = this.entityRepository.AllIncluding()
+                                                                    .FirstOrDefault(x => x.ID == hsTrabajadasOBDto.ID);
+                        hsTrabajadasOBentity.EsOB = true;
+
+                        this.entityRepository.Edit(hsTrabajadasOBentity);
+                        this.unitOfWork.Commit();
+                        scope.Complete();
+                    }
+
+                    /* Se modifican las hs para cargar las hs NO OB restantes de la carga de hora mandada */
+                    dto.CantHoras = hsNoOBACargar;
+                }
             }
 
         }
 
+        /* Metodo para Front, antes de llamar al Update para alertar si hay HS OB en la carga a realizar */
         public decimal CantidadHsOB(HorasTrabajadasDto dto)
         {
             var hsTotalesTarea = this.entityRepository.AllIncludingAsNoTracking()
@@ -113,19 +152,47 @@ namespace TpIngSoftII.Services
             }
             return hsOBACargar;
         }
-
-        public decimal InformeSemanalHsOB()
+        // PROBAR ESTE INFORME CUANDO NO HAY HS OB VER QUE NO ROMPA!!
+        public InformeSemanalHsOBDto InformeSemanalHsOB()
         {
-            var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking()
-                                                             .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DateTime.Now.AddDays(-7).Date &&
-                                                                         DbFunctions.TruncateTime(x.Fecha) <= DateTime.Now.Date && x.EsOB);
+            var fechaDesde = DateTime.Now.AddDays(-7).Date;
+            var fechaDeHoy = DateTime.Now.Date;
+
+            var registrosHsTrabajadasOBSemanales = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea)
+                                                             .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DbFunctions.TruncateTime(fechaDesde) &&
+                                                                         DbFunctions.TruncateTime(x.Fecha) <= DbFunctions.TruncateTime(fechaDeHoy) && x.EsOB);
+
+            //var subTotalesHsOBporTarea = registrosHsTrabajadasOBSemanales.GroupBy(x => new { TareaID = x.TareaID })
+            //                                                             .Select(TareaSubTotalHsOB => new
+            //                                                             {
+            //                                                                 TareadID = TareaSubTotalHsOB.Key,
+            //                                                                 SubTotalHsOB = TareaSubTotalHsOB.Sum(x => x.CantHoras)
+            //                                                             }).ToList();
+            // VER QUE AGRUPE LA TareaID con su Subtotal de HS OB !!!!
+            IEnumerable<SubtotalHsOBDto> subTotalesHsOBporTarea = registrosHsTrabajadasOBSemanales
+                                                            .GroupBy(t => t.TareaID)
+                                                            .SelectMany(ths => ths.Select(
+                                                                TareaSubTotalHsOB => new SubtotalHsOBDto
+                                                                {
+                                                                    TareaID = TareaSubTotalHsOB.TareaID,
+                                                                    TareaNombre = TareaSubTotalHsOB.Tarea.Nombre,
+                                                                    SubtotalHsOB = ths.Sum(hs => hs.CantHoras),
+                                                                })).ToList();
+
+
             decimal hsTotalesOB = 0;
-            if (registrosHsTrabajadasDelDia.Any())
+            if (registrosHsTrabajadasOBSemanales.Any())
             {
-                hsTotalesOB = registrosHsTrabajadasDelDia.Select(x => x.CantHoras).Sum();
+                hsTotalesOB = registrosHsTrabajadasOBSemanales.Select(x => x.CantHoras).Sum();
             }
-            // FALTA TAREAS CON SUS SUBTOTALES OB!!!
-            return hsTotalesOB;
+
+            InformeSemanalHsOBDto resultado = new InformeSemanalHsOBDto
+            {
+                TareasSubtotalesHsOB = subTotalesHsOBporTarea,
+                HsOBTotales = hsTotalesOB
+            };
+
+            return resultado;
         }
 
     }

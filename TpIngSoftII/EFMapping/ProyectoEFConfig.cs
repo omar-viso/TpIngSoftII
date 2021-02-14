@@ -19,7 +19,7 @@ namespace TpIngSoftII.EFMapping
             this.Property(p => p.ProyectoEstadoID).IsRequired();
 
             /* El Cliente - Nombre del Proyecto es UNICO (no puede repetirse) */
-            this.HasIndex(x => new { x.ClienteID, x.Nombre });
+            this.HasIndex(x => new { x.ClienteID, x.Nombre }).IsUnique();
 
             /* Se definen las relaciones y cardinalidades */
 

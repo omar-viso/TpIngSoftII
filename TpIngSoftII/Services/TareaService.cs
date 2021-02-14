@@ -15,22 +15,27 @@ namespace TpIngSoftII.Services
 {
     public class TareaService : EntityAppServiceBase<Tarea, TareaDto>, ITareaService
     {
-        private readonly IEntityBaseRepository<Empleado> empleadoRepository;
+        private readonly IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository;
 
-        public TareaService(IEntityBaseRepository<Tarea> entityRepository, IUnitOfWork unitOfWork, IAppContext appContext, IEntityBaseRepository<Empleado> empleadoRepository) : base(entityRepository, unitOfWork, appContext)
+        public TareaService(IEntityBaseRepository<Tarea> entityRepository, 
+                            IUnitOfWork unitOfWork, IAppContext appContext, 
+                            IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository) : base(entityRepository, unitOfWork, appContext)
         {
-            this.empleadoRepository = empleadoRepository;
+            this.empleadoPerfilRepository = empleadoPerfilRepository;
         }
 
         protected override void ValidarEntityUpdating(Tarea entity, TareaDto dto, bool isNew)
         {
-            //obtengo el proyecto de esta tarea en particular para ese empleado //CORREGIR ESTO
-            //var proyecto = proyectoRepository.AllIncludingAsNoTracking(x => x.Tareas).Select(y => y.ID == dto.ProyectoID);
+            if (dto.EmpleadoPerfilID <= 0) throw new System.ArgumentException("El Empleado-Perfil indicado no existe.");
+            /* Se busca el id del Empleado indicado por el dto */
+            var empleadoID = this.empleadoPerfilRepository.AllIncludingAsNoTracking()
+                                                    .FirstOrDefault(x => x.ID == dto.ID)?.EmpleadoID ?? 0;
+            //se busca si existe alguna tarea para el proyecto indicado que pertenezca al empleado */
             var tarea = entityRepository.AllIncludingAsNoTracking(x => x.EmpleadoPerfil)
                                         .FirstOrDefault(x => x.ProyectoID == dto.ProyectoID 
-                                                             && x.EmpleadoPerfil.EmpleadoID == /* EmpleadoID */);
-            // Buscar EmpleadoID en Perfiles y comparar para traer tarea en base a ese EmpleadoID
-
+                                                             && x.EmpleadoPerfil.EmpleadoID == empleadoID);
+            /* Si existe almenos una tarea para dicho Empleado en ese Proyecto, no se permite asignar otra */
+            if (tarea != null) throw new System.ArgumentException("El Empleado indicado ya posee una tarea asignada en dicho Proyecto.");
         }
     }
 }
