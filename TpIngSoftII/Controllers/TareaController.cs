@@ -43,7 +43,7 @@ namespace TpIngSoftII.Controllers
         }
 
         [HttpGet]
-        [ResponseType(typeof(IEnumerable<ProyectoDto>))]
+        [ResponseType(typeof(IEnumerable<TareaDto>))]
         [Route()]
         public HttpResponseMessage Get(HttpRequestMessage request)
         {
@@ -65,7 +65,7 @@ namespace TpIngSoftII.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        [ResponseType(typeof(ProyectoDto))]
+        [ResponseType(typeof(TareaDto))]
         public HttpResponseMessage Get(HttpRequestMessage request, int id)
         {
             HttpResponseMessage response = null;
