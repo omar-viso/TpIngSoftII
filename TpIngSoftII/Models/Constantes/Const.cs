@@ -12,5 +12,11 @@ namespace TpIngSoftII.Models.Constantes
             public const int Pagada = 1;
             public const int Adeudada = 2;
         }
+
+        public static class TipoPersona
+        {
+            public const int Fisica = 1;
+            public const int Juridica = 2;
+        }
     }
 }

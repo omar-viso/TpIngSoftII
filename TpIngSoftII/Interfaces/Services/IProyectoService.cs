@@ -10,5 +10,6 @@ namespace TpIngSoftII.Interfaces.Services
 {
     public interface IProyectoService : IEntityAppServiceBase<Proyecto, ProyectoDto>
     {
+        IEnumerable<ProyectoEstadoDto> ProyectoEstados();
     }
 }
