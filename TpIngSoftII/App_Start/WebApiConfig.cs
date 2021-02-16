@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using TpIngSoftII.App_Start;
 using TpIngSoftII.Services;
 
 namespace TpIngSoftII
@@ -22,6 +23,9 @@ namespace TpIngSoftII
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.EnableCors(new AccessPolicyCors());
+
         }
     }
 }
