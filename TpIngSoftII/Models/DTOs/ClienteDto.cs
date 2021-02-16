@@ -17,7 +17,8 @@ namespace TpIngSoftII.Models.DTOs
         public string Direccion { get; set; }
         public long? TelefonoContacto { get; set; }
         public string Email { get; set; }
-        
+        public int TipoPersona { get; set; }
+
         //public virtual ICollection<ProyectoDto> Proyectos { get; set; }
     }
 }
