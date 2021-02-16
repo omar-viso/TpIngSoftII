@@ -21,6 +21,7 @@ namespace TpIngSoftII.Services
         {
         }
 
+
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
         protected override void ValidarEntityUpdating(Empleado entity, EmpleadoDto dto, bool isNew)
         {

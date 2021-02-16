@@ -22,6 +22,21 @@ namespace TpIngSoftII.Services
         {
         }
 
+        public override ClienteDto Update(ClienteDto dto)
+        {
+            if (dto.TipoPersona == Const.TipoPersona.Fisica)
+            {
+                dto.RazonSocial = null;
+            }
+            if (dto.TipoPersona == Const.TipoPersona.Juridica)
+            {
+                dto.Nombre = null;
+                dto.Apellido = null;
+            }
+            return base.Update(dto);
+        }
+
+
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
         protected override void ValidarEntityUpdating(Cliente entity, ClienteDto dto, bool isNew)
         {
