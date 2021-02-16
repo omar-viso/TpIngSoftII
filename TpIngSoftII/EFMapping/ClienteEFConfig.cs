@@ -14,17 +14,16 @@ namespace TpIngSoftII.EFMapping
             /* Se definen las restricciones para cada propiedad en base */
 
             this.ToTable("Clientes");
-            this.Property(p => p.Nombre).HasMaxLength(50).IsRequired();
-            this.Property(p => p.Apellido).HasMaxLength(50).IsRequired();
-            this.Property(p => p.Dni).IsRequired();
+            this.Property(p => p.Nombre).HasMaxLength(50).IsOptional();
+            this.Property(p => p.Apellido).HasMaxLength(50).IsOptional();
+            this.Property(p => p.DniCuit).IsRequired();
             this.Property(p => p.Direccion).HasMaxLength(50).IsRequired();
             this.Property(p => p.Email).HasMaxLength(50).IsOptional();
-            this.Property(p => p.RazonSocial).HasMaxLength(50).IsRequired();
-            this.Property(p => p.TelefonoCelular).IsOptional();
-            this.Property(p => p.TelefonoFijo).IsOptional();
+            this.Property(p => p.RazonSocial).HasMaxLength(50).IsOptional();
+            this.Property(p => p.TelefonoContacto).IsOptional();
 
             /* El Cliente es UNICO por DNI, no puede repetirse */
-            this.HasIndex(x => new { x.Dni }).IsUnique();
+            this.HasIndex(x => new { x.DniCuit }).IsUnique();
         }
     }
 }

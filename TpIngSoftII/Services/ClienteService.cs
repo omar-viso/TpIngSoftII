@@ -24,15 +24,16 @@ namespace TpIngSoftII.Services
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
         protected override void ValidarEntityUpdating(Cliente entity, ClienteDto dto, bool isNew)
         {
+            /* Validaciones si es una Persona Fisica */
             if (string.IsNullOrWhiteSpace(dto.Nombre)) throw new System.ArgumentException("El Nombre es obligatorio.");
             if (string.IsNullOrWhiteSpace(dto.Apellido)) throw new System.ArgumentException("El Apellido es obligatorio.");
-            if (string.IsNullOrWhiteSpace(dto.Direccion)) throw new System.ArgumentException("La Dirección es obligatoria.");
-            if (dto.Dni == 0) throw new System.ArgumentException("El DNI es obligatorio.");
-            if (dto.Dni < 0) throw new System.ArgumentException("El DNI indicado no es válido.");
+            /* Validaciones si es una Persona Juridica */
             if (string.IsNullOrWhiteSpace(dto.RazonSocial)) throw new System.ArgumentException("La Razon Social es obligatoria.");
-            if ((dto.TelefonoCelular ?? 0) < 0) throw new System.ArgumentException("El Telefono Celular indicado no es válido.");
-            if ((dto.TelefonoFijo ?? 0) < 0) throw new System.ArgumentException("El Telefono Fijo indicado no es válido.");
 
+            if (string.IsNullOrWhiteSpace(dto.Direccion)) throw new System.ArgumentException("La Dirección es obligatoria.");
+            if (dto.DniCuit == 0) throw new System.ArgumentException("El DNI/CUIT es obligatorio.");
+            if (dto.DniCuit < 0) throw new System.ArgumentException("El DNI/CUIT indicado no es válido.");
+            if ((dto.TelefonoContacto ?? 0) < 0) throw new System.ArgumentException("El Telefono de Contacto indicado no es válido.");
         }
     }
 }
