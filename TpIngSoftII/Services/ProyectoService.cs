@@ -23,6 +23,7 @@ namespace TpIngSoftII.Services
         private readonly IEntityBaseRepository<EscalaAumentoxAntiguedad> escalaAumentoxAntiguedad;
         private readonly IEntityBaseRepository<EscalaAumentoxPerfil> escalaAumentoxPerfil;
         private readonly IEntityBaseRepository<EscalaAumentoxHora> escalaAumentoxhora;
+        private readonly IEntityBaseRepository<ProyectoEstado> proyectoEstadoRepository;
 
         private readonly IEmpleadoService empleadoService;
 
@@ -35,7 +36,8 @@ namespace TpIngSoftII.Services
             IEntityBaseRepository<EscalaAumentoxHora> escalaAumentoxhora,
             IUnitOfWork unitOfWork,
             IEmpleadoService empleadoService, 
-            IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
+            IAppContext appContext,
+            IEntityBaseRepository<ProyectoEstado> proyectoEstadoRepository) : base(entityRepository, unitOfWork, appContext)
         {
             this.horasTrabajadasRepository = horasTrabajadasRepository;
             this.perfilRepository = perfilRepository;
@@ -43,8 +45,17 @@ namespace TpIngSoftII.Services
             this.escalaAumentoxAntiguedad = escalaAumentoxAntiguedad;
             this.escalaAumentoxPerfil = escalaAumentoxPerfil;
             this.escalaAumentoxhora = escalaAumentoxhora;
+            this.proyectoEstadoRepository = proyectoEstadoRepository;
 
             this.empleadoService = empleadoService;
+        }
+
+        public IEnumerable<ProyectoEstadoDto> ProyectoEstados()
+        {
+            var proyectoEstados = this.proyectoEstadoRepository.AllIncludingAsNoTracking();
+            var proyectoEstadosDto = Mapper.Map<IEnumerable<ProyectoEstado>, IEnumerable<ProyectoEstadoDto>>(proyectoEstados);
+
+            return proyectoEstadosDto;
         }
 
         public decimal HorasTrabajadasPorProyecto(int proyectoID)

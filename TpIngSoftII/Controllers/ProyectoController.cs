@@ -104,6 +104,27 @@ namespace TpIngSoftII.Controllers
 
         }
 
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<ProyectoEstadoDto>))]
+        [Route("ProyectoEstados")]
+        public HttpResponseMessage ProyectoEstados(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = proyectoService.ProyectoEstados();
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+
+        }
+
     }
 
 }
