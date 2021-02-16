@@ -208,14 +208,11 @@
             
             /* Estados de Proyectos */
             Sql("SET IDENTITY_INSERT [dbo].[ProyectoEstados] ON");
-            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (1, N'Negociación')");
-            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (2, N'Iniciado')");
-            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (3, N'Perdido')");
-            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (4, N'Cancelado')");
-            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (5, N'Completado')");
+            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (1, N'Vigente')");
+            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (2, N'Pausado')");
+            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (3, N'Cancelado')");
+            Sql("INSERT INTO [dbo].[ProyectoEstados] ([ID], [Descripcion]) VALUES (4, N'Finalizado')");
             Sql("SET IDENTITY_INSERT [dbo].[ProyectoEstados] OFF");
-
-
         }
 
         public override void Down()
