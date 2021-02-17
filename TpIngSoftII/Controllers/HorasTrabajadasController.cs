@@ -143,6 +143,27 @@ namespace TpIngSoftII.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<HorasTrabajadasEstadoDto>))]
+        [Route("GetHorasTrabajadasEstado")]
+        public HttpResponseMessage GetHorasTrabajadasEstado(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = horasTrabajadasService.GetHorasTrabajadasEstado();
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+
+        }
     }
 
 }
