@@ -15,10 +15,14 @@ namespace TpIngSoftII.Services
 {
     public class EmpleadoService : EntityAppServiceBase<Empleado, EmpleadoDto>, IEmpleadoService
     {
+        private readonly IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository;
+
         public EmpleadoService(IEntityBaseRepository<Empleado> entityRepository, 
                                IUnitOfWork unitOfWork, 
-                               IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
+                               IAppContext appContext,
+                               IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository) : base(entityRepository, unitOfWork, appContext)
         {
+            this.empleadoPerfilRepository = empleadoPerfilRepository;
         }
 
 
@@ -75,6 +79,41 @@ namespace TpIngSoftII.Services
                                            .FirstOrDefault(x => x.Usuario == nombreUsuario
                                                                 && x.Clave == passwordUsuario))?.ID ?? 0;
         }
+
+
+        public IEnumerable<PerfilDto> GetPerfilesDeEmpleado(int empleadoID)
+        {
+            var entity = empleadoPerfilRepository.AllIncludingAsNoTracking(x => x.Perfil)
+                                                 .Where(x => x.EmpleadoID == empleadoID).Select(x => x.Perfil);
+
+            var perfilesDto = Mapper.Map<IEnumerable<Perfil>, IEnumerable<PerfilDto>>(entity);
+
+            return perfilesDto;
+        }
+
+        public IEnumerable<EmpleadoDto> GetEmpleadosDePerfil(int perfilID)
+        {
+            var entity = empleadoPerfilRepository.AllIncludingAsNoTracking(x => x.Empleado)
+                                     .Where(x => x.PerfilID == perfilID).Select(x => x.Empleado);
+
+            var empleadosDto = Mapper.Map<IEnumerable<Empleado>, IEnumerable<EmpleadoDto>>(entity);
+
+            return empleadosDto;
+        }
+
+
+        public int GetEmpleadoPerfilID(int empleadoID, int perfilID)
+        {
+            var empleadoPerfil = empleadoPerfilRepository.AllIncludingAsNoTracking()
+                                     .Where(x => x.EmpleadoID == empleadoID && 
+                                                 x.PerfilID == perfilID).FirstOrDefault();
+            return (empleadoPerfil?.ID ?? 0);
+        }
+
+
+
+
+
 
         private bool ValidarUsuarioExistente(EmpleadoDto dto)
         {

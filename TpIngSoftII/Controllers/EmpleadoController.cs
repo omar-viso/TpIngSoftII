@@ -127,6 +127,66 @@ namespace TpIngSoftII.Controllers
             return response;
 
         }
+
+        [HttpGet]
+        [Route("GetPerfilesDeEmpleado")]
+        [ResponseType(typeof(IEnumerable<PerfilDto>))]
+        public HttpResponseMessage GetPerfilesDeEmpleado(HttpRequestMessage request, int empleadoID)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = empleadoService.GetPerfilesDeEmpleado(empleadoID);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("GetEmpleadosDePerfil")]
+        [ResponseType(typeof(IEnumerable<EmpleadoDto>))]
+        public HttpResponseMessage GetEmpleadosDePerfil(HttpRequestMessage request, int perfilID)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = empleadoService.GetEmpleadosDePerfil(perfilID);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("GetEmpleadoPerfilID")]
+        [ResponseType(typeof(IEnumerable<EmpleadoDto>))]
+        public HttpResponseMessage GetEmpleadoPerfilID(HttpRequestMessage request, int empleadoID, int perfilID)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = empleadoService.GetEmpleadoPerfilID(empleadoID, perfilID);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+        }
     }
 
 }

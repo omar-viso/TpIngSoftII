@@ -48,10 +48,12 @@ namespace TpIngSoftII.Services
             }
 
             /* Validaciones si es una Persona Juridica */
-            if (dto.TipoPersona == Const.TipoPersona.Juridica)
+            else if (dto.TipoPersona == Const.TipoPersona.Juridica)
             {
                 if (string.IsNullOrWhiteSpace(dto.RazonSocial)) throw new System.ArgumentException("La Razon Social es obligatoria.");
             }
+
+            else throw new System.ArgumentException("El el Tipo de Persona indicada no es válida.");
 
             /* Validaciones generales */
             if (string.IsNullOrWhiteSpace(dto.Direccion)) throw new System.ArgumentException("La Dirección es obligatoria.");
