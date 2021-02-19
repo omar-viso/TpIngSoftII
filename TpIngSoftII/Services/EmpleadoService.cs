@@ -15,11 +15,19 @@ namespace TpIngSoftII.Services
 {
     public class EmpleadoService : EntityAppServiceBase<Empleado, EmpleadoDto>, IEmpleadoService
     {
+        private readonly IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository;
+        private readonly IEntityBaseRepository<Perfil> perfilRepository;
+
         public EmpleadoService(IEntityBaseRepository<Empleado> entityRepository, 
                                IUnitOfWork unitOfWork, 
-                               IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
+                               IAppContext appContext,
+                               IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository,
+                               IEntityBaseRepository<Perfil> perfilRepository) : base(entityRepository, unitOfWork, appContext)
         {
+            this.empleadoPerfilRepository = empleadoPerfilRepository;
+            this.perfilRepository = perfilRepository;
         }
+
 
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
         protected override void ValidarEntityUpdating(Empleado entity, EmpleadoDto dto, bool isNew)
@@ -36,7 +44,7 @@ namespace TpIngSoftII.Services
             {
                 if (dto.Perfiles.Count > 0)
                 {
-
+                    if (this.ValidarExistenciaPerfiles(dto)) throw new System.ArgumentException("Uno o más perfil/es indicado/s no son válido/s.");
                 }
             }
         }
@@ -75,6 +83,41 @@ namespace TpIngSoftII.Services
                                                                 && x.Clave == passwordUsuario))?.ID ?? 0;
         }
 
+
+        public IEnumerable<PerfilDto> GetPerfilesDeEmpleado(int empleadoID)
+        {
+            var entity = empleadoPerfilRepository.AllIncludingAsNoTracking(x => x.Perfil)
+                                                 .Where(x => x.EmpleadoID == empleadoID).Select(x => x.Perfil);
+
+            var perfilesDto = Mapper.Map<IEnumerable<Perfil>, IEnumerable<PerfilDto>>(entity);
+
+            return perfilesDto;
+        }
+
+        public IEnumerable<EmpleadoDto> GetEmpleadosDePerfil(int perfilID)
+        {
+            var entity = empleadoPerfilRepository.AllIncludingAsNoTracking(x => x.Empleado)
+                                     .Where(x => x.PerfilID == perfilID).Select(x => x.Empleado);
+
+            var empleadosDto = Mapper.Map<IEnumerable<Empleado>, IEnumerable<EmpleadoDto>>(entity);
+
+            return empleadosDto;
+        }
+
+
+        public int GetEmpleadoPerfilID(int empleadoID, int perfilID)
+        {
+            var empleadoPerfil = empleadoPerfilRepository.AllIncludingAsNoTracking()
+                                     .Where(x => x.EmpleadoID == empleadoID && 
+                                                 x.PerfilID == perfilID).FirstOrDefault();
+            return (empleadoPerfil?.ID ?? 0);
+        }
+
+
+
+
+
+
         private bool ValidarUsuarioExistente(EmpleadoDto dto)
         {
             bool resultado = false;
@@ -89,6 +132,15 @@ namespace TpIngSoftII.Services
             else resultado = true;
 
             return resultado;
+        }
+
+        private bool ValidarExistenciaPerfiles(EmpleadoDto dto)
+        {
+            var perfilesExistentesIds = this.perfilRepository.AllIncludingAsNoTracking().Select(x => x.ID);
+
+            var perfilesIds = dto.Perfiles.Select(x => x.PerfilID);
+            var rta = !perfilesIds.All(x => perfilesExistentesIds.Contains(x));
+            return rta;
         }
     }
 }

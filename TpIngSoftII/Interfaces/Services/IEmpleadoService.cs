@@ -14,5 +14,8 @@ namespace TpIngSoftII.Interfaces.Services
         decimal Antiguedad(int empleadoID);
         EmpleadoDto DameMisDatos();
         int GetEmpleadoUsuarioPassword(string nombreUsuario, string passwordUsuario);
+        IEnumerable<PerfilDto> GetPerfilesDeEmpleado(int empleadoID);
+        IEnumerable<EmpleadoDto> GetEmpleadosDePerfil(int perfilID);
+        int GetEmpleadoPerfilID(int empleadoID, int perfilID);
     }
 }

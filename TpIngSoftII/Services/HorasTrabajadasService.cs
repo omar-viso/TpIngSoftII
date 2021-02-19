@@ -17,13 +17,23 @@ namespace TpIngSoftII.Services
     public class HorasTrabajadasService : EntityAppServiceBase<HorasTrabajadas, HorasTrabajadasDto>, IHorasTrabajadasService
     {
         private readonly IEntityBaseRepository<Tarea> tareaRepository;
+        private readonly IEntityBaseRepository<HorasTrabajadasEstado> horasTrabajadasEstadoRepository;
 
         public HorasTrabajadasService(IEntityBaseRepository<HorasTrabajadas> entityRepository,
                                       IUnitOfWork unitOfWork,
                                       IAppContext appContext,
-                                      IEntityBaseRepository<Tarea> tareaRepository) : base(entityRepository, unitOfWork, appContext)
+                                      IEntityBaseRepository<Tarea> tareaRepository,
+                                      IEntityBaseRepository<HorasTrabajadasEstado> horasTrabajadasEstadoRepository) : base(entityRepository, unitOfWork, appContext)
         {
             this.tareaRepository = tareaRepository;
+            this.horasTrabajadasEstadoRepository = horasTrabajadasEstadoRepository;
+        }
+
+        public IEnumerable<HorasTrabajadasEstadoDto> GetHorasTrabajadasEstado()
+        {
+            var entity = this.horasTrabajadasEstadoRepository.AllIncludingAsNoTracking();
+            var estadosDto = Mapper.Map<IEnumerable<HorasTrabajadasEstado>, IEnumerable<HorasTrabajadasEstadoDto>> (entity);
+            return estadosDto;
         }
 
         public override HorasTrabajadasDto Update(HorasTrabajadasDto dto)
