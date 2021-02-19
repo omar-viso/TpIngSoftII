@@ -10,5 +10,6 @@ namespace TpIngSoftII.Interfaces.Services
 {
     public interface ITareaService : IEntityAppServiceBase<Tarea, TareaDto>
     {
+        List<TareaDto> GetTareasEmpleado(int empleadoID);
     }
 }

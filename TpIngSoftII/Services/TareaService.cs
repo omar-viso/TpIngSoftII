@@ -24,6 +24,15 @@ namespace TpIngSoftII.Services
             this.empleadoPerfilRepository = empleadoPerfilRepository;
         }
 
+        public List<TareaDto> GetTareasEmpleado(int empleadoID)
+        {
+            var tareasEmpleados = entityRepository.AllIncludingAsNoTracking(x => x.EmpleadoPerfil,
+                                                                            x => x.EmpleadoPerfil.Empleado)
+                                                                            .Where(x => x.EmpleadoPerfil.EmpleadoID == empleadoID)
+                                                                            .ToList();
+            return Mapper.Map<List<Tarea>, List<TareaDto>>(tareasEmpleados);
+        }
+
         protected override void ValidarEntityUpdating(Tarea entity, TareaDto dto, bool isNew)
         {
             if (dto.EmpleadoPerfilID <= 0) throw new System.ArgumentException("El Empleado-Perfil indicado no existe.");
@@ -37,5 +46,7 @@ namespace TpIngSoftII.Services
             /* Si existe almenos una tarea para dicho Empleado en ese Proyecto, no se permite asignar otra */
             if (tarea != null) throw new System.ArgumentException("El Empleado indicado ya posee una tarea asignada en dicho Proyecto.");
         }
+
+        
     }
 }

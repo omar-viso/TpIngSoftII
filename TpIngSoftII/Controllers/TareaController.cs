@@ -104,6 +104,24 @@ namespace TpIngSoftII.Controllers
 
         }
 
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<TareaDto>))]
+        [Route("Empleado")]
+        public HttpResponseMessage GetTareasEmpleado(HttpRequestMessage request, int empleadoID)
+        {
+            HttpResponseMessage response = null;
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = tareaService.GetTareasEmpleado(empleadoID);
+                response = request.CreateResponse(HttpStatusCode.OK,dtoUpdated);
+            }
+            return response;
+        }
+
     }
 
 }
