@@ -23,6 +23,12 @@ namespace TpIngSoftII.EFMapping
 
             /* El Empleado es UNICO por DNI, no puede repetirse */
             this.HasIndex(x => new { x.Dni }).IsUnique();
+
+            /* Un Empleado tiene un Rol, un Rol pertece a 1 o muchos Empleados */
+            this.HasRequired(x => x.Rol)
+                .WithMany(y => y.Empleados)
+                .HasForeignKey(x => x.RolID)
+                .WillCascadeOnDelete(false);
         }
     }
 }

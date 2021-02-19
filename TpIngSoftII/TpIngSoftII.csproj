@@ -230,6 +230,7 @@
     <Compile Include="EFMapping\EscalaAumentoxHoraEFConfig.cs" />
     <Compile Include="EFMapping\EscalaAumentoxAntiguedadEFConfig.cs" />
     <Compile Include="EFMapping\EmpleadoPerfilEFConfig.cs" />
+    <Compile Include="EFMapping\RolEFConfig.cs" />
     <Compile Include="EFMapping\TareaEFConfig.cs" />
     <Compile Include="EFMapping\ProyectoEstadoEFConfig.cs" />
     <Compile Include="EFMapping\PerfilEFConfig.cs" />
@@ -259,6 +260,10 @@
     <Compile Include="Migrations\202102161803113_Migracion_1.Designer.cs">
       <DependentUpon>202102161803113_Migracion_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102192231165_Migracion_2.cs" />
+    <Compile Include="Migrations\202102192231165_Migracion_2.Designer.cs">
+      <DependentUpon>202102192231165_Migracion_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Constantes\Const.cs" />
     <Compile Include="Models\DbFactory.cs" />
@@ -266,6 +271,7 @@
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\DTOs\ClienteDto.cs" />
+    <Compile Include="Models\DTOs\RolDto.cs" />
     <Compile Include="Models\DTOs\SubtotalHsOBDto.cs" />
     <Compile Include="Models\DTOs\InformeSemanalHsOBDto.cs" />
     <Compile Include="Models\DTOs\EmpleadoDto.cs" />
@@ -280,6 +286,7 @@
     <Compile Include="Models\DTOs\ProyectoEstadoDto.cs" />
     <Compile Include="Models\DTOs\ProyectoDto.cs" />
     <Compile Include="Models\DTOs\TareaDto.cs" />
+    <Compile Include="Models\Entities\Rol.cs" />
     <Compile Include="Models\Entities\LoginRequest.cs" />
     <Compile Include="Models\Entities\EmpleadoPerfil.cs" />
     <Compile Include="Models\Entities\EscalaAumentoxAntiguedad.cs" />
@@ -397,6 +404,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202102161803113_Migracion_1.resx">
       <DependentUpon>202102161803113_Migracion_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102192231165_Migracion_2.resx">
+      <DependentUpon>202102192231165_Migracion_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

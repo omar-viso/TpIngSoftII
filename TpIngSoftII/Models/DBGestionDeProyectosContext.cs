@@ -32,6 +32,7 @@ namespace TpIngSoftII.Models
         public DbSet<HorasTrabajadasEstado> HorasTrabajadasEstados { get; set; }
         public DbSet<Tarea> Tareas { get; set; }
         public DbSet<HorasTrabajadas> HorasTrabajadas { get; set; }
+        public DbSet<Rol> Roles { get; set; }
 
 
 
@@ -69,6 +70,7 @@ namespace TpIngSoftII.Models
             modelBuilder.Entity<HorasTrabajadasEstado>().ToTable("HorasTrabajadasEstados");
             modelBuilder.Entity<Tarea>().ToTable("Tareas");
             modelBuilder.Entity<HorasTrabajadas>().ToTable("HorasTrabajadas");
+            modelBuilder.Entity<Rol>().ToTable("Roles");
 
             /* Agregar cada configuracion de EF de las Entities */
             modelBuilder.Configurations.Add(new ProyectoEstadoEFConfig());
