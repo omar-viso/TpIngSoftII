@@ -15,6 +15,8 @@ namespace TpIngSoftII.Models.Entities
         public DateTime FechaIngreso { get; set; }
         public string Usuario { get; set; }
         public string Clave { get; set; }
+        public int RolID { get; set; }
+        public virtual Rol Rol { get; set; }
 
         public virtual ICollection<EmpleadoPerfil> Perfiles { get; set; }    
     }

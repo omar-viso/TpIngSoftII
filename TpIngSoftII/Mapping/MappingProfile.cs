@@ -14,7 +14,7 @@ namespace TpIngSoftII.Mapping
         {
             /* Definir los Mapeos por Cada Dto con su Entity */
             CreateMap<ProyectoDto, Proyecto>().ReverseMap()
-                .ForMember(dest => dest.ClienteNombre, opt => opt.MapFrom(src => src.Cliente.Nombre))
+                .ForMember(dest => dest.ClienteNombre, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.Cliente.RazonSocial) ? src.Cliente.RazonSocial : src.Cliente.Nombre))                
                 .ForMember(dest => dest.ProyectoEstadoDescripcion, opt => opt.MapFrom(src => src.ProyectoEstado.Descripcion));
             CreateMap<ClienteDto, Cliente>().ReverseMap();
             CreateMap<EmpleadoDto, Empleado>().ReverseMap();
@@ -34,6 +34,8 @@ namespace TpIngSoftII.Mapping
             CreateMap<EscalaHoraOBDto, EscalaHoraOB>().ReverseMap();
             CreateMap<ProyectoEstadoDto, ProyectoEstado>().ReverseMap();
             CreateMap<HorasTrabajadasEstadoDto, HorasTrabajadasEstado>().ReverseMap();
+            CreateMap<RolDto, Rol>().ReverseMap()
+                .ForMember(dest => dest.RolDescripcion, opt => opt.MapFrom(src => src.Descripcion));
 
         }
     }
