@@ -24,7 +24,7 @@ namespace TpIngSoftII.App_Start
                     AllowAnyHeader = true,
                     AllowAnyMethod = true
                 };
-
+                // lalala
                 policy.Origins.Add(originRequested);
 
                 //IP ESPECIFICA
