@@ -16,13 +16,16 @@ namespace TpIngSoftII.Services
     public class EmpleadoService : EntityAppServiceBase<Empleado, EmpleadoDto>, IEmpleadoService
     {
         private readonly IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository;
+        private readonly IEntityBaseRepository<Perfil> perfilRepository;
 
         public EmpleadoService(IEntityBaseRepository<Empleado> entityRepository, 
                                IUnitOfWork unitOfWork, 
                                IAppContext appContext,
-                               IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository) : base(entityRepository, unitOfWork, appContext)
+                               IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository,
+                               IEntityBaseRepository<Perfil> perfilRepository) : base(entityRepository, unitOfWork, appContext)
         {
             this.empleadoPerfilRepository = empleadoPerfilRepository;
+            this.perfilRepository = perfilRepository;
         }
 
 
@@ -41,7 +44,7 @@ namespace TpIngSoftII.Services
             {
                 if (dto.Perfiles.Count > 0)
                 {
-
+                    if (this.ValidarExistenciaPerfiles(dto)) throw new System.ArgumentException("Uno o más perfil/es indicado/s no son válido/s.");
                 }
             }
         }
@@ -129,6 +132,15 @@ namespace TpIngSoftII.Services
             else resultado = true;
 
             return resultado;
+        }
+
+        private bool ValidarExistenciaPerfiles(EmpleadoDto dto)
+        {
+            var perfilesExistentesIds = this.perfilRepository.AllIncludingAsNoTracking().Select(x => x.ID);
+
+            var perfilesIds = dto.Perfiles.Select(x => x.PerfilID);
+            var rta = !perfilesIds.All(x => perfilesExistentesIds.Contains(x));
+            return rta;
         }
     }
 }
