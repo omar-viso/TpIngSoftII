@@ -75,9 +75,14 @@ namespace TpIngSoftII.Services
 
         private void LogicaCantidadHorasTarea(HorasTrabajadasDto dto)
         {
-            var hsTotalesTarea = this.entityRepository.AllIncludingAsNoTracking()
+            decimal hsTotalesTarea = 0;
+
+            var hsTotalesTareaTmp = this.entityRepository.AllIncludingAsNoTracking()
                                                       .Where(x => x.TareaID == dto.TareaID)
-                                                      .Sum(x => x.CantHoras);
+                                                      .ToList();
+
+            hsTotalesTarea = (hsTotalesTareaTmp != null) ? hsTotalesTareaTmp.Sum(x => x.CantHoras) : 0;
+
             var tarea = this.tareaRepository.AllIncludingAsNoTracking().FirstOrDefault(x => x.ID == dto.TareaID);
             var hsEstimadas = tarea.HorasEstimadas;
 
