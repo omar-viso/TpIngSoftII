@@ -145,9 +145,12 @@ namespace TpIngSoftII.Services
         /* Metodo para Front, antes de llamar al Update para alertar si hay HS OB en la carga a realizar */
         public decimal CantidadHsOB(HorasTrabajadasDto dto)
         {
-            var hsTotalesTarea = this.entityRepository.AllIncludingAsNoTracking()
+            var hsTotalesTareaTmp = this.entityRepository.AllIncludingAsNoTracking()
                                           .Where(x => x.TareaID == dto.TareaID)
-                                          .Sum(x => x.CantHoras);
+                                          .ToList();
+
+            var hsTotalesTarea = (hsTotalesTareaTmp != null) ? hsTotalesTareaTmp.Sum(x => x.CantHoras) : 0;
+
             var tarea = this.tareaRepository.AllIncludingAsNoTracking().FirstOrDefault(x => x.ID == dto.TareaID);
             var hsEstimadas = tarea.HorasEstimadas;
 
