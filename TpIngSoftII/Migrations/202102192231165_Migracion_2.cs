@@ -27,6 +27,9 @@
             Sql("INSERT INTO [dbo].[Roles] ([ID], [Descripcion]) VALUES (2, N'SUPERVISOR')");
             Sql("INSERT INTO [dbo].[Roles] ([ID], [Descripcion]) VALUES (3, N'EMPLEADO')");
             Sql("SET IDENTITY_INSERT [dbo].[Roles] OFF");
+
+            /* Usuario Administrador */
+            Sql("INSERT INTO [dbo].[Empleados] ([Nombre], [Apellido], [Dni], [FechaIngreso], [Usuario], [Clave], [RolID]) VALUES (N'ADMINISTRADOR', N'ADMINISTRADOR', 1, N'2021-01-01 00:00:00', N'admin', N'1234', 1)");
         }
         
         public override void Down()

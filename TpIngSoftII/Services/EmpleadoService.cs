@@ -29,6 +29,83 @@ namespace TpIngSoftII.Services
         }
 
 
+        public override EmpleadoDto Update(EmpleadoDto dto)
+        {
+            using (var scope = new TransactionScope())
+            {
+                Empleado entity = null;
+                var isNew = (dto.ID == 0);
+
+                this.ValidarEntityUpdating(entity, dto, isNew);
+
+                if (dto.ID == 0)
+                {
+                    entity = Mapper.Map<EmpleadoDto, Empleado>(dto);
+                    this.entityRepository.Add(entity);
+                }
+                else
+                {
+                    entity = this.entityRepository.GetSingle(dto.ID);
+                    entity.Nombre = dto.Nombre;
+                    entity.Apellido = dto.Apellido;
+                    entity.Usuario = dto.Usuario;
+                    entity.Clave = dto.Clave;
+                    entity.Dni = dto.Dni;
+                    entity.FechaIngreso = dto.FechaIngreso;
+                    entity.RolID = dto.RolID;
+
+                    UpdateDetallePerfiles(entity, dto);
+                }
+
+                this.unitOfWork.Commit();
+
+                if (entity != null)
+                {
+                    dto.ID = entity.ID;
+                    dto = Mapper.Map<Empleado, EmpleadoDto>(entity);
+                }
+
+                this.ValidarEntityUpdated(entity, dto, isNew);
+
+                scope.Complete();
+            }
+
+            return dto;
+        }
+
+        private void UpdateDetallePerfiles(Empleado entityDb, EmpleadoDto dto)
+        {
+            //1. eliminar los que no vienen en el dto 
+            var deletedItems = entityDb.Perfiles
+                .Where(x => !dto.Perfiles.Any(r => r.ID == x.ID)).ToList();
+
+            foreach (var item in deletedItems) { this.empleadoPerfilRepository.Delete(item); }
+
+            //2. los que vienen con id los busco para modificar 
+            foreach (var item in dto.Perfiles)
+            {
+                /*Concidera nuevo o no en función al ID, esto podría tener otras variantes 
+                     a. Conciderar en función del ID 
+                     b. Conciderar en función a otro indice primario*/
+                if (item.ID != 0)
+                {
+                    //modificado 
+                    var itemDb = entityDb.Perfiles.FirstOrDefault(x => x.ID == item.ID);
+                    if (itemDb == null) throw new System.Exception("El item que intenta modificar no existe o fue eliminado.");
+
+                    itemDb.PerfilID = item.PerfilID;
+                }
+                else
+                {
+                    //nuevo 
+                    entityDb.Perfiles.Add(new EmpleadoPerfil
+                    {
+                        PerfilID = item.PerfilID
+                    });
+                }
+            }
+        }
+
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
         protected override void ValidarEntityUpdating(Empleado entity, EmpleadoDto dto, bool isNew)
         {
