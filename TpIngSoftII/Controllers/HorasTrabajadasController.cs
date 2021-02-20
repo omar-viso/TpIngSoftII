@@ -104,7 +104,7 @@ namespace TpIngSoftII.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("getHsOB")]
         [ResponseType(typeof(decimal))]
         public HttpResponseMessage getHsOB(HttpRequestMessage request, HorasTrabajadasDto dto)
