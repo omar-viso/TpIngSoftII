@@ -17,5 +17,6 @@ namespace TpIngSoftII.Interfaces.Services
         IEnumerable<PerfilDto> GetPerfilesDeEmpleado(int empleadoID);
         IEnumerable<EmpleadoDto> GetEmpleadosDePerfil(int perfilID);
         int GetEmpleadoPerfilID(int empleadoID, int perfilID);
+        EmpleadoPerfilDto GetEmpleadoPerfil(int empleadoPerfilID);
     }
 }

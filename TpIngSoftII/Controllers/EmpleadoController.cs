@@ -187,6 +187,26 @@ namespace TpIngSoftII.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [Route("GetEmpleadoPerfil")]
+        [ResponseType(typeof(EmpleadoPerfilDto))]
+        public HttpResponseMessage GetEmpleadoPerfil(HttpRequestMessage request, int empleadoPerfilID)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = empleadoService.GetEmpleadoPerfil(empleadoPerfilID);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+        }
     }
 
 }

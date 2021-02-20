@@ -190,7 +190,17 @@ namespace TpIngSoftII.Services
             return (empleadoPerfil?.ID ?? 0);
         }
 
-
+        public EmpleadoPerfilDto GetEmpleadoPerfil(int empleadoPerfilID)
+        {
+            var empleadoPerfil = empleadoPerfilRepository.AllIncludingAsNoTracking()
+                                     .Where(x => x.ID == empleadoPerfilID).FirstOrDefault();
+            EmpleadoPerfilDto empleadoPerfilDto = null;
+            if (empleadoPerfil != null)
+            {
+                empleadoPerfilDto = Mapper.Map<EmpleadoPerfil, EmpleadoPerfilDto>(empleadoPerfil);
+            }
+            return empleadoPerfilDto;
+        }
 
 
 
