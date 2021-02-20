@@ -11,5 +11,11 @@ namespace TpIngSoftII.Interfaces.Services
     public interface IProyectoService : IEntityAppServiceBase<Proyecto, ProyectoDto>
     {
         IEnumerable<ProyectoEstadoDto> ProyectoEstados();
+        decimal HorasTrabajadasPorProyecto(int proyectoID);
+        decimal HorasTrabajadasPorProyectoPorPerfil(int proyectoID, int perfilID);
+        decimal HorasTrabajadasPorProyectoPorPerfilPorEmpleado(int proyectoID, int perfilID, int empleadoID, DateTime desde, DateTime hasta);
+        decimal ObtenerHorasAdeudadasPorProyecto(int proyectoID);
+        LiquidacionDto Liquidacion(SolicitaLiquidacionDto dto);
+
     }
 }

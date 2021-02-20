@@ -59,9 +59,9 @@ namespace TpIngSoftII.Services
             return usuarioId;
         }
 
-        public decimal Antiguedad(int empleadoID)
+        public int Antiguedad(int empleadoID)
         {
-            decimal antiguedad = 0;
+            int antiguedad = 0;
             var empleadoTemp = this.entityRepository.AllIncludingAsNoTracking().Where(x => x.ID == empleadoID);
             if (empleadoTemp.Any())
             {

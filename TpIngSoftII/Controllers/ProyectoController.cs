@@ -39,7 +39,6 @@ namespace TpIngSoftII.Controllers
             }
 
             return response;
-
         }
         
         [HttpGet]
@@ -123,6 +122,26 @@ namespace TpIngSoftII.Controllers
 
             return response;
 
+        }
+
+        [HttpPost]
+        [ResponseType(typeof(LiquidacionDto))]
+        [Route("Liquidacion")]
+        public HttpResponseMessage Liquidacion(HttpRequestMessage request, [FromBody] SolicitaLiquidacionDto dto)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = proyectoService.Liquidacion(dto);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
         }
 
     }

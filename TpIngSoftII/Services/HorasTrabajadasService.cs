@@ -8,6 +8,7 @@ using System.Web;
 using TpIngSoftII.Interfaces;
 using TpIngSoftII.Interfaces.Repositories;
 using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models.Constantes;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Models.Entities;
 using static TpIngSoftII.Models.Entities.Proyecto;
@@ -207,5 +208,16 @@ namespace TpIngSoftII.Services
             return resultado;
         }
 
+
+        public void PagarHoraTrabajada(int horaTrabajadaID)
+        {
+            var horaTrabajada = this.GetById(horaTrabajadaID);
+            if (horaTrabajada == null) throw new Exception("No existe la hora trabajada indicada para Pagar.");
+            if (horaTrabajada.HorasTrabajadasEstadoID != Const.HoraTrabajadaEstado.Adeudada) throw new Exception("La hora trabajada indicada ya se encuentra Paga.");
+            /* Si esta todo OK, se modifica a Pagada y se actualiza en BD */
+            horaTrabajada.HorasTrabajadasEstadoID = Const.HoraTrabajadaEstado.Pagada;
+
+            this.Update(horaTrabajada);
+        }
     }
 }
