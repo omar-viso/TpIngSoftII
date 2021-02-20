@@ -154,7 +154,7 @@ namespace TpIngSoftII.Services
 
             var horasTrabajadasProyectoPerfil = this.horasTrabajadasRepository.AllIncludingAsNoTracking(x => x.Tarea,
                                                                                                         x => x.Tarea.EmpleadoPerfil)
-                                                                                .Where(x => x.ProyectoID == proyectoID &&
+                                                                              .Where(x => x.ProyectoID == proyectoID &&
                                                                                        x.Tarea.EmpleadoPerfil.PerfilID == perfilID);
             decimal totalHorasTrabajadasProyectoPerfil = 0;
             if (horasTrabajadasProyectoPerfil.Any())
