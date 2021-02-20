@@ -271,6 +271,9 @@
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\DTOs\ClienteDto.cs" />
+    <Compile Include="Models\DTOs\HorasPerfilesProyectoDto.cs" />
+    <Compile Include="Models\DTOs\ProyectoPerfilesHorasDto.cs" />
+    <Compile Include="Models\DTOs\PerfilHorasDto.cs" />
     <Compile Include="Models\DTOs\SolicitaLiquidacionDto.cs" />
     <Compile Include="Models\DTOs\LiquidacionDto.cs" />
     <Compile Include="Models\DTOs\RolDto.cs" />

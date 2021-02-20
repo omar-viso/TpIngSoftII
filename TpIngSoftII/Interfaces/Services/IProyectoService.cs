@@ -16,6 +16,6 @@ namespace TpIngSoftII.Interfaces.Services
         decimal HorasTrabajadasPorProyectoPorPerfilPorEmpleado(int proyectoID, int perfilID, int empleadoID, DateTime desde, DateTime hasta);
         decimal ObtenerHorasAdeudadasPorProyecto(int proyectoID);
         LiquidacionDto Liquidacion(SolicitaLiquidacionDto dto);
-
+        IEnumerable<ProyectoPerfilesHorasDto> HorasTrabajadasPorProyectoPorPerfilTotales();
     }
 }
