@@ -39,11 +39,13 @@ namespace TpIngSoftII.Services
 
         public override HorasTrabajadasDto Update(HorasTrabajadasDto dto)
         {
+            var tmp = dto;
+
             this.ValidacionesUpdate(dto);
 
             dto.Fecha = DateTime.Now;
 
-            return base.Update(dto);
+            return tmp;
         }
 
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
@@ -57,9 +59,11 @@ namespace TpIngSoftII.Services
             if (string.IsNullOrWhiteSpace(dto.TareaID.ToString())) throw new System.ArgumentException("La id de tarea es obligatoria");
             if (string.IsNullOrWhiteSpace(dto.HorasTrabajadasEstadoID.ToString())) throw new System.ArgumentException("La id del estado de horas trabajadas es obligatoria");
 
-            var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea, x => x.Tarea.EmpleadoPerfil)
-                                                             .Where(x => DbFunctions.TruncateTime(x.Fecha) == dto.Fecha.Date &&
-                                                                          x.Tarea.EmpleadoPerfil.EmpleadoID == this.appContext.EmpleadoID);
+            var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea,
+                                                                                             x => x.Tarea.EmpleadoPerfil)
+                                                                   .Where(x => DbFunctions.TruncateTime(x.Fecha) == dto.Fecha.Date
+                                                                       && x.Tarea.EmpleadoPerfil.EmpleadoID == this.appContext.EmpleadoID);
+ 
             decimal cantHsTrabajadasDelDia = 0;
             if (registrosHsTrabajadasDelDia.Any())
             {
@@ -69,30 +73,30 @@ namespace TpIngSoftII.Services
             /* Si se quiere cargar mas de 10hs de trabajo en un mismo dia, el sistema no lo permite */
             if (cantHsTrabajadasDelDia + dto.CantHoras > 10) throw new System.ArgumentException("No se permiten cargas de horas superiores a las 10hs diarias.");
 
-
             this.LogicaCantidadHorasTarea(dto);
         }
 
         private void LogicaCantidadHorasTarea(HorasTrabajadasDto dto)
         {
-            decimal hsTotalesTarea = 0;
-
+            decimal hsTotalesTarea;
+            // esto tiene todas las horas trabajadas asociadas a la tarea q viene en el dto
             var hsTotalesTareaTmp = this.entityRepository.AllIncludingAsNoTracking()
-                                                      .Where(x => x.TareaID == dto.TareaID)
-                                                      .ToList();
-
-            hsTotalesTarea = (hsTotalesTareaTmp != null) ? hsTotalesTareaTmp.Sum(x => x.CantHoras) : 0;
-
+                                                         .Where(x => x.TareaID == dto.TareaID)
+                                                         .ToList();
+            // si no está vacío (su largo es mayor a 0), sumo sus miembros y obtengo el total de horas, si no, lo dejo en cero
+            hsTotalesTarea = (hsTotalesTareaTmp.Count() > 0) ? hsTotalesTareaTmp.Sum(x => x.CantHoras) : 0;
+            // obtengo las horas estimadas de la tarea q vino en el dto
             var tarea = this.tareaRepository.AllIncludingAsNoTracking().FirstOrDefault(x => x.ID == dto.TareaID);
             var hsEstimadas = tarea.HorasEstimadas;
-
+            // calculo las horas over budget
             var hayHsOB = dto.CantHoras + hsTotalesTarea > hsEstimadas;
-
             /* Variable para saber si se cargan hs OB por desdoble */
             bool seDesdoblaCarga = false;
-
+            bool todasOB = false;
+            // si hay horas over budget
             if (hayHsOB)
             {
+                // preparo variables de horas ob y horas normales
                 decimal hsOBACargar = 0;
                 decimal hsNoOBACargar = 0;
                 /* Si ya se superaron las hs totales a las estimadas, las hs a cargar son todas OB */
@@ -100,46 +104,110 @@ namespace TpIngSoftII.Services
                 {
                     hsOBACargar = dto.CantHoras;
                     hsNoOBACargar = 0;
+
+                    todasOB = true;
                 }
                 /* Si no son todas OB hay que separar en 2 cargas */
                 else
                 {
                     hsOBACargar = dto.CantHoras + hsTotalesTarea - hsEstimadas;
                     hsNoOBACargar = dto.CantHoras - hsOBACargar;
+
                     seDesdoblaCarga = true;
                 }
 
                 /* Valido si hay que desdoblar la carga de Hs */
                 if (seDesdoblaCarga)
                 {
-                    HorasTrabajadasDto hsTrabajadasOBDto = new HorasTrabajadasDto
+                    if (hsNoOBACargar != 0)
                     {
-                        ID = 0,
-                        CantHoras = hsOBACargar,
-                        Fecha = dto.Fecha,
-                        HorasTrabajadasEstadoID = dto.HorasTrabajadasEstadoID,
-                        ProyectoID = dto.ProyectoID,
-                        TareaID = dto.TareaID
-                    };
-                    /* Se cargan las hs OB */
-                    hsTrabajadasOBDto = base.Update(hsTrabajadasOBDto);
-                    using (var scope = new TransactionScope())
-                    {
-                        /* Se marcan las mismas como Hs OB */
-                        var hsTrabajadasOBentity = this.entityRepository.AllIncluding()
-                                                                    .FirstOrDefault(x => x.ID == hsTrabajadasOBDto.ID);
-                        hsTrabajadasOBentity.EsOB = true;
+                        base.Update(new HorasTrabajadasDto
+                        {
+                            ID = 0,
+                            CantHoras = hsNoOBACargar,
+                            Fecha = dto.Fecha,
+                            HorasTrabajadasEstadoID = dto.HorasTrabajadasEstadoID,
+                            ProyectoID = dto.ProyectoID,
+                            TareaID = dto.TareaID
+                        });
+                    }
 
-                        this.entityRepository.Edit(hsTrabajadasOBentity);
-                        this.unitOfWork.Commit();
-                        scope.Complete();
+                    if (hsOBACargar != 0)
+                    {
+                        HorasTrabajadasDto hsTrabajadasOBDto = new HorasTrabajadasDto
+                        {
+                            ID = 0,
+                            CantHoras = hsOBACargar,
+                            Fecha = dto.Fecha,
+                            HorasTrabajadasEstadoID = dto.HorasTrabajadasEstadoID,
+                            ProyectoID = dto.ProyectoID,
+                            TareaID = dto.TareaID
+                        };
+                        /* Se cargan las hs OB */
+                        hsTrabajadasOBDto = base.Update(hsTrabajadasOBDto);
+                        using (var scope = new TransactionScope())
+                        {
+                            /* Se marcan las mismas como Hs OB */
+                            var hsTrabajadasOBentity = this.entityRepository.AllIncluding()
+                                                                            .FirstOrDefault(x => x.ID == hsTrabajadasOBDto.ID);
+                            hsTrabajadasOBentity.EsOB = true;
+
+                            this.entityRepository.Edit(hsTrabajadasOBentity);
+                            this.unitOfWork.Commit();
+                            scope.Complete();
+                        }
                     }
 
                     /* Se modifican las hs para cargar las hs NO OB restantes de la carga de hora mandada */
                     dto.CantHoras = hsNoOBACargar;
                 }
-            }
 
+                if (todasOB)
+                {
+                    if (hsOBACargar != 0)
+                    {
+                        HorasTrabajadasDto hsTrabajadasOBDto = new HorasTrabajadasDto
+                        {
+                            ID = 0,
+                            CantHoras = hsOBACargar,
+                            Fecha = dto.Fecha,
+                            HorasTrabajadasEstadoID = dto.HorasTrabajadasEstadoID,
+                            ProyectoID = dto.ProyectoID,
+                            TareaID = dto.TareaID
+                        };
+                        /* Se cargan las hs OB */
+                        hsTrabajadasOBDto = base.Update(hsTrabajadasOBDto);
+                        using (var scope = new TransactionScope())
+                        {
+                            /* Se marcan las mismas como Hs OB */
+                            var hsTrabajadasOBentity = this.entityRepository.AllIncluding()
+                                                                            .FirstOrDefault(x => x.ID == hsTrabajadasOBDto.ID);
+                            hsTrabajadasOBentity.EsOB = true;
+
+                            this.entityRepository.Edit(hsTrabajadasOBentity);
+                            this.unitOfWork.Commit();
+                            scope.Complete();
+                        }
+                    }
+                    /* Se modifican las hs para cargar las hs NO OB restantes de la carga de hora mandada */
+                    dto.CantHoras = hsNoOBACargar;
+                }
+            } 
+            else
+            {
+                if (dto.CantHoras != 0)
+                {
+                    base.Update(new HorasTrabajadasDto
+                    {
+                        ID = 0,
+                        CantHoras = dto.CantHoras,
+                        Fecha = dto.Fecha,
+                        HorasTrabajadasEstadoID = dto.HorasTrabajadasEstadoID,
+                        ProyectoID = dto.ProyectoID,
+                        TareaID = dto.TareaID
+                    });
+                }
+            }
         }
 
         /* Metodo para Front, antes de llamar al Update para alertar si hay HS OB en la carga a realizar */
