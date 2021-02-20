@@ -163,6 +163,26 @@ namespace TpIngSoftII.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<ProyectoPerfilesEmpleadosHorasDto>))]
+        [Route("HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales")]
+        public HttpResponseMessage HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(HttpRequestMessage request, [FromUri] DateTime desde, [FromUri] DateTime hasta)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = proyectoService.HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(desde, hasta);
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+        }
     }
 
 }

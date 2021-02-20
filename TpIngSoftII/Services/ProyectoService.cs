@@ -134,6 +134,71 @@ namespace TpIngSoftII.Services
             return rta;
         }
 
+        public IEnumerable<ProyectoPerfilesEmpleadosHorasDto> HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(DateTime desde, DateTime hasta)
+        {   /* Buscamos todos los proyectos que existen */
+            var proyectos = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
+                                                                           x => x.Tareas.Select(y => y.EmpleadoPerfil));
+
+            ICollection<ProyectoPerfilesEmpleadosHorasDto> rta = null;
+
+            /* Recorremos todos los proyectos */
+            foreach (var proyecto in proyectos)
+            {
+                var proyectoPerfilesEmpleadosHorasDto = new ProyectoPerfilesEmpleadosHorasDto
+                {
+                    ProyectoNombre = proyecto.Nombre,
+                    PerfilesEmpleadosHoras = (ICollection<PerfilEmpleadosHorasDto>) this.DameCantidadHorasPorPerfilPorEmpleadoDeUnProyecto(proyecto.ID, desde, hasta)
+                };
+                /* Agregamos los resultados por cada proyecto */
+                rta.Add(proyectoPerfilesEmpleadosHorasDto);
+            }
+
+            return rta?.OrderBy(x => x.ProyectoNombre);
+        }
+
+        public IEnumerable<PerfilEmpleadosHorasDto> DameCantidadHorasPorPerfilPorEmpleadoDeUnProyecto(int proyectoID, DateTime desde, DateTime hasta)
+        {
+
+            ICollection<PerfilEmpleadosHorasDto> rta = null;
+
+            if (proyectoID < 0) throw new Exception("El proyecto indicado no es válido.");
+            var proyecto = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
+                                                                           x => x.Tareas.Select(y => y.EmpleadoPerfil))
+                                                                           .Where(x => x.ID == proyectoID).FirstOrDefault();
+            if (proyecto == null) throw new Exception("El proyecto indicado no existe.");
+
+            var perfilesIdsFiltrar = proyecto.Tareas.Select(x => x.EmpleadoPerfil.PerfilID).Distinct();
+
+            var perfiles = this.perfilRepository.AllIncludingAsNoTracking().Where(x => perfilesIdsFiltrar.Contains(x.ID));
+            /* Calculamos los totales de Horas trabajadas por cada perfil que se encuentre trabajando en dicho proyecto */
+            foreach (var perfil in perfiles)
+            {
+                var empleadosIdsFiltrar = proyecto.Tareas.Select(x => x.EmpleadoPerfil.EmpleadoID).Distinct();
+                var empleados = this.empleadoRepository.AllIncludingAsNoTracking().Where(x => empleadosIdsFiltrar.Contains(x.ID));
+
+                var perfilHorasDto = new PerfilEmpleadosHorasDto
+                {
+                    PerfilDescripcion = perfil.Descripcion,
+                    EmpleadosHoras = null
+                };
+                
+                /* Itera por los empleados con dicho perfil en el proyecto */
+                foreach (var empleado in empleados)
+                {   /* Se agrega los datos del empleado y el calculo de las horas con ese perfil en dicho proyecto */
+                    perfilHorasDto.EmpleadosHoras.Add(new EmpleadoHorasDto
+                    {
+                        Empleado = Mapper.Map<Empleado, EmpleadoDto>(empleado),
+                        CantidadHoras = this.HorasTrabajadasPorProyectoPorPerfilPorEmpleado(proyectoID, perfil.ID, empleado.ID, desde, hasta)
+                    });
+                }
+
+                /* Agrego los datos al resultado */
+                rta.Add(perfilHorasDto);
+            }
+
+            return rta;
+        }
+
         public decimal HorasTrabajadasPorProyectoPorPerfil(int proyectoID, int perfilID)
         {   //Veo si el proyecto con ese ID existe
             var proyectoTempSql = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
