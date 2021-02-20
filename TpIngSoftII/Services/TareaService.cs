@@ -49,7 +49,7 @@ namespace TpIngSoftII.Services
                                         .FirstOrDefault(x => x.ProyectoID == dto.ProyectoID 
                                                           && x.EmpleadoPerfil.EmpleadoID == empleadoID);
             /* Si existe almenos una tarea para dicho Empleado en ese Proyecto, no se permite asignar otra */
-            if (tarea != null) throw new System.ArgumentException("El Empleado indicado ya posee una tarea asignada en dicho Proyecto.");
+            if (dto.ID == 0 && tarea != null) throw new System.ArgumentException("El Empleado indicado ya posee una tarea asignada en dicho Proyecto.");
         }
     }
 }
