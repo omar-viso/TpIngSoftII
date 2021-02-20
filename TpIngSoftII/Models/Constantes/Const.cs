@@ -18,5 +18,13 @@ namespace TpIngSoftII.Models.Constantes
             public const int Fisica = 1;
             public const int Juridica = 2;
         }
+
+        public static class ProyectoEstado
+        {
+            public const int Vigente = 1;
+            public const int Pausado = 2;
+            public const int Cancelado = 3;
+            public const int Finalizado = 4;
+        }
     }
 }
