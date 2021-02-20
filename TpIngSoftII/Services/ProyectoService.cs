@@ -307,7 +307,7 @@ namespace TpIngSoftII.Services
             //Habra una escala de incremento en los valores horas por antiguedad
             var escalaXantiguedad = this.escalaAumentoxAntiguedad.AllIncludingAsNoTracking().OrderByDescending(escalaAntiguedad => escalaAntiguedad.Limiteanios);
             // tomamos la prmer escala que cumpla con la condicion
-            int antiguedad = empleadoService.Antiguedad(empleadoID);
+            int antiguedad = empleadoService.Antiguedad(dto.EmpleadoID);
             var porcentajeEscalaXantiguedadAplica = escalaXantiguedad.FirstOrDefault(x => x.Limiteanios <= antiguedad)?.PorcentajeAumento ?? 0;
             // aplicamos el aumento x hora, si el porcentaje es distinto de cero
             if (porcentajeEscalaXantiguedadAplica != 0)
