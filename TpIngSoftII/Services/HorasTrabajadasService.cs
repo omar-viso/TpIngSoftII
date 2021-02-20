@@ -55,9 +55,9 @@ namespace TpIngSoftII.Services
             if (dto.CantHoras > 10) throw new System.ArgumentException("La cantidad de horas no puede ser superior a 10 horas");
 
             //if (dto.Fecha == null || dto.Fecha == DateTime.MinValue) throw new System.ArgumentException("La Fecha es obligatoria");
-            if (string.IsNullOrWhiteSpace(dto.ProyectoID.ToString())) throw new System.ArgumentException("El id de proyecto es obligatorio");
-            if (string.IsNullOrWhiteSpace(dto.TareaID.ToString())) throw new System.ArgumentException("La id de tarea es obligatoria");
-            if (string.IsNullOrWhiteSpace(dto.HorasTrabajadasEstadoID.ToString())) throw new System.ArgumentException("La id del estado de horas trabajadas es obligatoria");
+            if (dto.ProyectoID == 0) throw new System.ArgumentException("El id de proyecto es obligatorio");
+            if (dto.TareaID == 0) throw new System.ArgumentException("La id de tarea es obligatoria");
+            if (dto.HorasTrabajadasEstadoID == 0) throw new System.ArgumentException("La id del estado de horas trabajadas es obligatoria");
 
             var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea,
                                                                                              x => x.Tarea.EmpleadoPerfil)
