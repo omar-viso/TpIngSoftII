@@ -88,7 +88,7 @@ namespace TpIngSoftII.Services
             var proyectos = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
                                                                            x => x.Tareas.Select(y => y.EmpleadoPerfil));
 
-            ICollection<ProyectoPerfilesHorasDto> rta = null;
+            List<ProyectoPerfilesHorasDto> rta = new List<ProyectoPerfilesHorasDto>();
 
             /* Recorremos todos los proyectos */
             foreach (var proyecto in proyectos)
@@ -108,7 +108,7 @@ namespace TpIngSoftII.Services
         public IEnumerable<PerfilHorasDto> DameCantidadHorasPorPerfilDeUnProyecto(int proyectoID)
         {
 
-            ICollection<PerfilHorasDto> rta = null;
+            List<PerfilHorasDto> rta = new List<PerfilHorasDto>();
 
             if (proyectoID < 0) throw new Exception("El proyecto indicado no es válido.");
             var proyecto = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
@@ -137,9 +137,10 @@ namespace TpIngSoftII.Services
         public IEnumerable<ProyectoPerfilesEmpleadosHorasDto> HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(DateTime desde, DateTime hasta)
         {   /* Buscamos todos los proyectos que existen */
             var proyectos = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
-                                                                           x => x.Tareas.Select(y => y.EmpleadoPerfil));
+                                                                           x => x.Tareas.Select(y => y.EmpleadoPerfil))
+                                                 .ToList();
 
-            ICollection<ProyectoPerfilesEmpleadosHorasDto> rta = null;
+            ICollection<ProyectoPerfilesEmpleadosHorasDto> rta = new List<ProyectoPerfilesEmpleadosHorasDto>();
 
             /* Recorremos todos los proyectos */
             foreach (var proyecto in proyectos)
@@ -159,7 +160,7 @@ namespace TpIngSoftII.Services
         public IEnumerable<PerfilEmpleadosHorasDto> DameCantidadHorasPorPerfilPorEmpleadoDeUnProyecto(int proyectoID, DateTime desde, DateTime hasta)
         {
 
-            ICollection<PerfilEmpleadosHorasDto> rta = null;
+            List<PerfilEmpleadosHorasDto> rta = new List<PerfilEmpleadosHorasDto>();
 
             if (proyectoID < 0) throw new Exception("El proyecto indicado no es válido.");
             var proyecto = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
@@ -179,7 +180,7 @@ namespace TpIngSoftII.Services
                 var perfilHorasDto = new PerfilEmpleadosHorasDto
                 {
                     PerfilDescripcion = perfil.Descripcion,
-                    EmpleadosHoras = null
+                    EmpleadosHoras = new List<EmpleadoHorasDto>()
                 };
                 
                 /* Itera por los empleados con dicho perfil en el proyecto */
@@ -203,14 +204,15 @@ namespace TpIngSoftII.Services
         {   //Veo si el proyecto con ese ID existe
             var proyectoTempSql = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
                                                                                  x => x.Tareas.Select(y => y.EmpleadoPerfil))
-                                                                                 .Where(x => x.ID == proyectoID);
+                                                                                 .Where(x => x.ID == proyectoID)
+                                                                                 .ToList();
             var proyectoTemp = proyectoTempSql.FirstOrDefault();
             if (proyectoTemp == null)
             {
                 throw new Exception("No existe proyecto para el id indicado");
             }
-            var perfilTemp = this.perfilRepository.AllIncludingAsNoTracking().Where(x => x.ID == perfilID);
-            if (perfilTemp.Any())
+            var perfilTemp = this.perfilRepository.AllIncludingAsNoTracking().Where(x => x.ID == perfilID).ToList();
+            if (perfilTemp.Count() == 0)
             {
                 throw new Exception("No existe perfil para el id indicado");
             }
@@ -220,7 +222,8 @@ namespace TpIngSoftII.Services
             var horasTrabajadasProyectoPerfil = this.horasTrabajadasRepository.AllIncludingAsNoTracking(x => x.Tarea,
                                                                                                         x => x.Tarea.EmpleadoPerfil)
                                                                               .Where(x => x.ProyectoID == proyectoID &&
-                                                                                       x.Tarea.EmpleadoPerfil.PerfilID == perfilID);
+                                                                                       x.Tarea.EmpleadoPerfil.PerfilID == perfilID)
+                                                                              .ToList();
             decimal totalHorasTrabajadasProyectoPerfil = 0;
             if (horasTrabajadasProyectoPerfil.Any())
             {
@@ -236,19 +239,20 @@ namespace TpIngSoftII.Services
         {   //Veo si el proyecto con ese ID existe
             var proyectoTempSql = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
                                                                                  x => x.Tareas.Select(y => y.EmpleadoPerfil))
-                                                                                 .Where(x => x.ID == proyectoID);
+                                                                                 .Where(x => x.ID == proyectoID)
+                                                                                 .ToList();
             var proyectoTemp = proyectoTempSql.FirstOrDefault();
             if (proyectoTemp == null)
             {
                 throw new Exception("No existe proyecto para el id indicado");
             }
-            var perfilTemp = this.perfilRepository.AllIncludingAsNoTracking().Where(x => x.ID == perfilID);
-            if (perfilTemp.Any())
+            var perfilTemp = this.perfilRepository.AllIncludingAsNoTracking().Where(x => x.ID == perfilID).ToList();
+            if (perfilTemp.Count() == 0)
             {
                 throw new Exception("No existe perfil para el id indicado");
             }
-            var empleadoTemp = this.empleadoRepository.AllIncludingAsNoTracking().Where(x => x.ID == empleadoID);
-            if (empleadoTemp.Any())
+            var empleadoTemp = this.empleadoRepository.AllIncludingAsNoTracking().Where(x => x.ID == empleadoID).ToList();
+            if (empleadoTemp.Count() == 0)
             {
                 throw new Exception("No existe perfil para el id indicado");
             }
@@ -263,9 +267,10 @@ namespace TpIngSoftII.Services
                                                                                 .Where(x => x.ProyectoID == proyectoID &&
                                                                                        x.Tarea.EmpleadoPerfil.PerfilID == perfilID &&
                                                                                        x.Tarea.EmpleadoPerfil.EmpleadoID == empleadoID &&
-                                                                                       DbFunctions.TruncateTime(x.Fecha) >= desde && DbFunctions.TruncateTime(x.Fecha) <= hasta);
+                                                                                       DbFunctions.TruncateTime(x.Fecha) >= desde && DbFunctions.TruncateTime(x.Fecha) <= hasta)
+                                                                                .ToList();
             decimal totalHorasTrabajadasProyectoPerfilEmpleado = 0;
-            if (horasTrabajadasProyectoPerfilEmpleado.Any())
+            if (horasTrabajadasProyectoPerfilEmpleado.Count() > 0)
             {
                 foreach (var hsProyectoPerfil in horasTrabajadasProyectoPerfilEmpleado)
                 {
