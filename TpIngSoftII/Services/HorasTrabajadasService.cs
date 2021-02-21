@@ -283,7 +283,7 @@ namespace TpIngSoftII.Services
             var fechaDesde = DateTime.Now.AddDays(-7).Date;
             var fechaDeHoy = DateTime.Now.Date;
 
-            var registrosHsTrabajadasOBSemanales = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea)
+            var registrosHsTrabajadasOBSemanales = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea, x => x.Tarea.Proyecto)
                                                              .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DbFunctions.TruncateTime(fechaDesde) &&
                                                                          DbFunctions.TruncateTime(x.Fecha) <= DbFunctions.TruncateTime(fechaDeHoy) && x.EsOB);
 
@@ -299,6 +299,7 @@ namespace TpIngSoftII.Services
                                                             .SelectMany(ths => ths.Select(
                                                                 TareaSubTotalHsOB => new SubtotalHsOBDto
                                                                 {
+                                                                    ProyectoNombre = TareaSubTotalHsOB.Tarea.Proyecto.Nombre,
                                                                     TareaID = TareaSubTotalHsOB.TareaID,
                                                                     TareaNombre = TareaSubTotalHsOB.Tarea.Nombre,
                                                                     SubtotalHsOB = ths.Sum(hs => hs.CantHoras),
