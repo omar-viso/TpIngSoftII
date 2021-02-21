@@ -8,6 +8,7 @@ namespace TpIngSoftII.Models.DTOs
 {
     public class SubtotalHsOBDto
     {
+        public string ProyectoNombre { get; set; }
         public int TareaID { get; set; }
         public string TareaNombre { get; set; }
         public decimal SubtotalHsOB { get; set; }
