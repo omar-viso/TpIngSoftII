@@ -17,6 +17,8 @@ namespace TpIngSoftII.Services
 {
     public class HorasTrabajadasService : EntityAppServiceBase<HorasTrabajadas, HorasTrabajadasDto>, IHorasTrabajadasService
     {
+        private bool pagandoFlag = false;
+
         private readonly IEntityBaseRepository<Tarea> tareaRepository;
         private readonly IEntityBaseRepository<HorasTrabajadasEstado> horasTrabajadasEstadoRepository;
         private readonly ITareaService tareaService;
@@ -160,15 +162,19 @@ namespace TpIngSoftII.Services
                             scope.Complete();
                         }
 
-                        var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
+                        if (!pagandoFlag) {
+                            var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
 
-                        actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
+                            actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
 
-                        using (var scope = new TransactionScope())
-                        {
-                            tareaRepository.Edit(actualizarHsOB);
-                            this.unitOfWork.Commit();
-                            scope.Complete();
+                            using (var scope = new TransactionScope())
+                            {
+                                tareaRepository.Edit(actualizarHsOB);
+                                this.unitOfWork.Commit();
+                                scope.Complete();
+                            }
+
+                            pagandoFlag = false;
                         }
                     }
 
@@ -204,15 +210,20 @@ namespace TpIngSoftII.Services
                         }
                     }
 
-                    var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
-
-                    actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
-
-                    using (var scope = new TransactionScope())
+                    if (!pagandoFlag)
                     {
-                        tareaRepository.Edit(actualizarHsOB);
-                        this.unitOfWork.Commit();
-                        scope.Complete();
+                        var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
+
+                        actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
+
+                        using (var scope = new TransactionScope())
+                        {
+                            tareaRepository.Edit(actualizarHsOB);
+                            this.unitOfWork.Commit();
+                            scope.Complete();
+                        }
+
+                        pagandoFlag = false;
                     }
                     /* Se modifican las hs para cargar las hs NO OB restantes de la carga de hora mandada */
                     dto.CantHoras = hsNoOBACargar;
@@ -318,7 +329,14 @@ namespace TpIngSoftII.Services
             /* Si esta todo OK, se modifica a Pagada y se actualiza en BD */
             horaTrabajada.HorasTrabajadasEstadoID = Const.HoraTrabajadaEstado.Pagada;
 
-            this.Update(horaTrabajada);
+            this.Update2(horaTrabajada);
+        }
+
+        private void Update2(HorasTrabajadasDto dto)
+        {
+            pagandoFlag = true;
+
+            this.Update(dto);
         }
     }
 }
