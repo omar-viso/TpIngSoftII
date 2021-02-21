@@ -23,13 +23,13 @@
             /* Inserts */
             /* Estados de Proyectos */
             Sql("SET IDENTITY_INSERT [dbo].[Roles] ON");
-            Sql("INSERT INTO [dbo].[Roles] ([ID], [Descripcion]) VALUES (1, N'ADMINISTRADOR')");
-            Sql("INSERT INTO [dbo].[Roles] ([ID], [Descripcion]) VALUES (2, N'SUPERVISOR')");
-            Sql("INSERT INTO [dbo].[Roles] ([ID], [Descripcion]) VALUES (3, N'EMPLEADO')");
+            Sql("INSERT INTO [dbo].[Roles] ([ID], [Descripcion]) VALUES (1, N'Administrador')");
+            Sql("INSERT INTO [dbo].[Roles] ([ID], [Descripcion]) VALUES (2, N'Supervisor')");
+            Sql("INSERT INTO [dbo].[Roles] ([ID], [Descripcion]) VALUES (3, N'Empleado')");
             Sql("SET IDENTITY_INSERT [dbo].[Roles] OFF");
 
             /* Usuario Administrador */
-            Sql("INSERT INTO [dbo].[Empleados] ([Nombre], [Apellido], [Dni], [FechaIngreso], [Usuario], [Clave], [RolID]) VALUES (N'ADMINISTRADOR', N'ADMINISTRADOR', 1, N'2021-01-01 00:00:00', N'admin', N'1234', 1)");
+            Sql("INSERT INTO [dbo].[Empleados] ([Nombre], [Apellido], [Dni], [FechaIngreso], [Usuario], [Clave], [RolID]) VALUES (N'Administrador', N'Administrador', 1, N'2021-01-01 00:00:00', N'administrador', N'1234', 1)");
         }
         
         public override void Down()
