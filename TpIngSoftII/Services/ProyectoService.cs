@@ -313,11 +313,11 @@ namespace TpIngSoftII.Services
                 //Obtengo la cantidad de horas trabajadas por tipo de perfil por empleado y la multipluco por el valor perfil
                 var desde = dto.Desde.Date;
                 var hasta = dto.Hasta.Date;
-                var empleadoTemp = this.empleadoRepository.AllIncludingAsNoTracking(x => x.Perfiles).Where(x => x.ID == dto.EmpleadoID);
-                if (empleadoTemp.Any())
+                var empleadoTemp = this.empleadoRepository.AllIncludingAsNoTracking(x => x.Perfiles).Where(x => x.ID == dto.EmpleadoID).ToList();
+                if (empleadoTemp.Count() > 0)
                 {
                     empleadoTmp = empleadoTemp.FirstOrDefault();
-                    if (!empleadoTmp.Perfiles.Any()) throw new Exception("No existe perfil para el empleado indicado");
+                    if (empleadoTmp.Perfiles.Count() == 0) throw new Exception("No existe perfil para el empleado indicado");
                 }
                 else
                 {
