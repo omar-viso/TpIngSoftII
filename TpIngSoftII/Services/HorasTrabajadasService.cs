@@ -19,15 +19,18 @@ namespace TpIngSoftII.Services
     {
         private readonly IEntityBaseRepository<Tarea> tareaRepository;
         private readonly IEntityBaseRepository<HorasTrabajadasEstado> horasTrabajadasEstadoRepository;
+        private readonly ITareaService tareaService;
 
         public HorasTrabajadasService(IEntityBaseRepository<HorasTrabajadas> entityRepository,
                                       IUnitOfWork unitOfWork,
                                       IAppContext appContext,
                                       IEntityBaseRepository<Tarea> tareaRepository,
-                                      IEntityBaseRepository<HorasTrabajadasEstado> horasTrabajadasEstadoRepository) : base(entityRepository, unitOfWork, appContext)
+                                      IEntityBaseRepository<HorasTrabajadasEstado> horasTrabajadasEstadoRepository,
+                                      ITareaService tareaService) : base(entityRepository, unitOfWork, appContext)
         {
             this.tareaRepository = tareaRepository;
             this.horasTrabajadasEstadoRepository = horasTrabajadasEstadoRepository;
+            this.tareaService = tareaService;
         }
 
         public IEnumerable<HorasTrabajadasEstadoDto> GetHorasTrabajadasEstado()
@@ -156,6 +159,17 @@ namespace TpIngSoftII.Services
                             this.unitOfWork.Commit();
                             scope.Complete();
                         }
+
+                        var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
+
+                        actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
+
+                        using (var scope = new TransactionScope())
+                        {
+                            tareaRepository.Edit(actualizarHsOB);
+                            this.unitOfWork.Commit();
+                            scope.Complete();
+                        }
                     }
 
                     /* Se modifican las hs para cargar las hs NO OB restantes de la carga de hora mandada */
@@ -188,6 +202,17 @@ namespace TpIngSoftII.Services
                             this.unitOfWork.Commit();
                             scope.Complete();
                         }
+                    }
+
+                    var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
+
+                    actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
+
+                    using (var scope = new TransactionScope())
+                    {
+                        tareaRepository.Edit(actualizarHsOB);
+                        this.unitOfWork.Commit();
+                        scope.Complete();
                     }
                     /* Se modifican las hs para cargar las hs NO OB restantes de la carga de hora mandada */
                     dto.CantHoras = hsNoOBACargar;

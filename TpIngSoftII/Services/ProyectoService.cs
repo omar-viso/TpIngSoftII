@@ -321,7 +321,7 @@ namespace TpIngSoftII.Services
 
                 decimal horasTotales = 0;
                 int cantPerfiles = 0;
-                var valorEscalaHsOB = escalaHoraOB.AllIncludingAsNoTracking().LastOrDefault().PorcentajeAumento;
+                var valorEscalaHsOB = escalaHoraOB.AllIncludingAsNoTracking().ToList().LastOrDefault().PorcentajeAumento;
                 /* variables para usar en la rta */
                 decimal cantidadHsNoOBLiquidados = 0;
                 decimal cantidadHsOBLiquidados = 0;
