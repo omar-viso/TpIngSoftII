@@ -24,6 +24,7 @@ namespace TpIngSoftII.Controllers
         [HttpPost]
         [ResponseType(typeof(PerfilDto))]
         [Route("update")]
+        [MyAuthorize()]
         public HttpResponseMessage Update(HttpRequestMessage request, [FromBody] PerfilDto dto)
         {
             HttpResponseMessage response = null;
@@ -45,6 +46,7 @@ namespace TpIngSoftII.Controllers
         [HttpGet]
         [ResponseType(typeof(IEnumerable<PerfilDto>))]
         [Route()]
+        [MyAuthorize()]
         public HttpResponseMessage Get(HttpRequestMessage request)
         {
             HttpResponseMessage response = null;
@@ -66,6 +68,7 @@ namespace TpIngSoftII.Controllers
         [HttpGet]
         [Route("{id:int}")]
         [ResponseType(typeof(PerfilDto))]
+        [MyAuthorize()]
         public HttpResponseMessage Get(HttpRequestMessage request, int id)
         {
             HttpResponseMessage response = null;
@@ -86,6 +89,7 @@ namespace TpIngSoftII.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [MyAuthorize()]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             HttpResponseMessage response = null;

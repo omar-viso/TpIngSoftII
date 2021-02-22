@@ -67,10 +67,11 @@ namespace TpIngSoftII.Services
             var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea,
                                                                                              x => x.Tarea.EmpleadoPerfil)
                                                                    .Where(x => DbFunctions.TruncateTime(x.Fecha) == dto.Fecha.Date
-                                                                       && x.Tarea.EmpleadoPerfil.EmpleadoID == this.appContext.EmpleadoID);
+                                                                       && x.Tarea.EmpleadoPerfil.EmpleadoID == this.appContext.EmpleadoID)
+                                                                   .ToList();
  
             decimal cantHsTrabajadasDelDia = 0;
-            if (registrosHsTrabajadasDelDia.Any())
+            if (registrosHsTrabajadasDelDia.Count() > 0)
             {
                 cantHsTrabajadasDelDia = registrosHsTrabajadasDelDia.Select(x => x.CantHoras).Sum();
             }              
@@ -284,8 +285,9 @@ namespace TpIngSoftII.Services
             var fechaDeHoy = DateTime.Now.Date;
 
             var registrosHsTrabajadasOBSemanales = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea, x => x.Tarea.Proyecto)
-                                                             .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DbFunctions.TruncateTime(fechaDesde) &&
-                                                                         DbFunctions.TruncateTime(x.Fecha) <= DbFunctions.TruncateTime(fechaDeHoy) && x.EsOB);
+                                                                        .Where(x => DbFunctions.TruncateTime(x.Fecha) >= DbFunctions.TruncateTime(fechaDesde) &&
+                                                                                    DbFunctions.TruncateTime(x.Fecha) <= DbFunctions.TruncateTime(fechaDeHoy) && x.EsOB)
+                                                                        .ToList();
 
             //var subTotalesHsOBporTarea = registrosHsTrabajadasOBSemanales.GroupBy(x => new { TareaID = x.TareaID })
             //                                                             .Select(TareaSubTotalHsOB => new
@@ -303,7 +305,9 @@ namespace TpIngSoftII.Services
                                                                     TareaID = TareaSubTotalHsOB.TareaID,
                                                                     TareaNombre = TareaSubTotalHsOB.Tarea.Nombre,
                                                                     SubtotalHsOB = ths.Sum(hs => hs.CantHoras),
-                                                                })).ToList();
+                                                                }))
+                                                            .OrderBy(x => x.ProyectoNombre)
+                                                            .ToList();
 
 
             decimal hsTotalesOB = 0;
@@ -316,7 +320,7 @@ namespace TpIngSoftII.Services
             {
                 TareasSubtotalesHsOB = subTotalesHsOBporTarea,
                 HsOBTotales = hsTotalesOB
-            };
+            };;
 
             return resultado;
         }
