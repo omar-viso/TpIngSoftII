@@ -113,7 +113,7 @@ namespace TpIngSoftII.Services
         {
             if (string.IsNullOrWhiteSpace(dto.Nombre)) throw new System.ArgumentException("El Nombre es obligatorio.");
             if (string.IsNullOrWhiteSpace(dto.Apellido)) throw new System.ArgumentException("El Apellido es obligatorio.");
-            if (dto.Dni <= 0) throw new System.ArgumentException("El DNI indicado no es válido.");
+            if (!(9999999 < dto.Dni && dto.Dni < 100000000)) throw new System.ArgumentException("El DNI indicado no es válido.");
             if (dto.FechaIngreso == null || dto.FechaIngreso == DateTime.MinValue) throw new System.ArgumentException("La Fecha de Ingreso es obligatoria.");
             if (string.IsNullOrWhiteSpace(dto.Usuario)) throw new System.ArgumentException("El Usuario es obligatorio.");
             if (this.ValidarUsuarioExistente(dto)) throw new System.ArgumentException("El Usuario indicado ya se encuentra en uso. Intente con otro nuevamente.");

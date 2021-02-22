@@ -46,7 +46,8 @@ namespace TpIngSoftII.Services
                                                           .FirstOrDefault(x => x.ID == dto.EmpleadoPerfilID)?.EmpleadoID ?? 0;
             //se busca si existe alguna tarea para el proyecto indicado que pertenezca al empleado */
             var tarea = entityRepository.AllIncludingAsNoTracking(x => x.EmpleadoPerfil)
-                                        .FirstOrDefault(x => x.ProyectoID == dto.ProyectoID 
+                                        .ToList()
+                                        .FirstOrDefault(x => x.ProyectoID == dto.ProyectoID
                                                           && x.EmpleadoPerfil.EmpleadoID == empleadoID);
             /* Si existe almenos una tarea para dicho Empleado en ese Proyecto, no se permite asignar otra */
             if (dto.ID == 0 && tarea != null) throw new System.ArgumentException("El Empleado indicado ya posee una tarea asignada en dicho Proyecto.");

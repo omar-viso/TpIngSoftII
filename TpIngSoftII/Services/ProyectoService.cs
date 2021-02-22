@@ -164,8 +164,11 @@ namespace TpIngSoftII.Services
 
             if (proyectoID < 0) throw new Exception("El proyecto indicado no es válido.");
             var proyecto = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
-                                                                           x => x.Tareas.Select(y => y.EmpleadoPerfil))
-                                                                           .Where(x => x.ID == proyectoID).FirstOrDefault();
+                                                                          x => x.Tareas.Select(y => y.EmpleadoPerfil))
+                                                .Where(x => x.ID == proyectoID)
+                                                .ToList()
+                                                .FirstOrDefault();
+
             if (proyecto == null) throw new Exception("El proyecto indicado no existe.");
 
             var perfilesIdsFiltrar = proyecto.Tareas.Select(x => x.EmpleadoPerfil.PerfilID).Distinct();
