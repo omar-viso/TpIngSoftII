@@ -17,6 +17,7 @@ namespace TpIngSoftII.Services
 {
     public class HorasTrabajadasService : EntityAppServiceBase<HorasTrabajadas, HorasTrabajadasDto>, IHorasTrabajadasService
     {
+        private bool actualizarHsOBTareaFlag = false;
         private bool pagandoFlag = false;
 
         private readonly IEntityBaseRepository<Tarea> tareaRepository;
@@ -46,9 +47,14 @@ namespace TpIngSoftII.Services
         {
             var tmp = dto;
 
-            this.ValidacionesUpdate(dto);
+            if (!actualizarHsOBTareaFlag)
+            {
+                dto.Fecha = DateTime.Now;
+                this.ValidacionesUpdate(dto);
+            } else
+            {
 
-            dto.Fecha = DateTime.Now;
+            }
 
             return tmp;
         }
@@ -66,7 +72,7 @@ namespace TpIngSoftII.Services
 
             var registrosHsTrabajadasDelDia = this.entityRepository.AllIncludingAsNoTracking(x => x.Tarea,
                                                                                              x => x.Tarea.EmpleadoPerfil)
-                                                                   .Where(x => DbFunctions.TruncateTime(x.Fecha) == dto.Fecha.Date
+                                                                   .Where(x => DbFunctions.TruncateTime(x.Fecha) == DbFunctions.TruncateTime(dto.Fecha.Date)
                                                                        && x.Tarea.EmpleadoPerfil.EmpleadoID == this.appContext.EmpleadoID)
                                                                    .ToList();
  
@@ -92,7 +98,7 @@ namespace TpIngSoftII.Services
             // si no está vacío (su largo es mayor a 0), sumo sus miembros y obtengo el total de horas, si no, lo dejo en cero
             hsTotalesTarea = (hsTotalesTareaTmp.Count() > 0) ? hsTotalesTareaTmp.Sum(x => x.CantHoras) : 0;
             // obtengo las horas estimadas de la tarea q vino en el dto
-            var tarea = this.tareaRepository.AllIncludingAsNoTracking().FirstOrDefault(x => x.ID == dto.TareaID);
+            var tarea = this.tareaRepository.AllIncludingAsNoTracking().ToList().FirstOrDefault(x => x.ID == dto.TareaID);
             var hsEstimadas = tarea.HorasEstimadas;
             // calculo las horas over budget
             var hayHsOB = dto.CantHoras + hsTotalesTarea > hsEstimadas;
@@ -155,6 +161,7 @@ namespace TpIngSoftII.Services
                         {
                             /* Se marcan las mismas como Hs OB */
                             var hsTrabajadasOBentity = this.entityRepository.AllIncluding()
+                                                                            .ToList()
                                                                             .FirstOrDefault(x => x.ID == hsTrabajadasOBDto.ID);
                             hsTrabajadasOBentity.EsOB = true;
 
@@ -163,20 +170,20 @@ namespace TpIngSoftII.Services
                             scope.Complete();
                         }
 
-                        if (!pagandoFlag) {
-                            var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
+                        //if (!actualizarHsOBTareaFlag) {
+                        //    var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
 
-                            actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
+                        //    actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
 
-                            using (var scope = new TransactionScope())
-                            {
-                                tareaRepository.Edit(actualizarHsOB);
-                                this.unitOfWork.Commit();
-                                scope.Complete();
-                            }
+                        //    using (var scope = new TransactionScope())
+                        //    {
+                        //        tareaRepository.Edit(actualizarHsOB);
+                        //        this.unitOfWork.Commit();
+                        //        scope.Complete();
+                        //    }
 
-                            pagandoFlag = false;
-                        }
+                        //    actualizarHsOBTareaFlag = false;
+                        //}
                     }
 
                     /* Se modifican las hs para cargar las hs NO OB restantes de la carga de hora mandada */
@@ -202,6 +209,7 @@ namespace TpIngSoftII.Services
                         {
                             /* Se marcan las mismas como Hs OB */
                             var hsTrabajadasOBentity = this.entityRepository.AllIncluding()
+                                                                            .ToList()
                                                                             .FirstOrDefault(x => x.ID == hsTrabajadasOBDto.ID);
                             hsTrabajadasOBentity.EsOB = true;
 
@@ -211,21 +219,21 @@ namespace TpIngSoftII.Services
                         }
                     }
 
-                    if (!pagandoFlag)
-                    {
-                        var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
+                    //if (!actualizarHsOBTareaFlag)
+                    //{
+                    //    var actualizarHsOB = tareaRepository.GetSingle(dto.TareaID);
 
-                        actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
+                    //    actualizarHsOB.HorasOB = actualizarHsOB.HorasOB + hsOBACargar;
 
-                        using (var scope = new TransactionScope())
-                        {
-                            tareaRepository.Edit(actualizarHsOB);
-                            this.unitOfWork.Commit();
-                            scope.Complete();
-                        }
+                    //    using (var scope = new TransactionScope())
+                    //    {
+                    //        tareaRepository.Edit(actualizarHsOB);
+                    //        this.unitOfWork.Commit();
+                    //        scope.Complete();
+                    //    }
 
-                        pagandoFlag = false;
-                    }
+                    //    actualizarHsOBTareaFlag = false;
+                    //}
                     /* Se modifican las hs para cargar las hs NO OB restantes de la carga de hora mandada */
                     dto.CantHoras = hsNoOBACargar;
                 }
@@ -328,18 +336,25 @@ namespace TpIngSoftII.Services
 
         public void PagarHoraTrabajada(int horaTrabajadaID)
         {
-            var horaTrabajada = this.GetById(horaTrabajadaID);
+            var horaTrabajada = entityRepository.GetSingle(horaTrabajadaID);
             if (horaTrabajada == null) throw new Exception("No existe la hora trabajada indicada para Pagar.");
             if (horaTrabajada.HorasTrabajadasEstadoID != Const.HoraTrabajadaEstado.Adeudada) throw new Exception("La hora trabajada indicada ya se encuentra Paga.");
             /* Si esta todo OK, se modifica a Pagada y se actualiza en BD */
-            horaTrabajada.HorasTrabajadasEstadoID = Const.HoraTrabajadaEstado.Pagada;
+            
 
-            this.Update2(horaTrabajada);
+            using (var scope = new TransactionScope())
+            {
+                horaTrabajada.HorasTrabajadasEstadoID = Const.HoraTrabajadaEstado.Pagada;
+
+                this.entityRepository.Edit(horaTrabajada);
+                this.unitOfWork.Commit();
+                scope.Complete();
+            }
         }
 
         private void Update2(HorasTrabajadasDto dto)
         {
-            pagandoFlag = true;
+            actualizarHsOBTareaFlag = true;
 
             this.Update(dto);
         }

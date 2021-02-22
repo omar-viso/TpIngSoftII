@@ -409,11 +409,12 @@ namespace TpIngSoftII.Services
                 {
                     var horasTrabajadasPerfilEmpleado = this.horasTrabajadasRepository.AllIncludingAsNoTracking(x => x.Tarea,
                                                                                                             x => x.Tarea.EmpleadoPerfil)
-                                                                                    .Where(x =>
+                                                                                      .Where(x =>
                                                                                            x.Tarea.EmpleadoPerfil.PerfilID == empleadoPerfil.PerfilID &&
                                                                                            x.Tarea.EmpleadoPerfil.EmpleadoID == dto.EmpleadoID &&
                                                                                            DbFunctions.TruncateTime(x.Fecha) >= desde && DbFunctions.TruncateTime(x.Fecha) <= hasta &&
-                                                                                           x.HorasTrabajadasEstadoID == Const.HoraTrabajadaEstado.Adeudada);
+                                                                                           x.HorasTrabajadasEstadoID == Const.HoraTrabajadaEstado.Adeudada)
+                                                                                      .ToList();
                     /* Seteamos la cantidad de proyectos que se van a liquidar hs */
                     cantidadProyectosLiquidados += horasTrabajadasPerfilEmpleado.Select(x => x.ProyectoID)?.Distinct()?.Count() ?? 0;
                     /* Seteamos la cantidad de tareas que se van a liquidar hs */
@@ -468,7 +469,7 @@ namespace TpIngSoftII.Services
                 //existe una escala en la que se indica un porcentaje de aumento x hora
 
                 // ordenamos la escala de mayor a menor
-                var escalaxhora = this.escalaAumentoxhora.AllIncludingAsNoTracking().OrderByDescending(escalaHoras => escalaHoras.LimiteHoras);
+                var escalaxhora = this.escalaAumentoxhora.AllIncludingAsNoTracking().ToList().OrderByDescending(escalaHoras => escalaHoras.LimiteHoras);
                 // tomamos la prmer escala que cumpla con la condicion
                 var porcentajeAumentoCantHorasAplica = escalaxhora.FirstOrDefault(x => x.LimiteHoras <= horasTotales)?.PorcentajeAumento ?? 0;
                 // aplicamos el aumento x hora
@@ -481,7 +482,7 @@ namespace TpIngSoftII.Services
                 }
 
                 //si cumplio funciones en mas de un perfil tambien tendra un porcentaje de aumento
-                var escalaxperfil = this.escalaAumentoxPerfil.AllIncludingAsNoTracking().OrderByDescending(escalaPerfil => escalaPerfil.LimitecantPerfiles);
+                var escalaxperfil = this.escalaAumentoxPerfil.AllIncludingAsNoTracking().ToList().OrderByDescending(escalaPerfil => escalaPerfil.LimitecantPerfiles);
                 // tomamos la prmer escala que cumpla con la condicion
                 var porcentajeAumentoPerfilAplica = escalaxhora.FirstOrDefault(x => x.LimiteHoras <= cantPerfiles)?.PorcentajeAumento ?? 0;
 
@@ -494,7 +495,7 @@ namespace TpIngSoftII.Services
                 }
 
                 //Habra una escala de incremento en los valores horas por antiguedad
-                var escalaXantiguedad = this.escalaAumentoxAntiguedad.AllIncludingAsNoTracking().OrderByDescending(escalaAntiguedad => escalaAntiguedad.Limiteanios);
+                var escalaXantiguedad = this.escalaAumentoxAntiguedad.AllIncludingAsNoTracking().ToList().OrderByDescending(escalaAntiguedad => escalaAntiguedad.Limiteanios);
                 // tomamos la prmer escala que cumpla con la condicion
                 int antiguedad = empleadoService.Antiguedad(dto.EmpleadoID);
                 var porcentajeEscalaXantiguedadAplica = escalaXantiguedad.FirstOrDefault(x => x.Limiteanios <= antiguedad)?.PorcentajeAumento ?? 0;
@@ -506,7 +507,7 @@ namespace TpIngSoftII.Services
                     porcentajeAplicadoAntiguedad = porcentajeEscalaXantiguedadAplica;
                 }
 
-                var perfilesExistentes = this.perfilRepository.AllIncludingAsNoTracking();
+                var perfilesExistentes = this.perfilRepository.AllIncludingAsNoTracking().ToList();
                 var infoPerfilesExistentes = Mapper.Map<IEnumerable<Perfil>, IEnumerable<PerfilDto>>(perfilesExistentes);
 
                 var rta = new LiquidacionDto
