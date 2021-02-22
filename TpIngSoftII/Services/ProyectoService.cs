@@ -484,14 +484,14 @@ namespace TpIngSoftII.Services
                 //si cumplio funciones en mas de un perfil tambien tendra un porcentaje de aumento
                 var escalaxperfil = this.escalaAumentoxPerfil.AllIncludingAsNoTracking().ToList().OrderByDescending(escalaPerfil => escalaPerfil.LimitecantPerfiles);
                 // tomamos la prmer escala que cumpla con la condicion
-                var porcentajeAumentoPerfilAplica = escalaxhora.FirstOrDefault(x => x.LimiteHoras <= cantPerfiles)?.PorcentajeAumento ?? 0;
+                var porcentajeAumentoPerfilAplica = escalaxperfil.FirstOrDefault(x => x.LimitecantPerfiles <= cantPerfiles)?.PorcentajeAumento ?? 0;
 
                 if (porcentajeAumentoPerfilAplica != 0)
                 {
                     // aplicamos el aumento x hora
                     costoLiquidacion += costoLiquidacion * porcentajeAumentoPerfilAplica / 100;
                     /* Seteamos el Porcentaje por Antiguedad aplicado */
-                    porcentajeAplicadoAntiguedad = porcentajeAumentoPerfilAplica;
+                    porcentajeAplicadoCantidadPerfiles = porcentajeAumentoPerfilAplica;
                 }
 
                 //Habra una escala de incremento en los valores horas por antiguedad
