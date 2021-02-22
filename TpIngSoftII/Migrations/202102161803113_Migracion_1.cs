@@ -201,7 +201,7 @@
             Sql("INSERT INTO [dbo].[EscalaAumentoxPerfiles] ([LimitecantPerfiles], [PorcentajeAumento]) VALUES (4, CAST(0.80 AS Decimal(18, 2)))");
 
             /* Valor de Hora OB */
-            Sql("INSERT INTO [dbo].[EscalaHorasOB] ([PorcentajeAumento]) VALUES (CAST(0.50 AS Decimal(18, 2)))");
+            Sql("INSERT INTO [dbo].[EscalaHorasOB] ([PorcentajeAumento]) VALUES (CAST(50.00 AS Decimal(18, 2)))");
 
 
 

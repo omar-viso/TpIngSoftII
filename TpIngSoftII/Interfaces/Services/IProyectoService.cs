@@ -18,5 +18,6 @@ namespace TpIngSoftII.Interfaces.Services
         LiquidacionDto Liquidacion(SolicitaLiquidacionDto dto);
         IEnumerable<ProyectoPerfilesHorasDto> HorasTrabajadasPorProyectoPorPerfilTotales();
         IEnumerable<ProyectoPerfilesEmpleadosHorasDto> HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(DateTime desde, DateTime hasta);
+        IEnumerable<ProyectoEmpleadoHorasAdeudadasDto> HorasAdeudadasPorProyectoPorEmpleadoTotales();
     }
 }
