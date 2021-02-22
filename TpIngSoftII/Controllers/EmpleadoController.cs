@@ -25,6 +25,7 @@ namespace TpIngSoftII.Controllers
         [HttpPost]
         [ResponseType(typeof(EmpleadoDto))]
         [Route("update")]
+        [MyAuthorize()]
         public HttpResponseMessage Update(HttpRequestMessage request, [FromBody] EmpleadoDto dto)
         {
             HttpResponseMessage response = null;
@@ -46,6 +47,7 @@ namespace TpIngSoftII.Controllers
         [HttpGet]
         [ResponseType(typeof(IEnumerable<EmpleadoDto>))]
         [Route()]
+        [MyAuthorize()]
         public HttpResponseMessage Get(HttpRequestMessage request)
         {
             HttpResponseMessage response = null;
@@ -66,8 +68,8 @@ namespace TpIngSoftII.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        [Authorize()]
         [ResponseType(typeof(EmpleadoDto))]
+        [MyAuthorize()]
         public HttpResponseMessage Get(HttpRequestMessage request, int id)
         {
             HttpResponseMessage response = null;
@@ -88,6 +90,7 @@ namespace TpIngSoftII.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [MyAuthorize()]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             HttpResponseMessage response = null;
@@ -108,8 +111,8 @@ namespace TpIngSoftII.Controllers
 
         [HttpGet]
         [Route("DameMisDatos")]
-        [MyAuthorize()]
         [ResponseType(typeof(EmpleadoDto))]
+        [MyAuthorize()]
         public HttpResponseMessage DameMisDatos(HttpRequestMessage request)
         {
             HttpResponseMessage response = null;
@@ -131,6 +134,7 @@ namespace TpIngSoftII.Controllers
         [HttpGet]
         [Route("GetPerfilesDeEmpleado")]
         [ResponseType(typeof(IEnumerable<PerfilDto>))]
+        [MyAuthorize()]
         public HttpResponseMessage GetPerfilesDeEmpleado(HttpRequestMessage request, int empleadoID)
         {
             HttpResponseMessage response = null;
@@ -151,6 +155,7 @@ namespace TpIngSoftII.Controllers
         [HttpGet]
         [Route("GetEmpleadosDePerfil")]
         [ResponseType(typeof(IEnumerable<EmpleadoDto>))]
+        [MyAuthorize()]
         public HttpResponseMessage GetEmpleadosDePerfil(HttpRequestMessage request, int perfilID)
         {
             HttpResponseMessage response = null;
@@ -171,6 +176,7 @@ namespace TpIngSoftII.Controllers
         [HttpGet]
         [Route("GetEmpleadoPerfilID")]
         [ResponseType(typeof(IEnumerable<EmpleadoDto>))]
+        [MyAuthorize()]
         public HttpResponseMessage GetEmpleadoPerfilID(HttpRequestMessage request, int empleadoID, int perfilID)
         {
             HttpResponseMessage response = null;
@@ -191,6 +197,7 @@ namespace TpIngSoftII.Controllers
         [HttpGet]
         [Route("GetEmpleadoPerfil")]
         [ResponseType(typeof(EmpleadoPerfilDto))]
+        [MyAuthorize()]
         public HttpResponseMessage GetEmpleadoPerfil(HttpRequestMessage request, int empleadoPerfilID)
         {
             HttpResponseMessage response = null;
