@@ -194,9 +194,9 @@ namespace TpIngSoftII.Controllers
         }
 
         [HttpGet]
-        [MyAuthorize]
-        [ResponseType(typeof(IEnumerable<ProyectoPerfilesEmpleadosHorasDto>))]
+        [ResponseType(typeof(IEnumerable<ProyectoEmpleadoHorasAdeudadasDto>))]
         [Route("HorasAdeudadasPorProyectoPorEmpleadoTotales")]
+        [MyAuthorize()]
         public HttpResponseMessage HorasAdeudadasPorProyectoPorEmpleadoTotales(HttpRequestMessage request)
         {
             HttpResponseMessage response = null;
