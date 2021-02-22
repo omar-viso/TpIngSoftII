@@ -55,6 +55,8 @@ namespace TpIngSoftII.Services
                     entity.RolID = dto.RolID;
 
                     UpdateDetallePerfiles(entity, dto);
+
+                    this.entityRepository.Edit(entity);
                 }
 
                 this.unitOfWork.Commit();
@@ -77,7 +79,7 @@ namespace TpIngSoftII.Services
         {
             //1. eliminar los que no vienen en el dto 
             var deletedItems = entityDb.Perfiles
-                .Where(x => !dto.Perfiles.Any(r => r.ID == x.ID)).ToList();
+                                       .Where(x => !dto.Perfiles.Any(r => r.ID == x.ID)).ToList();
 
             foreach (var item in deletedItems) { this.empleadoPerfilRepository.Delete(item); }
 
@@ -210,6 +212,7 @@ namespace TpIngSoftII.Services
             bool resultado = false;
             /* Se busca si existe un Empleado con el Usuario ingresado en el dto */
             var entity = this.entityRepository.AllIncludingAsNoTracking()
+                                              .ToList()
                                               .FirstOrDefault(x => x.Usuario == dto.Usuario);
             /* Si no se encuentra, se puede utilizar dicho Usuario */
             if (entity == null) resultado = false;
