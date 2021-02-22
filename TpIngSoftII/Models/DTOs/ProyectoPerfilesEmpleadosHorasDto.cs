@@ -6,11 +6,9 @@ using TpIngSoftII.Interfaces;
 
 namespace TpIngSoftII.Models.DTOs
 {
-    public class SubtotalHsOBDto
+    public class ProyectoPerfilesEmpleadosHorasDto
     {
         public string ProyectoNombre { get; set; }
-        public int TareaID { get; set; }
-        public string TareaNombre { get; set; }
-        public decimal SubtotalHsOB { get; set; }
+        public ICollection<PerfilEmpleadosHorasDto> PerfilesEmpleadosHoras {get;set;}
     }
 }

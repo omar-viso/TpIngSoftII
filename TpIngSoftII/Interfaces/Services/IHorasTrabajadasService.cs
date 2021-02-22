@@ -13,5 +13,6 @@ namespace TpIngSoftII.Interfaces.Services
         InformeSemanalHsOBDto InformeSemanalHsOB();
         decimal CantidadHsOB(HorasTrabajadasDto dto);
         IEnumerable<HorasTrabajadasEstadoDto> GetHorasTrabajadasEstado();
+        void PagarHoraTrabajada(int horaTrabajadaID);
     }
 }

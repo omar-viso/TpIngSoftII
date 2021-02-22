@@ -200,6 +200,11 @@
             Sql("INSERT INTO [dbo].[EscalaAumentoxPerfiles] ([LimitecantPerfiles], [PorcentajeAumento]) VALUES (3, CAST(0.50 AS Decimal(18, 2)))");
             Sql("INSERT INTO [dbo].[EscalaAumentoxPerfiles] ([LimitecantPerfiles], [PorcentajeAumento]) VALUES (4, CAST(0.80 AS Decimal(18, 2)))");
 
+            /* Valor de Hora OB */
+            Sql("INSERT INTO [dbo].[EscalaHorasOB] ([PorcentajeAumento]) VALUES (CAST(50.00 AS Decimal(18, 2)))");
+
+
+
             /* Estados de Horas Trabajadas */
             Sql("SET IDENTITY_INSERT [dbo].[HorasTrabajadasEstados] ON");
             Sql("INSERT INTO [dbo].[HorasTrabajadasEstados] ([ID], [Descripcion]) VALUES (1, N'Pagada')");

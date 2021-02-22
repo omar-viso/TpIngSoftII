@@ -29,12 +29,91 @@ namespace TpIngSoftII.Services
         }
 
 
+        public override EmpleadoDto Update(EmpleadoDto dto)
+        {
+            using (var scope = new TransactionScope())
+            {
+                Empleado entity = null;
+                var isNew = (dto.ID == 0);
+
+                this.ValidarEntityUpdating(entity, dto, isNew);
+
+                if (dto.ID == 0)
+                {
+                    entity = Mapper.Map<EmpleadoDto, Empleado>(dto);
+                    this.entityRepository.Add(entity);
+                }
+                else
+                {
+                    entity = this.entityRepository.GetSingle(dto.ID);
+                    entity.Nombre = dto.Nombre;
+                    entity.Apellido = dto.Apellido;
+                    entity.Usuario = dto.Usuario;
+                    entity.Clave = dto.Clave;
+                    entity.Dni = dto.Dni;
+                    entity.FechaIngreso = dto.FechaIngreso;
+                    entity.RolID = dto.RolID;
+
+                    UpdateDetallePerfiles(entity, dto);
+
+                    this.entityRepository.Edit(entity);
+                }
+
+                this.unitOfWork.Commit();
+
+                if (entity != null)
+                {
+                    dto.ID = entity.ID;
+                    dto = Mapper.Map<Empleado, EmpleadoDto>(entity);
+                }
+
+                this.ValidarEntityUpdated(entity, dto, isNew);
+
+                scope.Complete();
+            }
+
+            return dto;
+        }
+
+        private void UpdateDetallePerfiles(Empleado entityDb, EmpleadoDto dto)
+        {
+            //1. eliminar los que no vienen en el dto 
+            var deletedItems = entityDb.Perfiles
+                                       .Where(x => !dto.Perfiles.Any(r => r.ID == x.ID)).ToList();
+
+            foreach (var item in deletedItems) { this.empleadoPerfilRepository.Delete(item); }
+
+            //2. los que vienen con id los busco para modificar 
+            foreach (var item in dto.Perfiles)
+            {
+                /*Concidera nuevo o no en función al ID, esto podría tener otras variantes 
+                     a. Conciderar en función del ID 
+                     b. Conciderar en función a otro indice primario*/
+                if (item.ID != 0)
+                {
+                    //modificado 
+                    var itemDb = entityDb.Perfiles.FirstOrDefault(x => x.ID == item.ID);
+                    if (itemDb == null) throw new System.Exception("El item que intenta modificar no existe o fue eliminado.");
+
+                    itemDb.PerfilID = item.PerfilID;
+                }
+                else
+                {
+                    //nuevo 
+                    entityDb.Perfiles.Add(new EmpleadoPerfil
+                    {
+                        PerfilID = item.PerfilID
+                    });
+                }
+            }
+        }
+
         /* Hacer Override de los metodos que necesite customizar (validaciones, logicas, etc.) heredados de EntityAppServiceBase */
         protected override void ValidarEntityUpdating(Empleado entity, EmpleadoDto dto, bool isNew)
         {
             if (string.IsNullOrWhiteSpace(dto.Nombre)) throw new System.ArgumentException("El Nombre es obligatorio.");
             if (string.IsNullOrWhiteSpace(dto.Apellido)) throw new System.ArgumentException("El Apellido es obligatorio.");
-            if (dto.Dni <= 0) throw new System.ArgumentException("El DNI indicado no es válido.");
+            if (!(9999999 < dto.Dni && dto.Dni < 100000000)) throw new System.ArgumentException("El DNI indicado no es válido.");
             if (dto.FechaIngreso == null || dto.FechaIngreso == DateTime.MinValue) throw new System.ArgumentException("La Fecha de Ingreso es obligatoria.");
             if (string.IsNullOrWhiteSpace(dto.Usuario)) throw new System.ArgumentException("El Usuario es obligatorio.");
             if (this.ValidarUsuarioExistente(dto)) throw new System.ArgumentException("El Usuario indicado ya se encuentra en uso. Intente con otro nuevamente.");
@@ -59,9 +138,9 @@ namespace TpIngSoftII.Services
             return usuarioId;
         }
 
-        public decimal Antiguedad(int empleadoID)
+        public int Antiguedad(int empleadoID)
         {
-            decimal antiguedad = 0;
+            int antiguedad = 0;
             var empleadoTemp = this.entityRepository.AllIncludingAsNoTracking().Where(x => x.ID == empleadoID);
             if (empleadoTemp.Any())
             {
@@ -113,7 +192,17 @@ namespace TpIngSoftII.Services
             return (empleadoPerfil?.ID ?? 0);
         }
 
-
+        public EmpleadoPerfilDto GetEmpleadoPerfil(int empleadoPerfilID)
+        {
+            var empleadoPerfil = empleadoPerfilRepository.AllIncludingAsNoTracking()
+                                     .Where(x => x.ID == empleadoPerfilID).FirstOrDefault();
+            EmpleadoPerfilDto empleadoPerfilDto = null;
+            if (empleadoPerfil != null)
+            {
+                empleadoPerfilDto = Mapper.Map<EmpleadoPerfil, EmpleadoPerfilDto>(empleadoPerfil);
+            }
+            return empleadoPerfilDto;
+        }
 
 
 
@@ -123,6 +212,7 @@ namespace TpIngSoftII.Services
             bool resultado = false;
             /* Se busca si existe un Empleado con el Usuario ingresado en el dto */
             var entity = this.entityRepository.AllIncludingAsNoTracking()
+                                              .ToList()
                                               .FirstOrDefault(x => x.Usuario == dto.Usuario);
             /* Si no se encuentra, se puede utilizar dicho Usuario */
             if (entity == null) resultado = false;
