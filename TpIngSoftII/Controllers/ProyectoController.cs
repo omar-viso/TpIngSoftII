@@ -183,6 +183,27 @@ namespace TpIngSoftII.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [MyAuthorize]
+        [ResponseType(typeof(IEnumerable<ProyectoPerfilesEmpleadosHorasDto>))]
+        [Route("HorasAdeudadasPorProyectoPorEmpleadoTotales")]
+        public HttpResponseMessage HorasAdeudadasPorProyectoPorEmpleadoTotales(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var dtoUpdated = proyectoService.HorasAdeudadasPorProyectoPorEmpleadoTotales();
+                response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+        }
     }
 
 }

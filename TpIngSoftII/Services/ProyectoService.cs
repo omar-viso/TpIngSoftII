@@ -280,6 +280,64 @@ namespace TpIngSoftII.Services
             return totalHorasTrabajadasProyectoPerfilEmpleado;
         }
 
+        public IEnumerable<ProyectoEmpleadoHorasAdeudadasDto> HorasAdeudadasPorProyectoPorEmpleadoTotales()
+        {
+            var rta = new List<ProyectoEmpleadoHorasAdeudadasDto>();
+
+            /* Buscamos todos los proyectos que existen y extraemos sus IDs*/
+            var proyectos = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
+                                                                           x => x.Tareas.Select(y => y.EmpleadoPerfil),
+                                                                           x => x.Tareas.Select(y => y.EmpleadoPerfil.Empleado));
+            /* Calculamos las horas adeudas de cada empleado iterando por cada proyecto */
+            foreach (var proyecto in proyectos)
+            {
+                var proyectoPerfilesEmpleadosHorasDto = new ProyectoEmpleadoHorasAdeudadasDto
+                {
+                    ProyectoNombre = proyecto.Nombre,
+                    EmpleadoHoras = new List<EmpleadoNombreHorasDto>()
+                };
+                /* Nos quedamos con los Empleados del proyecto que iterado */
+                var empleadosDelProyecto = proyecto.Tareas.Select(x => x.EmpleadoPerfil.Empleado)?.Distinct();
+                /* Calculamos las horas adeudadas por cada Empleado */
+                foreach (var empleadoDelProyecto in empleadosDelProyecto)
+                {
+                    var EmpleadoNombreHorasDto = new EmpleadoNombreHorasDto
+                    {
+                        EmpleadoNombre = empleadoDelProyecto.Nombre,
+                        EmpleadoApellido = empleadoDelProyecto.Apellido,
+                        CantidadHorasAdeudadas = this.CalcularHorasAdeudadasProyectoEmpleado(proyecto.ID, empleadoDelProyecto.ID)
+                    };
+                    /* Agrego los resultados a EmpleadosHoras */
+                    proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras.Add(EmpleadoNombreHorasDto);
+                }
+
+                /* Agrego los datos al resultado */
+                rta.Add(proyectoPerfilesEmpleadosHorasDto);
+            }
+            return rta;
+        }
+
+        public decimal CalcularHorasAdeudadasProyectoEmpleado(int proyectoID, int empleadoID)
+        {
+            //HorasTrabajadasEstadoID == 2 (adeudadas), traemos las adeudadas de dicho proyecto para dicho empleado 
+            var horasTrabajadasProyecto = this.horasTrabajadasRepository.AllIncludingAsNoTracking(x => x.Tarea,
+                                                                                                  x => x.Tarea.EmpleadoPerfil,
+                                                                                                  x => x.Tarea.EmpleadoPerfil.Empleado)
+                                                                        .Where(x => x.ProyectoID == proyectoID &&
+                                                                                    x.HorasTrabajadasEstadoID == 2 &&
+                                                                                    x.Tarea.EmpleadoPerfil.EmpleadoID == empleadoID);
+            decimal totalHorasTrabajadas = 0;
+            if (horasTrabajadasProyecto.Any())
+            {
+                foreach (var hsProyecto in horasTrabajadasProyecto)
+                {
+                    totalHorasTrabajadas += hsProyecto.CantHoras;
+                }
+            }
+            return totalHorasTrabajadas;
+        }
+
+
         //Por cada proyecto se desea conocer las horas adeudadas
         public decimal ObtenerHorasAdeudadasPorProyecto(int proyectoID)
         {

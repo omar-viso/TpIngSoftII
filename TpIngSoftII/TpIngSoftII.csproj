@@ -271,10 +271,12 @@
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\DTOs\ClienteDto.cs" />
+    <Compile Include="Models\DTOs\EmpleadoNombreHorasDto.cs" />
     <Compile Include="Models\DTOs\HorasPerfilesProyectoDto.cs" />
     <Compile Include="Models\DTOs\EmpleadoHorasDto.cs" />
     <Compile Include="Models\DTOs\ProyectoPerfilesEmpleadosHorasDto.cs" />
     <Compile Include="Models\DTOs\PerfilEmpleadosHorasDto.cs" />
+    <Compile Include="Models\DTOs\ProyectoEmpleadoHorasAdeudadasDto.cs" />
     <Compile Include="Models\DTOs\ProyectoPerfilesHorasDto.cs" />
     <Compile Include="Models\DTOs\PerfilHorasDto.cs" />
     <Compile Include="Models\DTOs\SolicitaLiquidacionDto.cs" />
