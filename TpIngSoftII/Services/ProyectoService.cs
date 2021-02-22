@@ -178,7 +178,7 @@ namespace TpIngSoftII.Services
             foreach (var perfil in perfiles)
             {
                 var empleadosIdsFiltrar = proyecto.Tareas.Select(x => x.EmpleadoPerfil.EmpleadoID).Distinct();
-                var empleados = this.empleadoRepository.AllIncludingAsNoTracking().Where(x => empleadosIdsFiltrar.Contains(x.ID));
+                var empleados = this.empleadoRepository.AllIncludingAsNoTracking(x => x.Perfiles).Where(x => empleadosIdsFiltrar.Contains(x.ID));
 
                 var perfilHorasDto = new PerfilEmpleadosHorasDto
                 {
@@ -189,11 +189,15 @@ namespace TpIngSoftII.Services
                 /* Itera por los empleados con dicho perfil en el proyecto */
                 foreach (var empleado in empleados)
                 {   /* Se agrega los datos del empleado y el calculo de las horas con ese perfil en dicho proyecto */
-                    perfilHorasDto.EmpleadosHoras.Add(new EmpleadoHorasDto
+                    /* Si no existe para dicho perfil no se carga */
+                    if (empleado.Perfiles.FirstOrDefault(x => x.PerfilID == perfil.ID) != null)
                     {
-                        Empleado = Mapper.Map<Empleado, EmpleadoDto>(empleado),
-                        CantidadHoras = this.HorasTrabajadasPorProyectoPorPerfilPorEmpleado(proyectoID, perfil.ID, empleado.ID, desde, hasta)
-                    });
+                        perfilHorasDto.EmpleadosHoras.Add(new EmpleadoHorasDto
+                        {
+                            Empleado = Mapper.Map<Empleado, EmpleadoDto>(empleado),
+                            CantidadHoras = this.HorasTrabajadasPorProyectoPorPerfilPorEmpleado(proyectoID, perfil.ID, empleado.ID, desde, hasta)
+                        });
+                    }
                 }
 
                 /* Agrego los datos al resultado */
