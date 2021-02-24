@@ -28,6 +28,61 @@ namespace Escritorio
         {
             Application.Exit();
         }
+
+        private void MostrarSubMenu(Panel subMenu)
+        {
+            if (subMenu.Visible == false)
+            {
+                subMenu.Visible = true;
+            }
+            else
+            {
+                subMenu.Visible = false;
+            }
+        }
+
+
+        
+
+        private void Clientes_Click(object sender, EventArgs e)
+        {
+            MostrarSubMenu(SubMenuClientes);
+        }
+
+        private void Tareas_Click(object sender, EventArgs e)
+        {
+            MostrarSubMenu(SubMenuTareas);
+        }
+
+        private void Proyectos_Click(object sender, EventArgs e)
+        {
+            MostrarSubMenu(SubMenuProyectos);
+        }
+
+        private void Empleados_Click(object sender, EventArgs e)
+        {
+            MostrarSubMenu(SubMenuEmpleados);
+        }
+
+        private void Perfiles_Click(object sender, EventArgs e)
+        {
+            MostrarSubMenu(SubMenuPerfiles);
+        }
+
+        private void Informes_Click(object sender, EventArgs e)
+        {
+            MostrarSubMenu(SubMenuInformes);
+        }
+
+        private void Menu_lateral_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
 
