@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,13 +8,14 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Services;
 
 namespace TpIngSoftII.Controllers
 {
     [RoutePrefix("api/Clientes")]
-    public class ClienteController : ApiController
+    public class ClienteController : ApiControllerBase
     {
         private readonly IClienteService clienteService;
 
@@ -107,6 +109,26 @@ namespace TpIngSoftII.Controllers
 
             return response;
 
+        }
+
+        [HttpGet]
+        [Route("ExportarClientes")]
+        [MyAuthorize]
+        public HttpResponseMessage ExportarClientes(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest, new { sucess = false });
+            }
+            else
+            {
+                Stream excel = this.clienteService.ExportarExcel();
+                response = ResponseExcel(request, excel, "Listado de Clientes");
+            }
+
+            return response;
         }
     }
 

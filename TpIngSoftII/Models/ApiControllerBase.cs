@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Transactions;
 using System.Web;
 using System.Web.Http;
@@ -28,6 +31,21 @@ namespace TpIngSoftII.Models
                 var appContext = scope.GetService(typeof(IAppContext)) as IAppContext;
                 return appContext.EmpleadoID;
             }
+        }
+
+        protected HttpResponseMessage ResponseExcel(HttpRequestMessage request, Stream xlsx, string fileName)
+        {
+            HttpResponseMessage response = null;
+
+            response = request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StreamContent(xlsx);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = fileName + ".xlsx"
+            };
+            return response;
+
         }
 
     }

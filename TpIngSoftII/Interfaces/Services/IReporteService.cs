@@ -9,8 +9,8 @@ using TpIngSoftII.Models.Entities;
 
 namespace TpIngSoftII.Interfaces.Services
 {
-    public interface IClienteService : IEntityAppServiceBase<Cliente, ClienteDto>
+    public interface IReporteService
     {
-        Stream ExportarExcel();
+        Stream GenerarExcel(List<int> generarOCs);
     }
 }

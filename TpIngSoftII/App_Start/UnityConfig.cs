@@ -28,6 +28,7 @@ namespace TpIngSoftII
             container.RegisterType<IPerfilService, PerfilService>(new PerResolveLifetimeManager());
             container.RegisterType<IHorasTrabajadasService, HorasTrabajadasService>(new PerResolveLifetimeManager());
             container.RegisterType<IClienteService, ClienteService>(new PerResolveLifetimeManager());
+            container.RegisterType<IReporteService, ReporteService>(new PerResolveLifetimeManager());
 
             container.RegisterType(typeof(IEntityAppServiceBase<,>), typeof(EntityAppServiceBase<,>), new PerResolveLifetimeManager());
             container.RegisterType(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>), new PerResolveLifetimeManager());

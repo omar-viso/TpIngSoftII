@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -16,10 +17,15 @@ namespace TpIngSoftII.Services
 {
     public class ClienteService : EntityAppServiceBase<Cliente, ClienteDto>, IClienteService
     {
+        private readonly IReporteService reporteService;
+
+
         public ClienteService(IEntityBaseRepository<Cliente> entityRepository, 
                                IUnitOfWork unitOfWork, 
-                               IAppContext appContext) : base(entityRepository, unitOfWork, appContext)
+                               IAppContext appContext,
+                               IReporteService reporteService) : base(entityRepository, unitOfWork, appContext)
         {
+            this.reporteService = reporteService;
         }
 
         public override ClienteDto Update(ClienteDto dto)
@@ -61,5 +67,14 @@ namespace TpIngSoftII.Services
             if (dto.DniCuit < 0) throw new System.ArgumentException("El DNI/CUIT indicado no es válido.");
             if ((dto.TelefonoContacto ?? 0) < 0) throw new System.ArgumentException("El Telefono de Contacto indicado no es válido.");
         }
+
+
+        public Stream ExportarExcel()
+        {
+            var exportarCliente = new List<int>();
+            exportarCliente.Add(1);
+            return this.reporteService.GenerarExcel(exportarCliente);
+        }
+
     }
 }
