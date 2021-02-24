@@ -88,5 +88,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TpIngSoftII\TpIngSoftII.csproj">
+      <Project>{c29db010-ad6f-42ea-a45f-e22221e68930}</Project>
+      <Name>TpIngSoftII</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

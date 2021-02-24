@@ -83,6 +83,11 @@ namespace Escritorio
         {
 
         }
+
+        private void VerListaClientes_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
