@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.Entities;
+using Escritorio.Interfaces;
 
 namespace Escritorio
 {
@@ -64,6 +65,7 @@ namespace Escritorio
                 {
                     MessageBox.Show("Login Exitoso!");
                     this.Hide();
+                    // PASAR COMO INYECCION DE DEPENDENCIAS!!!!(Mirar Ej.: MainInicial.cs)
                     frmMain fm = new frmMain(empleadoService, clienteService, empleado);
                     fm.Show();
                 }
