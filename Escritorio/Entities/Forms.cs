@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Escritorio.Interfaces;
+using TpIngSoftII.Interfaces;
 using TpIngSoftII.Interfaces.Services;
 
 namespace Escritorio.Entities
@@ -12,16 +13,18 @@ namespace Escritorio.Entities
     {
         private readonly IEmpleadoService empleadoService;
         private readonly IClienteService clienteService;
+        private readonly IAppContext appContext;
 
-        public Forms(IEmpleadoService empleadoService, IClienteService clienteService)
+        public Forms(IEmpleadoService empleadoService, IClienteService clienteService, IAppContext appContext)
         {
             this.empleadoService = empleadoService;
             this.clienteService = clienteService;
+            this.appContext = appContext;
         }
 
         public frmLogin GetFrmLogin()
         {
-            return new frmLogin(this.empleadoService, this.clienteService);
+            return new frmLogin(this.empleadoService, this.clienteService, this.appContext);
         }
 
     }

@@ -10,5 +10,6 @@ namespace TpIngSoftII.Interfaces
     {
         int EmpleadoID { get; set; }
         void SetEmpleado(int empleadoId);
+        void SetEmpleadoRol(int rolId);
     }
 }
