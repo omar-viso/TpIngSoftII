@@ -16,6 +16,7 @@ using TpIngSoftII.Repositories;
 using TpIngSoftII.Interfaces;
 using TpIngSoftII.Models;
 using Escritorio.Interfaces;
+using Escritorio.Entities;
 
 namespace Escritorio
 {
@@ -48,6 +49,7 @@ namespace Escritorio
             container.RegisterType<IClienteService, ClienteService>();
             container.RegisterType<IReporteService, ReporteService>();
             container.RegisterType<IMainInicial, MainInicial>();
+            container.RegisterType<IForms, Forms>();
 
             var obj = container.Resolve<IMainInicial>();
 

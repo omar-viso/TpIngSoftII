@@ -65,6 +65,7 @@ namespace Escritorio
                 {
                     MessageBox.Show("Login Exitoso!");
                     this.Hide();
+                    // PASAR COMO INYECCION DE DEPENDENCIAS!!!!(Mirar Ej.: MainInicial.cs)
                     frmMain fm = new frmMain(empleadoService, clienteService, empleado);
                     fm.Show();
                 }

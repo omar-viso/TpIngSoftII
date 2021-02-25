@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constantes\Constantes.cs" />
+    <Compile Include="Entities\Forms.cs" />
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +104,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IForms.cs" />
     <Compile Include="Interfaces\IMainInicial.cs" />
     <Compile Include="MainInicial.cs" />
     <Compile Include="Program.cs" />
