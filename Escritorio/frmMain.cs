@@ -7,20 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models.DTOs;
 
 namespace Escritorio
 {
     public partial class frmMain : Form
     {
-        public frmMain()
+        private readonly IEmpleadoService empleadoService;
+        private readonly IClienteService clienteService;
+        private EmpleadoDto empleado;
+
+        public frmMain(IEmpleadoService empleadoService, IClienteService clienteService, EmpleadoDto empleado)
         {
+            this.empleado = empleado;
+            this.empleadoService = empleadoService;
+            this.clienteService = clienteService;
             InitializeComponent();
         }
 
         private void btn_LogOut_Click(object sender, EventArgs e)
         {
             this.Hide();
-            frmLogin fl = new frmLogin();
+            frmLogin fl = new frmLogin(empleadoService, clienteService);
             fl.Show();
         }
 

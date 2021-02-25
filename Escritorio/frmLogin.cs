@@ -8,13 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models.Entities;
 
 namespace Escritorio
 {
     public partial class frmLogin : Form
     {
-        public frmLogin()
+        private readonly IEmpleadoService empleadoService;
+        private readonly IClienteService clienteService;
+
+        public frmLogin(IEmpleadoService empleadoService,
+                        IClienteService clienteService)
         {
+            this.empleadoService = empleadoService;
+            this.clienteService = clienteService;
             InitializeComponent();
         }
         //Connection String
@@ -33,7 +41,10 @@ namespace Escritorio
                 return;
             }
             try
-            {
+            {   // PASAR NO TRACKEADO!!!!
+                var empleado = this.empleadoService.GetById(empleadoService.ValidarCredenciales(new LoginRequest { Username = txt_UserName.Text, Password = txt_Password.Text }));
+                var cliente = this.clienteService.GetById(4);
+
                 //Create SqlConnection
                 //SqlConnection con = new SqlConnection(cs);
                 //SqlCommand cmd = new SqlCommand("Select * from tbl_Login where UserName=@username and Password=@password", con);
@@ -45,15 +56,15 @@ namespace Escritorio
                 //adapt.Fill(ds);
                 //con.Close();
                 //int count = ds.Tables[0].Rows.Count;
-                int count=0;
-                if (txt_UserName.Text == "julimanesi94" && txt_Password.Text == "1234")
-                    count = 1;
+                int count =0;
+                //if (txt_UserName.Text == "julimanesi94" && txt_Password.Text == "1234")
+                //    count = 1;
                 //If count is equal to 1, than show frmMain form
-                if (count == 1)
+                if (empleado != null)
                 {
                     MessageBox.Show("Login Exitoso!");
                     this.Hide();
-                    frmMain fm = new frmMain();
+                    frmMain fm = new frmMain(empleadoService, clienteService, empleado);
                     fm.Show();
                 }
                 else
@@ -67,5 +78,10 @@ namespace Escritorio
             }
         
     }
+
+        private void txt_UserName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
