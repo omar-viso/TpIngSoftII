@@ -23,6 +23,8 @@ namespace Escritorio
             this.empleado = empleado;
             this.empleadoService = empleadoService;
             this.clienteService = clienteService;
+
+
             InitializeComponent();
         }
 

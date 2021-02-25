@@ -56,6 +56,10 @@
             this.LogOut = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.LiquidarButton = new System.Windows.Forms.Button();
+            this.Liquidacion = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.Menu_lateral.SuspendLayout();
             this.SubMenuInformes.SuspendLayout();
             this.SubMenuPerfiles.SuspendLayout();
@@ -65,12 +69,15 @@
             this.SubMenuClientes.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // Menu_lateral
             // 
             this.Menu_lateral.AutoScroll = true;
             this.Menu_lateral.BackColor = System.Drawing.SystemColors.Control;
+            this.Menu_lateral.Controls.Add(this.panel3);
+            this.Menu_lateral.Controls.Add(this.Liquidacion);
             this.Menu_lateral.Controls.Add(this.SubMenuInformes);
             this.Menu_lateral.Controls.Add(this.Informes);
             this.Menu_lateral.Controls.Add(this.SubMenuPerfiles);
@@ -86,7 +93,7 @@
             this.Menu_lateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.Menu_lateral.Location = new System.Drawing.Point(0, 0);
             this.Menu_lateral.Name = "Menu_lateral";
-            this.Menu_lateral.Size = new System.Drawing.Size(164, 511);
+            this.Menu_lateral.Size = new System.Drawing.Size(164, 606);
             this.Menu_lateral.TabIndex = 0;
             this.Menu_lateral.Paint += new System.Windows.Forms.PaintEventHandler(this.Menu_lateral_Paint);
             // 
@@ -143,6 +150,7 @@
             this.Informes.TabIndex = 10;
             this.Informes.Text = "Informes";
             this.Informes.UseVisualStyleBackColor = false;
+            this.Informes.Visible = false;
             this.Informes.Click += new System.EventHandler(this.Informes_Click);
             // 
             // SubMenuPerfiles
@@ -198,6 +206,7 @@
             this.Perfiles.TabIndex = 8;
             this.Perfiles.Text = "Perfiles";
             this.Perfiles.UseVisualStyleBackColor = false;
+            this.Perfiles.Visible = false;
             this.Perfiles.Click += new System.EventHandler(this.Perfiles_Click);
             // 
             // SubMenuEmpleados
@@ -253,6 +262,7 @@
             this.Empleados.TabIndex = 6;
             this.Empleados.Text = "Empleados";
             this.Empleados.UseVisualStyleBackColor = false;
+            this.Empleados.Visible = false;
             this.Empleados.Click += new System.EventHandler(this.Empleados_Click);
             // 
             // SubMenuProyectos
@@ -308,6 +318,7 @@
             this.Proyectos.TabIndex = 4;
             this.Proyectos.Text = "Proyectos";
             this.Proyectos.UseVisualStyleBackColor = false;
+            this.Proyectos.Visible = false;
             this.Proyectos.Click += new System.EventHandler(this.Proyectos_Click);
             // 
             // SubMenuTareas
@@ -419,6 +430,7 @@
             this.Clientes.TabIndex = 0;
             this.Clientes.Text = "Clientes";
             this.Clientes.UseVisualStyleBackColor = false;
+            this.Clientes.Visible = false;
             this.Clientes.Click += new System.EventHandler(this.Clientes_Click);
             // 
             // LogOut
@@ -439,6 +451,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.MediumBlue;
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.LogOut);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -452,16 +465,67 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 33);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(804, 511);
+            this.panel2.Size = new System.Drawing.Size(804, 606);
             this.panel2.TabIndex = 0;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.LiquidarButton);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 515);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(164, 35);
+            this.panel3.TabIndex = 13;
+            this.panel3.Visible = false;
+            // 
+            // LiquidarButton
+            // 
+            this.LiquidarButton.BackColor = System.Drawing.SystemColors.Control;
+            this.LiquidarButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LiquidarButton.FlatAppearance.BorderSize = 0;
+            this.LiquidarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LiquidarButton.Location = new System.Drawing.Point(0, 0);
+            this.LiquidarButton.Name = "LiquidarButton";
+            this.LiquidarButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.LiquidarButton.Size = new System.Drawing.Size(164, 23);
+            this.LiquidarButton.TabIndex = 0;
+            this.LiquidarButton.Text = "Liquidar";
+            this.LiquidarButton.UseVisualStyleBackColor = false;
+            // 
+            // Liquidacion
+            // 
+            this.Liquidacion.BackColor = System.Drawing.SystemColors.Control;
+            this.Liquidacion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Liquidacion.FlatAppearance.BorderSize = 0;
+            this.Liquidacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Liquidacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Liquidacion.Location = new System.Drawing.Point(0, 492);
+            this.Liquidacion.Name = "Liquidacion";
+            this.Liquidacion.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.Liquidacion.Size = new System.Drawing.Size(164, 23);
+            this.Liquidacion.TabIndex = 12;
+            this.Liquidacion.Text = "Liquidación";
+            this.Liquidacion.UseVisualStyleBackColor = false;
+            this.Liquidacion.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Window;
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(268, 17);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Sistema de gestión de empleados - ";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(804, 544);
+            this.ClientSize = new System.Drawing.Size(804, 639);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "frmMain";
@@ -475,7 +539,9 @@
             this.SubMenuTareas.ResumeLayout(false);
             this.SubMenuClientes.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -510,5 +576,9 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button Informes;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button LiquidarButton;
+        private System.Windows.Forms.Button Liquidacion;
+        private System.Windows.Forms.Label label1;
     }
 }
