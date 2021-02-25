@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TpIngSoftII.Interfaces;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
 
@@ -16,11 +17,14 @@ namespace Escritorio
     {
         private readonly IEmpleadoService empleadoService;
         private readonly IClienteService clienteService;
-        private EmpleadoDto empleado;
+        private readonly IAppContext appContext;
 
-        public frmMain(IEmpleadoService empleadoService, IClienteService clienteService, EmpleadoDto empleado)
+        //private EmpleadoDto empleado;
+
+        public frmMain(IEmpleadoService empleadoService, IClienteService clienteService, /*EmpleadoDto empleado*/ IAppContext appContext)
         {
-            this.empleado = empleado;
+            //this.empleado = empleado;
+            this.appContext = appContext;
             this.empleadoService = empleadoService;
             this.clienteService = clienteService;
             InitializeComponent();
@@ -29,7 +33,7 @@ namespace Escritorio
         private void btn_LogOut_Click(object sender, EventArgs e)
         {
             this.Hide();
-            frmLogin fl = new frmLogin(empleadoService, clienteService);
+            frmLogin fl = new frmLogin(empleadoService, clienteService, appContext);
             fl.Show();
         }
 

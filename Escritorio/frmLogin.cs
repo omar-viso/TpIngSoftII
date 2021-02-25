@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.Entities;
 using Escritorio.Interfaces;
+using TpIngSoftII.Interfaces;
 
 namespace Escritorio
 {
@@ -18,12 +19,14 @@ namespace Escritorio
     {
         private readonly IEmpleadoService empleadoService;
         private readonly IClienteService clienteService;
+        private readonly IAppContext appContext;
 
         public frmLogin(IEmpleadoService empleadoService,
-                        IClienteService clienteService)
+                        IClienteService clienteService, IAppContext appContext)
         {
             this.empleadoService = empleadoService;
             this.clienteService = clienteService;
+            this.appContext = appContext;
             InitializeComponent();
         }
         //Connection String
@@ -66,7 +69,10 @@ namespace Escritorio
                     MessageBox.Show("Login Exitoso!");
                     this.Hide();
                     // PASAR COMO INYECCION DE DEPENDENCIAS!!!!(Mirar Ej.: MainInicial.cs)
-                    frmMain fm = new frmMain(empleadoService, clienteService, empleado);
+                    this.appContext.SetEmpleado(empleado.ID);
+                    this.appContext.SetEmpleadoRol(empleado.RolID);
+
+                    frmMain fm = new frmMain(empleadoService, clienteService, appContext);
                     fm.Show();
                 }
                 else
