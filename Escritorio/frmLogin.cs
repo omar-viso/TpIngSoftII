@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.Entities;
+using Escritorio.Interfaces;
 
 namespace Escritorio
 {

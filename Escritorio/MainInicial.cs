@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Escritorio.Interfaces;
 using TpIngSoftII.Interfaces.Services;
 
 namespace Escritorio
 {
     
-    class MainInicial
+    class MainInicial : IMainInicial
     {
         private readonly IEmpleadoService empleadoService;
         private readonly IClienteService clienteService;
