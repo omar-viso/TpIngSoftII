@@ -130,6 +130,27 @@ namespace TpIngSoftII.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [Route("ClientesReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage ClientesReporte(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = clienteService.ClientesReporte();                
+                response = ResponsePDF(request, pdf, "Reporte de Clientes");
+            }
+
+            return response;
+
+        }
     }
 
 }
