@@ -27,5 +27,10 @@ namespace Escritorio.Entities
             return new frmLogin(this.empleadoService, this.clienteService, this.appContext);
         }
 
+        public frmMain GetFrmMain()
+        {
+            return new frmMain(this.empleadoService, this.clienteService, this.appContext);
+
+        }
     }
 }

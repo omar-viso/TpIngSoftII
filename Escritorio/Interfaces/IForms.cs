@@ -9,5 +9,6 @@ namespace Escritorio.Interfaces
     public interface IForms
     {
         frmLogin GetFrmLogin();
+        frmMain GetFrmMain();
     }
 }

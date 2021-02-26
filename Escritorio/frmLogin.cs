@@ -72,7 +72,7 @@ namespace Escritorio
                     this.appContext.SetEmpleado(empleado.ID);
                     this.appContext.SetEmpleadoRol(empleado.RolID);
 
-                    frmMain fm = new frmMain(empleadoService, clienteService, appContext);
+                    frmMain fm = new frmMain(empleadoService, clienteService, this.appContext);
                     fm.Show();
                 }
                 else
