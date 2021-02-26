@@ -87,9 +87,14 @@ namespace Escritorio
             MostrarSubMenu(SubMenuInformes);
         }
 
+        private void Liquidacion_Click(object sender, EventArgs e)
+        {
+            MostrarSubMenu(SubMenuLiquidacion);
+        }
+
         private void Menu_lateral_Paint(object sender, PaintEventArgs e)
         {
-
+           
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -101,6 +106,27 @@ namespace Escritorio
         {
 
         }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            
+            if (this.appContext.EmpleadoRolID == Constantes.Rol.Supervisor)
+            {
+                this.Perfiles.Visible = false;
+                this.Clientes.Visible = false;
+            }
+            if (this.appContext.EmpleadoRolID == Constantes.Rol.Empleado)
+            {
+                this.Clientes.Visible = false;
+                this.Proyectos.Visible = false;
+                this.Empleados.Visible = false;
+                this.Perfiles.Visible = false;
+                this.Informes.Visible = false;
+                this.Liquidacion.Visible = false;
+            }
+        }
+
+       
     }
 
 
