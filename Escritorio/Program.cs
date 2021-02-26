@@ -15,8 +15,6 @@ using TpIngSoftII.Interfaces.Repositories;
 using TpIngSoftII.Repositories;
 using TpIngSoftII.Interfaces;
 using TpIngSoftII.Models;
-using Escritorio.Interfaces;
-using Escritorio.Entities;
 
 namespace Escritorio
 {
@@ -32,35 +30,18 @@ namespace Escritorio
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //UnityConfig.RegisterComponents();
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
 
             });
 
-            UnityContainer container = new UnityContainer();
-            container.RegisterType(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>));
-            container.RegisterType(typeof(IDbFactory<>), typeof(DbFactory<>));
-            container.RegisterType<IUnitOfWork, UnitOfWork>();
-            container.RegisterType<IAppContext, TpIngSoftII.Models.AppContext>();
-            container.RegisterType(typeof(IEntityAppServiceBase<,>), typeof(EntityAppServiceBase<,>));
-            container.RegisterType<IEmpleadoService, EmpleadoService>();
-            container.RegisterType<IClienteService, ClienteService>();
-            container.RegisterType<IReporteService, ReporteService>();
-            container.RegisterType<IMainInicial, MainInicial>();
-            container.RegisterType<IForms, Forms>();
+            var container = Bootstrap();
+            var appContext = container.GetInstance<IAppContext2>();
+            appContext.SetContenedor(container);
 
-            var obj = container.Resolve<IMainInicial>();
+            Application.Run(container.GetInstance<frmLogin>());
 
-            obj.Run();
-            //obj.;
-
-            //Application.Run(new frmLogin());
-            //var container = Bootstrap();
-            //Application.Run(container.GetInstance<frmLogin>());
-
-            //Application.Run(new MainInicial());
         }
 
         private static Container Bootstrap()
@@ -69,9 +50,15 @@ namespace Escritorio
             var container = new Container();
 
             // Register your types, for instance:
-            //container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Singleton);
-            container.Register<IEmpleadoService, EmpleadoService>();
-            //container.Register<typeof(IEntityAppServiceBase),typeof(EntityAppServiceBase)>();
+            container.Register<IEmpleadoService, EmpleadoService>(Lifestyle.Transient);
+            container.Register<IClienteService, ClienteService>(Lifestyle.Transient);
+            container.Register<IReporteService, ReporteService>(Lifestyle.Transient);
+            container.Register(typeof(IEntityAppServiceBase<,>), typeof(EntityAppServiceBase<,>), Lifestyle.Transient);
+            container.Register(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>), Lifestyle.Transient);
+            container.Register(typeof(IDbFactory<>), typeof(DbFactory<>), Lifestyle.Singleton);
+            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Transient);
+            container.Register<IAppContext, TpIngSoftII.Models.AppContext>(Lifestyle.Singleton);
+            container.Register<IAppContext2, AppContext2>(Lifestyle.Singleton);
 
             AutoRegisterWindowsForms(container);
 

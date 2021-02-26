@@ -18,24 +18,22 @@ namespace Escritorio
         private readonly IEmpleadoService empleadoService;
         private readonly IClienteService clienteService;
         private readonly IAppContext appContext;
+        private readonly IAppContext2 appContext2;
 
-        //private EmpleadoDto empleado;
 
-        public frmMain(IEmpleadoService empleadoService, IClienteService clienteService, /*EmpleadoDto empleado*/ IAppContext appContext)
+        public frmMain(IEmpleadoService empleadoService, IClienteService clienteService, IAppContext appContext, IAppContext2 appContext2)
         {
-            //this.empleado = empleado;
             this.appContext = appContext;
             this.empleadoService = empleadoService;
             this.clienteService = clienteService;
-            
-
+            this.appContext2 = appContext2;
             InitializeComponent();
         }
 
         private void btn_LogOut_Click(object sender, EventArgs e)
         {
             this.Hide();
-            frmLogin fl = new frmLogin(empleadoService, clienteService, appContext);
+            frmLogin fl = appContext2.Contenedor.GetInstance<frmLogin>();
             fl.Show();
         }
 

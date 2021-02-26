@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.Entities;
-using Escritorio.Interfaces;
 using TpIngSoftII.Interfaces;
 
 namespace Escritorio
@@ -20,13 +19,15 @@ namespace Escritorio
         private readonly IEmpleadoService empleadoService;
         private readonly IClienteService clienteService;
         private readonly IAppContext appContext;
+        private readonly IAppContext2 appContext2;
 
         public frmLogin(IEmpleadoService empleadoService,
-                        IClienteService clienteService, IAppContext appContext)
+                        IClienteService clienteService, IAppContext appContext, IAppContext2 appContext2)
         {
             this.empleadoService = empleadoService;
             this.clienteService = clienteService;
             this.appContext = appContext;
+            this.appContext2 = appContext2;
             InitializeComponent();
         }
         //Connection String
@@ -49,30 +50,16 @@ namespace Escritorio
                 var empleado = this.empleadoService.GetById(empleadoService.ValidarCredenciales(new LoginRequest { Username = txt_UserName.Text, Password = txt_Password.Text }));
                 var cliente = this.clienteService.GetById(4);
 
-                //Create SqlConnection
-                //SqlConnection con = new SqlConnection(cs);
-                //SqlCommand cmd = new SqlCommand("Select * from tbl_Login where UserName=@username and Password=@password", con);
-                //cmd.Parameters.AddWithValue("@username", txt_UserName.Text);
-                //cmd.Parameters.AddWithValue("@password", txt_Password.Text);
-                //con.Open();
-                //SqlDataAdapter adapt = new SqlDataAdapter(cmd);
-                //DataSet ds = new DataSet();
-                //adapt.Fill(ds);
-                //con.Close();
-                //int count = ds.Tables[0].Rows.Count;
-                int count =0;
-                //if (txt_UserName.Text == "julimanesi94" && txt_Password.Text == "1234")
-                //    count = 1;
-                //If count is equal to 1, than show frmMain form
                 if (empleado != null)
                 {
                     MessageBox.Show("Login Exitoso!");
                     this.Hide();
-                    // PASAR COMO INYECCION DE DEPENDENCIAS!!!!(Mirar Ej.: MainInicial.cs)
+
                     this.appContext.SetEmpleado(empleado.ID);
                     this.appContext.SetEmpleadoRol(empleado.RolID);
 
-                    frmMain fm = new frmMain(empleadoService, clienteService, this.appContext);
+                    var fm = this.appContext2.Contenedor.GetInstance<frmMain>();
+                    //frmMain fm = new frmMain(empleadoService, clienteService, appContext, appContext2);
                     fm.Show();
                 }
                 else
