@@ -55,8 +55,8 @@ namespace Escritorio
         }
 
 
-        
 
+        #region Ver Submenues
         private void Clientes_Click(object sender, EventArgs e)
         {
             MostrarSubMenu(SubMenuClientes);
@@ -92,41 +92,56 @@ namespace Escritorio
             MostrarSubMenu(SubMenuLiquidacion);
         }
 
-        private void Menu_lateral_Paint(object sender, PaintEventArgs e)
+        #endregion
+
+       
+
+        private void frmMain_Load(object sender, EventArgs e)
         {
-           
+            //Muestra botones segun roles
+            if (this.appContext.EmpleadoRolID == Constantes.Rol.Supervisor)
+            {
+                this.PerfilesButton.Visible = false;
+                this.ClientesButton.Visible = false;
+            }
+            if (this.appContext.EmpleadoRolID == Constantes.Rol.Empleado)
+            {
+                this.ClientesButton.Visible = false;
+                this.ProyectosButton.Visible = false;
+                this.EmpleadosButton.Visible = false;
+                this.PerfilesButton.Visible = false;
+                this.InformesButton.Visible = false;
+                this.LiquidacionButton.Visible = false;
+            }
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
+        private Form activeForm = null;
 
+        private void openChildForm(Form ChildForm)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            activeForm = ChildForm;
+            ChildForm.TopLevel = false;
+            ChildForm.FormBorderStyle = FormBorderStyle.None;
+            //ChildForm.Dock = DockStyle.Fill;
+            panelChildForm.Controls.Add(ChildForm);
+            panelChildForm.Tag = ChildForm;
+            panelChildForm.Visible = true;
+            ChildForm.Show();
         }
 
         private void VerListaClientes_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void frmMain_Load(object sender, EventArgs e)
-        {
             
-            if (this.appContext.EmpleadoRolID == Constantes.Rol.Supervisor)
-            {
-                this.Perfiles.Visible = false;
-                this.Clientes.Visible = false;
-            }
-            if (this.appContext.EmpleadoRolID == Constantes.Rol.Empleado)
-            {
-                this.Clientes.Visible = false;
-                this.Proyectos.Visible = false;
-                this.Empleados.Visible = false;
-                this.Perfiles.Visible = false;
-                this.Informes.Visible = false;
-                this.Liquidacion.Visible = false;
-            }
         }
 
-       
+        private void AgregarProyectosButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmProyectosAgregar());
+        }
     }
 
 

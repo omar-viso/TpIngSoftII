@@ -92,6 +92,12 @@
   <ItemGroup>
     <Compile Include="Constantes\Constantes.cs" />
     <Compile Include="Entities\AppContext2.cs" />
+    <Compile Include="FrmProyectosAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProyectosAgregar.Designer.cs">
+      <DependentUpon>FrmProyectosAgregar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IAppContext2.cs" />
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
@@ -113,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProyectosAgregar.resx">
+      <DependentUpon>FrmProyectosAgregar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
