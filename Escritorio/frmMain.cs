@@ -133,16 +133,89 @@ namespace Escritorio
             ChildForm.Show();
         }
 
+        #region  Acciones de los Botones del Submenu
         private void VerListaClientes_Click(object sender, EventArgs e)
         {
-            
+            openChildForm(appContext2.Contenedor.GetInstance<FrmClienteLista>());
         }
 
         private void AgregarProyectosButton_Click(object sender, EventArgs e)
         {
-            openChildForm(new FrmProyectosAgregar());
+            openChildForm(appContext2.Contenedor.GetInstance<FrmProyectosAgregar>());
+        }
+
+        private void AgregarPerfilesButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmPerfilesAgregar>());
+        }
+
+        private void CargarHorasButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaCargaHoras>());
+        }
+
+        private void AgregarTareasButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaAgregar>());
+        }
+
+        private void AgregarClientesButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmClienteAgregar>());
+        }
+
+        private void AgregarEmpleadosButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmEmpleadoAgregar>());
+        }
+
+        private void HsObSemanaButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsObSemana>());
+        }
+
+        private void HsTrabEmpleadoButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsTrabPorEmpl>());
+        }
+
+        private void HsTrabProyectoButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsTrabPorProyect>());
+        }
+
+        private void HsAdeudadasButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsAdeudadas>());
+        }
+
+        private void LiquidarButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmLiquidacion>());
+        }
+
+        private void VerListaPerfilesButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmPerfilLista>());
+        }
+
+        private void VerListaProyectosButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmProyectoLista>());
+        }
+
+        private void VerListaTareasButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaLista>());
+        }
+
+        private void VerListaEmpleadosButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmEmpleadoLista>());
         }
     }
+
+    #endregion
 
 
 }

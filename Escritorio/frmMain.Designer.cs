@@ -61,7 +61,7 @@
             this.ClientesButton = new System.Windows.Forms.Button();
             this.LogOut = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.TituloLabel = new System.Windows.Forms.Label();
             this.Paneldefondo = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.Menu_lateral.SuspendLayout();
@@ -123,6 +123,7 @@
             this.LiquidarButton.TabIndex = 0;
             this.LiquidarButton.Text = "Liquidar";
             this.LiquidarButton.UseVisualStyleBackColor = false;
+            this.LiquidarButton.Click += new System.EventHandler(this.LiquidarButton_Click);
             // 
             // LiquidacionButton
             // 
@@ -166,6 +167,7 @@
             this.HsAdeudadasButton.TabIndex = 3;
             this.HsAdeudadasButton.Text = "Hs adeudadas";
             this.HsAdeudadasButton.UseVisualStyleBackColor = false;
+            this.HsAdeudadasButton.Click += new System.EventHandler(this.HsAdeudadasButton_Click);
             // 
             // HsTrabEmpleadoButton
             // 
@@ -180,6 +182,7 @@
             this.HsTrabEmpleadoButton.TabIndex = 2;
             this.HsTrabEmpleadoButton.Text = "Hs trabajadas por empleado";
             this.HsTrabEmpleadoButton.UseVisualStyleBackColor = false;
+            this.HsTrabEmpleadoButton.Click += new System.EventHandler(this.HsTrabEmpleadoButton_Click);
             // 
             // HsTrabProyectoButton
             // 
@@ -194,6 +197,7 @@
             this.HsTrabProyectoButton.TabIndex = 1;
             this.HsTrabProyectoButton.Text = "Hs trabajadas por proyecto";
             this.HsTrabProyectoButton.UseVisualStyleBackColor = false;
+            this.HsTrabProyectoButton.Click += new System.EventHandler(this.HsTrabProyectoButton_Click);
             // 
             // HsObSemanaButton
             // 
@@ -208,6 +212,7 @@
             this.HsObSemanaButton.TabIndex = 0;
             this.HsObSemanaButton.Text = "Hs ob de la semana";
             this.HsObSemanaButton.UseVisualStyleBackColor = false;
+            this.HsObSemanaButton.Click += new System.EventHandler(this.HsObSemanaButton_Click);
             // 
             // InformesButton
             // 
@@ -249,6 +254,7 @@
             this.AgregarPerfilesButton.TabIndex = 1;
             this.AgregarPerfilesButton.Text = "Agregar";
             this.AgregarPerfilesButton.UseVisualStyleBackColor = false;
+            this.AgregarPerfilesButton.Click += new System.EventHandler(this.AgregarPerfilesButton_Click);
             // 
             // VerListaPerfilesButton
             // 
@@ -263,6 +269,7 @@
             this.VerListaPerfilesButton.TabIndex = 0;
             this.VerListaPerfilesButton.Text = "Ver lista";
             this.VerListaPerfilesButton.UseVisualStyleBackColor = false;
+            this.VerListaPerfilesButton.Click += new System.EventHandler(this.VerListaPerfilesButton_Click);
             // 
             // PerfilesButton
             // 
@@ -304,6 +311,7 @@
             this.AgregarEmpleadosButton.TabIndex = 1;
             this.AgregarEmpleadosButton.Text = "Agregar";
             this.AgregarEmpleadosButton.UseVisualStyleBackColor = false;
+            this.AgregarEmpleadosButton.Click += new System.EventHandler(this.AgregarEmpleadosButton_Click);
             // 
             // VerListaEmpleadosButton
             // 
@@ -318,6 +326,7 @@
             this.VerListaEmpleadosButton.TabIndex = 0;
             this.VerListaEmpleadosButton.Text = "Ver lista";
             this.VerListaEmpleadosButton.UseVisualStyleBackColor = false;
+            this.VerListaEmpleadosButton.Click += new System.EventHandler(this.VerListaEmpleadosButton_Click);
             // 
             // EmpleadosButton
             // 
@@ -374,6 +383,7 @@
             this.VerListaProyectosButton.TabIndex = 0;
             this.VerListaProyectosButton.Text = "Ver lista";
             this.VerListaProyectosButton.UseVisualStyleBackColor = false;
+            this.VerListaProyectosButton.Click += new System.EventHandler(this.VerListaProyectosButton_Click);
             // 
             // ProyectosButton
             // 
@@ -416,6 +426,7 @@
             this.CargarHorasButton.TabIndex = 2;
             this.CargarHorasButton.Text = "Cargar Horas";
             this.CargarHorasButton.UseVisualStyleBackColor = false;
+            this.CargarHorasButton.Click += new System.EventHandler(this.CargarHorasButton_Click);
             // 
             // AgregarTareasButton
             // 
@@ -430,6 +441,7 @@
             this.AgregarTareasButton.TabIndex = 1;
             this.AgregarTareasButton.Text = "Agregar";
             this.AgregarTareasButton.UseVisualStyleBackColor = false;
+            this.AgregarTareasButton.Click += new System.EventHandler(this.AgregarTareasButton_Click);
             // 
             // VerListaTareasButton
             // 
@@ -444,6 +456,7 @@
             this.VerListaTareasButton.TabIndex = 0;
             this.VerListaTareasButton.Text = "Ver lista";
             this.VerListaTareasButton.UseVisualStyleBackColor = false;
+            this.VerListaTareasButton.Click += new System.EventHandler(this.VerListaTareasButton_Click);
             // 
             // TareasButton
             // 
@@ -485,6 +498,7 @@
             this.AgregarClientesButton.TabIndex = 1;
             this.AgregarClientesButton.Text = "Agregar";
             this.AgregarClientesButton.UseVisualStyleBackColor = false;
+            this.AgregarClientesButton.Click += new System.EventHandler(this.AgregarClientesButton_Click);
             // 
             // VerListaClientesButton
             // 
@@ -524,7 +538,7 @@
             this.LogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogOut.ForeColor = System.Drawing.SystemColors.Window;
-            this.LogOut.Location = new System.Drawing.Point(738, 5);
+            this.LogOut.Location = new System.Drawing.Point(948, 3);
             this.LogOut.Name = "LogOut";
             this.LogOut.Size = new System.Drawing.Size(63, 25);
             this.LogOut.TabIndex = 1;
@@ -535,24 +549,23 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.MediumBlue;
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.TituloLabel);
             this.panel1.Controls.Add(this.LogOut);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(914, 33);
+            this.panel1.Size = new System.Drawing.Size(1023, 33);
             this.panel1.TabIndex = 0;
             // 
-            // label1
+            // TituloLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(268, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Sistema de gestión de empleados - ";
+            this.TituloLabel.AutoSize = true;
+            this.TituloLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TituloLabel.ForeColor = System.Drawing.SystemColors.Window;
+            this.TituloLabel.Location = new System.Drawing.Point(12, 9);
+            this.TituloLabel.Name = "TituloLabel";
+            this.TituloLabel.Size = new System.Drawing.Size(0, 17);
+            this.TituloLabel.TabIndex = 1;
             // 
             // Paneldefondo
             // 
@@ -562,7 +575,7 @@
             this.Paneldefondo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Paneldefondo.Location = new System.Drawing.Point(0, 33);
             this.Paneldefondo.Name = "Paneldefondo";
-            this.Paneldefondo.Size = new System.Drawing.Size(914, 659);
+            this.Paneldefondo.Size = new System.Drawing.Size(1023, 659);
             this.Paneldefondo.TabIndex = 0;
             // 
             // panelChildForm
@@ -571,9 +584,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelChildForm.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panelChildForm.Location = new System.Drawing.Point(282, 118);
+            this.panelChildForm.Location = new System.Drawing.Point(232, 82);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(535, 373);
+            this.panelChildForm.Size = new System.Drawing.Size(767, 373);
             this.panelChildForm.TabIndex = 1;
             this.panelChildForm.Visible = false;
             // 
@@ -582,11 +595,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(914, 692);
+            this.ClientSize = new System.Drawing.Size(1023, 692);
             this.Controls.Add(this.Paneldefondo);
             this.Controls.Add(this.panel1);
             this.Name = "frmMain";
-            this.Text = "frmMain";
+            this.Text = "Sistema de gestión de empleados ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Menu_lateral.ResumeLayout(false);
@@ -637,7 +650,7 @@
         private System.Windows.Forms.Panel SubMenuLiquidacion;
         private System.Windows.Forms.Button LiquidarButton;
         private System.Windows.Forms.Button LiquidacionButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label TituloLabel;
         private System.Windows.Forms.Button HsAdeudadasButton;
         private System.Windows.Forms.Button HsTrabEmpleadoButton;
         private System.Windows.Forms.Button CargarHorasButton;
