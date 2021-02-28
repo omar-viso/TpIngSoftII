@@ -45,6 +45,8 @@
             this.AgregarButton = new System.Windows.Forms.Button();
             this.DNI_CUIT_numeric = new System.Windows.Forms.NumericUpDown();
             this.TelefonoNumeric = new System.Windows.Forms.NumericUpDown();
+            this.ElejirClienteComboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DNI_CUIT_numeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TelefonoNumeric)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(241, 22);
+            this.label1.Location = new System.Drawing.Point(89, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 0;
@@ -64,7 +66,7 @@
             this.TipoPersonaCombo.Items.AddRange(new object[] {
             "Fisica",
             "Juridica"});
-            this.TipoPersonaCombo.Location = new System.Drawing.Point(226, 48);
+            this.TipoPersonaCombo.Location = new System.Drawing.Point(74, 45);
             this.TipoPersonaCombo.Name = "TipoPersonaCombo";
             this.TipoPersonaCombo.Size = new System.Drawing.Size(128, 21);
             this.TipoPersonaCombo.TabIndex = 1;
@@ -195,7 +197,7 @@
             this.AgregarButton.Name = "AgregarButton";
             this.AgregarButton.Size = new System.Drawing.Size(75, 28);
             this.AgregarButton.TabIndex = 16;
-            this.AgregarButton.Text = "Agregar";
+            this.AgregarButton.Text = "Aceptar";
             this.AgregarButton.UseVisualStyleBackColor = false;
             this.AgregarButton.Click += new System.EventHandler(this.AgregarButton_Click);
             // 
@@ -223,11 +225,32 @@
             this.TelefonoNumeric.Size = new System.Drawing.Size(120, 20);
             this.TelefonoNumeric.TabIndex = 18;
             // 
+            // ElejirClienteComboBox
+            // 
+            this.ElejirClienteComboBox.FormattingEnabled = true;
+            this.ElejirClienteComboBox.Location = new System.Drawing.Point(215, 45);
+            this.ElejirClienteComboBox.Name = "ElejirClienteComboBox";
+            this.ElejirClienteComboBox.Size = new System.Drawing.Size(160, 21);
+            this.ElejirClienteComboBox.TabIndex = 19;
+            this.ElejirClienteComboBox.Text = "Cliente a cambiar...";
+            this.ElejirClienteComboBox.SelectedIndexChanged += new System.EventHandler(this.ElejirClienteComboBox_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(381, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(187, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Si no elije cliente se creara uno nuevo";
+            // 
             // FrmClienteAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 291);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.ElejirClienteComboBox);
             this.Controls.Add(this.TelefonoNumeric);
             this.Controls.Add(this.DNI_CUIT_numeric);
             this.Controls.Add(this.AgregarButton);
@@ -274,5 +297,7 @@
         private System.Windows.Forms.Button AgregarButton;
         private System.Windows.Forms.NumericUpDown DNI_CUIT_numeric;
         private System.Windows.Forms.NumericUpDown TelefonoNumeric;
+        private System.Windows.Forms.ComboBox ElejirClienteComboBox;
+        private System.Windows.Forms.Label label2;
     }
 }

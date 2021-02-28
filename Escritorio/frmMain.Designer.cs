@@ -252,7 +252,7 @@
             this.AgregarPerfilesButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.AgregarPerfilesButton.Size = new System.Drawing.Size(164, 26);
             this.AgregarPerfilesButton.TabIndex = 1;
-            this.AgregarPerfilesButton.Text = "Agregar";
+            this.AgregarPerfilesButton.Text = "Agregar/Editar";
             this.AgregarPerfilesButton.UseVisualStyleBackColor = false;
             this.AgregarPerfilesButton.Click += new System.EventHandler(this.AgregarPerfilesButton_Click);
             // 
@@ -496,7 +496,7 @@
             this.AgregarClientesButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.AgregarClientesButton.Size = new System.Drawing.Size(164, 26);
             this.AgregarClientesButton.TabIndex = 1;
-            this.AgregarClientesButton.Text = "Agregar";
+            this.AgregarClientesButton.Text = "Agregar/Editar";
             this.AgregarClientesButton.UseVisualStyleBackColor = false;
             this.AgregarClientesButton.Click += new System.EventHandler(this.AgregarClientesButton_Click);
             // 
@@ -584,9 +584,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelChildForm.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panelChildForm.Location = new System.Drawing.Point(232, 82);
+            this.panelChildForm.Location = new System.Drawing.Point(184, 82);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(767, 373);
+            this.panelChildForm.Size = new System.Drawing.Size(827, 373);
             this.panelChildForm.TabIndex = 1;
             this.panelChildForm.Visible = false;
             // 

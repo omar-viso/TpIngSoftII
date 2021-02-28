@@ -56,11 +56,11 @@ namespace Escritorio
                 var respuesta = perfilService.Update(perfilAeditar);
                 if (respuesta != null)
                 {
-                    MessageBox.Show("Perfil creado");
+                    MessageBox.Show("Perfil editado");
                 }
                 else
                 {
-                    MessageBox.Show("No se a podido crear el perfil");
+                    MessageBox.Show("No se a podido editar el perfil");
                 }
             }
             else

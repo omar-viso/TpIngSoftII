@@ -72,10 +72,10 @@
             this.ListaPerfilPanel1.AutoSize = true;
             this.ListaPerfilPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ListaPerfilPanel1.BackColor = System.Drawing.SystemColors.Menu;
-            this.ListaPerfilPanel1.ColumnCount = 4;
-            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.82906F));
-            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.17094F));
-            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
+            this.ListaPerfilPanel1.ColumnCount = 3;
+            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.34965F));
+            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.65035F));
+            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
             this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
             this.ListaPerfilPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.ListaPerfilPanel1.Location = new System.Drawing.Point(0, 0);
