@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -9,6 +10,7 @@ using TpIngSoftII.Interfaces.Repositories;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Models.Entities;
+using TpIngSoftII.Reportes;
 using static TpIngSoftII.Models.Entities.Proyecto;
 
 namespace TpIngSoftII.Services
@@ -17,15 +19,18 @@ namespace TpIngSoftII.Services
     {
         private readonly IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository;
         private readonly IEntityBaseRepository<Perfil> perfilRepository;
+        private readonly ISevice service;
 
         public EmpleadoService(IEntityBaseRepository<Empleado> entityRepository, 
                                IUnitOfWork unitOfWork, 
                                IAppContext appContext,
                                IEntityBaseRepository<EmpleadoPerfil> empleadoPerfilRepository,
-                               IEntityBaseRepository<Perfil> perfilRepository) : base(entityRepository, unitOfWork, appContext)
+                               IEntityBaseRepository<Perfil> perfilRepository,
+                               ISevice service) : base(entityRepository, unitOfWork, appContext)
         {
             this.empleadoPerfilRepository = empleadoPerfilRepository;
             this.perfilRepository = perfilRepository;
+            this.service = service;
         }
 
 
@@ -231,6 +236,29 @@ namespace TpIngSoftII.Services
             var perfilesIds = dto.Perfiles.Select(x => x.PerfilID);
             var rta = !perfilesIds.All(x => perfilesExistentesIds.Contains(x));
             return rta;
+        }
+
+        public Stream EmpleadosReporte()
+        {
+            var EmpleadosDto = Mapper.Map<IEnumerable<Empleado>, IEnumerable<EmpleadoDto>>(this.entityRepository.AllIncludingAsNoTracking()).Select(x => new EmpleadoPdfDto
+            {
+                ID = x.ID,
+                Nombre = x.Nombre ?? " - ",
+                Dni = x.Dni,
+                Apellido = x.Apellido ?? " - ",
+                RolDescripcion = x.RolDescripcion ?? " - ",
+                Usuario = x.Usuario ?? " - ",
+                FechaIngreso = x.FechaIngreso.Date
+            })
+                .ToList();
+            if (EmpleadosDto.Count() != 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReportEmpleados())
+                {
+                    return this.service.GetReportPDF(report, EmpleadosDto);
+                }
+            }
+            return null;
         }
     }
 }

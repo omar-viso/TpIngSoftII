@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,5 +19,6 @@ namespace TpIngSoftII.Interfaces.Services
         IEnumerable<EmpleadoDto> GetEmpleadosDePerfil(int perfilID);
         int GetEmpleadoPerfilID(int empleadoID, int perfilID);
         EmpleadoPerfilDto GetEmpleadoPerfil(int empleadoPerfilID);
+        Stream EmpleadosReporte();
     }
 }
