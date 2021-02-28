@@ -30,7 +30,7 @@ namespace Escritorio
 
         private void FrmPerfilesAgregar_Load(object sender, EventArgs e)
         {
-            var perfiles = perfilService.GetAll();
+            var perfiles = perfilService.GetAllAsNoTracking();
             foreach (PerfilDto perfil in perfiles)
             {
                 ElejirPerfilcomboBox.Items.Add(perfil.Descripcion);
@@ -50,7 +50,7 @@ namespace Escritorio
             perfilDto.ValorHorario = ValorHoraNumeric.Value;
             if (ID != 0)
             {
-                var perfilAeditar = perfilService.GetById(ID);
+                var perfilAeditar = perfilService.GetByIdAsNoTracking(ID);
                 perfilAeditar.Descripcion = DescripcionText.Text;
                 perfilAeditar.ValorHorario = ValorHoraNumeric.Value;
                 var respuesta = perfilService.Update(perfilAeditar);
@@ -82,10 +82,10 @@ namespace Escritorio
         private void ElejirPerfilcomboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //PerfilDto perfilElegido = null;
-            var perfiles = perfilService.GetAll();
+            var perfiles = perfilService.GetAllAsNoTracking();
             foreach (PerfilDto perfil in perfiles)
             {
-                if (ElejirPerfilcomboBox.SelectedItem == perfil.Descripcion)
+                if (ElejirPerfilcomboBox.SelectedItem.ToString() == perfil.Descripcion)
                 {
                     DescripcionText.Text = perfil.Descripcion;
                     ValorHoraNumeric.Value = perfil.ValorHorario;

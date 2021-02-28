@@ -29,7 +29,7 @@ namespace Escritorio
 
         private void FrmPerfilLista_Load(object sender, EventArgs e)
         {
-            var perfiles = perfilService.GetAll();
+            var perfiles = perfilService.GetAllAsNoTracking();
             int count = 0;
             foreach (PerfilDto perfil in perfiles)
             {

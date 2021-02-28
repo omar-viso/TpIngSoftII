@@ -12,7 +12,11 @@ namespace TpIngSoftII.Interfaces.Services
     {
         IEnumerable<D> GetAll();
 
+        IEnumerable<D> GetAllAsNoTracking();
+
         D GetById(int id);
+
+        D GetByIdAsNoTracking(int id);
 
         D Update(D dto);
 
