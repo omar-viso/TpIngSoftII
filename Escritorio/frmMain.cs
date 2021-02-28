@@ -55,8 +55,8 @@ namespace Escritorio
         }
 
 
-        
 
+        #region Ver Submenues
         private void Clientes_Click(object sender, EventArgs e)
         {
             MostrarSubMenu(SubMenuClientes);
@@ -92,42 +92,130 @@ namespace Escritorio
             MostrarSubMenu(SubMenuLiquidacion);
         }
 
-        private void Menu_lateral_Paint(object sender, PaintEventArgs e)
-        {
-           
-        }
+        #endregion
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void VerListaClientes_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            
+            //Muestra botones segun roles
             if (this.appContext.EmpleadoRolID == Constantes.Rol.Supervisor)
             {
-                this.Perfiles.Visible = false;
-                this.Clientes.Visible = false;
+                this.PerfilesButton.Visible = false;
+                this.ClientesButton.Visible = false;
             }
             if (this.appContext.EmpleadoRolID == Constantes.Rol.Empleado)
             {
-                this.Clientes.Visible = false;
-                this.Proyectos.Visible = false;
-                this.Empleados.Visible = false;
-                this.Perfiles.Visible = false;
-                this.Informes.Visible = false;
-                this.Liquidacion.Visible = false;
+                this.ClientesButton.Visible = false;
+                this.ProyectosButton.Visible = false;
+                this.EmpleadosButton.Visible = false;
+                this.PerfilesButton.Visible = false;
+                this.InformesButton.Visible = false;
+                this.LiquidacionButton.Visible = false;
             }
         }
 
-       
+        private Form activeForm = null;
+
+        private void openChildForm(Form ChildForm)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            activeForm = ChildForm;
+            ChildForm.TopLevel = false;
+            ChildForm.FormBorderStyle = FormBorderStyle.None;
+            //ChildForm.Dock = DockStyle.Fill;
+            panelChildForm.Controls.Add(ChildForm);
+            panelChildForm.Tag = ChildForm;
+            panelChildForm.Visible = true;
+            ChildForm.Show();
+        }
+
+        #region  Acciones de los Botones del Submenu
+        private void VerListaClientes_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmClienteLista>());
+        }
+
+        private void AgregarProyectosButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmProyectosAgregar>());
+        }
+
+        private void AgregarPerfilesButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmPerfilesAgregar>());
+        }
+
+        private void CargarHorasButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaCargaHoras>());
+        }
+
+        private void AgregarTareasButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaAgregar>());
+        }
+
+        private void AgregarClientesButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmClienteAgregar>());
+        }
+
+        private void AgregarEmpleadosButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmEmpleadoAgregar>());
+        }
+
+        private void HsObSemanaButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsObSemana>());
+        }
+
+        private void HsTrabEmpleadoButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsTrabPorEmpl>());
+        }
+
+        private void HsTrabProyectoButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsTrabPorProyect>());
+        }
+
+        private void HsAdeudadasButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsAdeudadas>());
+        }
+
+        private void LiquidarButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmLiquidacion>());
+        }
+
+        private void VerListaPerfilesButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmPerfilLista>());
+        }
+
+        private void VerListaProyectosButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmProyectoLista>());
+        }
+
+        private void VerListaTareasButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaLista>());
+        }
+
+        private void VerListaEmpleadosButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(appContext2.Contenedor.GetInstance<FrmEmpleadoLista>());
+        }
     }
+
+    #endregion
 
 
 }

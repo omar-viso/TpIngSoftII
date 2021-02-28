@@ -22,5 +22,6 @@ namespace TpIngSoftII.Interfaces.Repositories
         void Detached(T entity);
         void AddRange(IEnumerable<T> entities);
         void RemoveRange(IEnumerable<T> entities);
+        T GetSingleAsNoTracking(int id);
     }
 }

@@ -78,5 +78,10 @@ namespace Escritorio
         {
 
         }
+
+        private void frmLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

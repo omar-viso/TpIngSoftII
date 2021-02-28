@@ -92,6 +92,102 @@
   <ItemGroup>
     <Compile Include="Constantes\Constantes.cs" />
     <Compile Include="Entities\AppContext2.cs" />
+    <Compile Include="FrmClienteAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmClienteAgregar.Designer.cs">
+      <DependentUpon>FrmClienteAgregar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmClienteLista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmClienteLista.Designer.cs">
+      <DependentUpon>FrmClienteLista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEmpleadoAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEmpleadoAgregar.Designer.cs">
+      <DependentUpon>FrmEmpleadoAgregar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEmpleadoLista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEmpleadoLista.Designer.cs">
+      <DependentUpon>FrmEmpleadoLista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInformeHsAdeudadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInformeHsAdeudadas.Designer.cs">
+      <DependentUpon>FrmInformeHsAdeudadas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInformeHsObSemana.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInformeHsObSemana.Designer.cs">
+      <DependentUpon>FrmInformeHsObSemana.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInformeHsTrabPorEmpl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInformeHsTrabPorEmpl.Designer.cs">
+      <DependentUpon>FrmInformeHsTrabPorEmpl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInformeHsTrabPorProyect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInformeHsTrabPorProyect.Designer.cs">
+      <DependentUpon>FrmInformeHsTrabPorProyect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLiquidacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLiquidacion.Designer.cs">
+      <DependentUpon>FrmLiquidacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPerfilesAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPerfilesAgregar.Designer.cs">
+      <DependentUpon>FrmPerfilesAgregar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPerfilLista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPerfilLista.Designer.cs">
+      <DependentUpon>FrmPerfilLista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProyectoLista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProyectoLista.Designer.cs">
+      <DependentUpon>FrmProyectoLista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProyectosAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProyectosAgregar.Designer.cs">
+      <DependentUpon>FrmProyectosAgregar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTareaAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTareaAgregar.Designer.cs">
+      <DependentUpon>FrmTareaAgregar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTareaCargaHoras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTareaCargaHoras.Designer.cs">
+      <DependentUpon>FrmTareaCargaHoras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTareaLista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTareaLista.Designer.cs">
+      <DependentUpon>FrmTareaLista.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IAppContext2.cs" />
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
@@ -105,14 +201,63 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Metodos estaticos\Metodos.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityConfig.cs" />
+    <EmbeddedResource Include="FrmClienteAgregar.resx">
+      <DependentUpon>FrmClienteAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmClienteLista.resx">
+      <DependentUpon>FrmClienteLista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEmpleadoAgregar.resx">
+      <DependentUpon>FrmEmpleadoAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEmpleadoLista.resx">
+      <DependentUpon>FrmEmpleadoLista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInformeHsAdeudadas.resx">
+      <DependentUpon>FrmInformeHsAdeudadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInformeHsObSemana.resx">
+      <DependentUpon>FrmInformeHsObSemana.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInformeHsTrabPorEmpl.resx">
+      <DependentUpon>FrmInformeHsTrabPorEmpl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInformeHsTrabPorProyect.resx">
+      <DependentUpon>FrmInformeHsTrabPorProyect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLiquidacion.resx">
+      <DependentUpon>FrmLiquidacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPerfilesAgregar.resx">
+      <DependentUpon>FrmPerfilesAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPerfilLista.resx">
+      <DependentUpon>FrmPerfilLista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProyectoLista.resx">
+      <DependentUpon>FrmProyectoLista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProyectosAgregar.resx">
+      <DependentUpon>FrmProyectosAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTareaAgregar.resx">
+      <DependentUpon>FrmTareaAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTareaCargaHoras.resx">
+      <DependentUpon>FrmTareaCargaHoras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTareaLista.resx">
+      <DependentUpon>FrmTareaLista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

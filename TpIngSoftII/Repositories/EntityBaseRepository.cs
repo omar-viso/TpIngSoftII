@@ -73,6 +73,11 @@ namespace TpIngSoftII.Repositories
             return GetAll().FirstOrDefault(x => x.ID == id);
         }
 
+        public T GetSingleAsNoTracking(int id)
+        {
+            return GetAll().AsNoTracking().FirstOrDefault(x => x.ID == id);
+        }
+
         public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             return DbContext.Set<T>().Where(predicate);

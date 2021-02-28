@@ -40,9 +40,28 @@ namespace TpIngSoftII.Services
             return dtos;
         }
 
+        public virtual IEnumerable<D> GetAllAsNoTracking()
+        {
+            var query = this.entityRepository.AllIncludingAsNoTracking();
+            var entities = query.ToList();
+            var dtos = Mapper.Map<IEnumerable<E>,
+                                  IEnumerable<D>>(entities);
+
+            return dtos;
+        }
+
+
         public virtual D GetById(int id)
         {
             var enti = this.entityRepository.GetSingle(id);
+            var dtos = Mapper.Map<E, D>(enti);
+
+            return dtos;
+        }
+
+        public virtual D GetByIdAsNoTracking(int id)
+        {
+            var enti = this.entityRepository.GetSingleAsNoTracking(id);
             var dtos = Mapper.Map<E, D>(enti);
 
             return dtos;

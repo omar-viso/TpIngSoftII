@@ -52,6 +52,10 @@ namespace Escritorio
             // Register your types, for instance:
             container.Register<IEmpleadoService, EmpleadoService>(Lifestyle.Transient);
             container.Register<IClienteService, ClienteService>(Lifestyle.Transient);
+            container.Register<ITareaService, TareaService>(Lifestyle.Transient);
+            container.Register<IHorasTrabajadasService, HorasTrabajadasService>(Lifestyle.Transient);
+            container.Register<IProyectoService, ProyectoService>(Lifestyle.Transient);
+            container.Register<IPerfilService, PerfilService>(Lifestyle.Transient);
             container.Register<IReporteService, ReporteService>(Lifestyle.Transient);
             container.Register(typeof(IEntityAppServiceBase<,>), typeof(EntityAppServiceBase<,>), Lifestyle.Transient);
             container.Register(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>), Lifestyle.Transient);

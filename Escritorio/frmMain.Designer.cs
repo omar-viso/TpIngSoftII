@@ -31,38 +31,39 @@
             this.Menu_lateral = new System.Windows.Forms.Panel();
             this.SubMenuLiquidacion = new System.Windows.Forms.Panel();
             this.LiquidarButton = new System.Windows.Forms.Button();
-            this.Liquidacion = new System.Windows.Forms.Button();
+            this.LiquidacionButton = new System.Windows.Forms.Button();
             this.SubMenuInformes = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.Informes = new System.Windows.Forms.Button();
+            this.HsAdeudadasButton = new System.Windows.Forms.Button();
+            this.HsTrabEmpleadoButton = new System.Windows.Forms.Button();
+            this.HsTrabProyectoButton = new System.Windows.Forms.Button();
+            this.HsObSemanaButton = new System.Windows.Forms.Button();
+            this.InformesButton = new System.Windows.Forms.Button();
             this.SubMenuPerfiles = new System.Windows.Forms.Panel();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.Perfiles = new System.Windows.Forms.Button();
+            this.AgregarPerfilesButton = new System.Windows.Forms.Button();
+            this.VerListaPerfilesButton = new System.Windows.Forms.Button();
+            this.PerfilesButton = new System.Windows.Forms.Button();
             this.SubMenuEmpleados = new System.Windows.Forms.Panel();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.Empleados = new System.Windows.Forms.Button();
+            this.AgregarEmpleadosButton = new System.Windows.Forms.Button();
+            this.VerListaEmpleadosButton = new System.Windows.Forms.Button();
+            this.EmpleadosButton = new System.Windows.Forms.Button();
             this.SubMenuProyectos = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.Proyectos = new System.Windows.Forms.Button();
+            this.AgregarProyectosButton = new System.Windows.Forms.Button();
+            this.VerListaProyectosButton = new System.Windows.Forms.Button();
+            this.ProyectosButton = new System.Windows.Forms.Button();
             this.SubMenuTareas = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.Tareas = new System.Windows.Forms.Button();
+            this.CargarHorasButton = new System.Windows.Forms.Button();
+            this.AgregarTareasButton = new System.Windows.Forms.Button();
+            this.VerListaTareasButton = new System.Windows.Forms.Button();
+            this.TareasButton = new System.Windows.Forms.Button();
             this.SubMenuClientes = new System.Windows.Forms.Panel();
-            this.AgregarClientes = new System.Windows.Forms.Button();
-            this.VerListaClientes = new System.Windows.Forms.Button();
-            this.Clientes = new System.Windows.Forms.Button();
+            this.AgregarClientesButton = new System.Windows.Forms.Button();
+            this.VerListaClientesButton = new System.Windows.Forms.Button();
+            this.ClientesButton = new System.Windows.Forms.Button();
             this.LogOut = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.TituloLabel = new System.Windows.Forms.Label();
+            this.Paneldefondo = new System.Windows.Forms.Panel();
+            this.panelChildForm = new System.Windows.Forms.Panel();
             this.Menu_lateral.SuspendLayout();
             this.SubMenuLiquidacion.SuspendLayout();
             this.SubMenuInformes.SuspendLayout();
@@ -72,7 +73,7 @@
             this.SubMenuTareas.SuspendLayout();
             this.SubMenuClientes.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.Paneldefondo.SuspendLayout();
             this.SuspendLayout();
             // 
             // Menu_lateral
@@ -80,25 +81,24 @@
             this.Menu_lateral.AutoScroll = true;
             this.Menu_lateral.BackColor = System.Drawing.SystemColors.Control;
             this.Menu_lateral.Controls.Add(this.SubMenuLiquidacion);
-            this.Menu_lateral.Controls.Add(this.Liquidacion);
+            this.Menu_lateral.Controls.Add(this.LiquidacionButton);
             this.Menu_lateral.Controls.Add(this.SubMenuInformes);
-            this.Menu_lateral.Controls.Add(this.Informes);
+            this.Menu_lateral.Controls.Add(this.InformesButton);
             this.Menu_lateral.Controls.Add(this.SubMenuPerfiles);
-            this.Menu_lateral.Controls.Add(this.Perfiles);
+            this.Menu_lateral.Controls.Add(this.PerfilesButton);
             this.Menu_lateral.Controls.Add(this.SubMenuEmpleados);
-            this.Menu_lateral.Controls.Add(this.Empleados);
+            this.Menu_lateral.Controls.Add(this.EmpleadosButton);
             this.Menu_lateral.Controls.Add(this.SubMenuProyectos);
-            this.Menu_lateral.Controls.Add(this.Proyectos);
+            this.Menu_lateral.Controls.Add(this.ProyectosButton);
             this.Menu_lateral.Controls.Add(this.SubMenuTareas);
-            this.Menu_lateral.Controls.Add(this.Tareas);
+            this.Menu_lateral.Controls.Add(this.TareasButton);
             this.Menu_lateral.Controls.Add(this.SubMenuClientes);
-            this.Menu_lateral.Controls.Add(this.Clientes);
+            this.Menu_lateral.Controls.Add(this.ClientesButton);
             this.Menu_lateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.Menu_lateral.Location = new System.Drawing.Point(0, 0);
             this.Menu_lateral.Name = "Menu_lateral";
-            this.Menu_lateral.Size = new System.Drawing.Size(164, 638);
+            this.Menu_lateral.Size = new System.Drawing.Size(164, 659);
             this.Menu_lateral.TabIndex = 0;
-            this.Menu_lateral.Paint += new System.Windows.Forms.PaintEventHandler(this.Menu_lateral_Paint);
             // 
             // SubMenuLiquidacion
             // 
@@ -123,29 +123,30 @@
             this.LiquidarButton.TabIndex = 0;
             this.LiquidarButton.Text = "Liquidar";
             this.LiquidarButton.UseVisualStyleBackColor = false;
+            this.LiquidarButton.Click += new System.EventHandler(this.LiquidarButton_Click);
             // 
-            // Liquidacion
+            // LiquidacionButton
             // 
-            this.Liquidacion.BackColor = System.Drawing.SystemColors.Control;
-            this.Liquidacion.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Liquidacion.FlatAppearance.BorderSize = 0;
-            this.Liquidacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Liquidacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Liquidacion.Location = new System.Drawing.Point(0, 577);
-            this.Liquidacion.Name = "Liquidacion";
-            this.Liquidacion.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.Liquidacion.Size = new System.Drawing.Size(164, 23);
-            this.Liquidacion.TabIndex = 12;
-            this.Liquidacion.Text = "Liquidación";
-            this.Liquidacion.UseVisualStyleBackColor = false;
-            this.Liquidacion.Click += new System.EventHandler(this.Liquidacion_Click);
+            this.LiquidacionButton.BackColor = System.Drawing.SystemColors.Control;
+            this.LiquidacionButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LiquidacionButton.FlatAppearance.BorderSize = 0;
+            this.LiquidacionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LiquidacionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LiquidacionButton.Location = new System.Drawing.Point(0, 577);
+            this.LiquidacionButton.Name = "LiquidacionButton";
+            this.LiquidacionButton.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.LiquidacionButton.Size = new System.Drawing.Size(164, 23);
+            this.LiquidacionButton.TabIndex = 12;
+            this.LiquidacionButton.Text = "Liquidación";
+            this.LiquidacionButton.UseVisualStyleBackColor = false;
+            this.LiquidacionButton.Click += new System.EventHandler(this.Liquidacion_Click);
             // 
             // SubMenuInformes
             // 
-            this.SubMenuInformes.Controls.Add(this.button12);
-            this.SubMenuInformes.Controls.Add(this.button9);
-            this.SubMenuInformes.Controls.Add(this.button3);
-            this.SubMenuInformes.Controls.Add(this.button6);
+            this.SubMenuInformes.Controls.Add(this.HsAdeudadasButton);
+            this.SubMenuInformes.Controls.Add(this.HsTrabEmpleadoButton);
+            this.SubMenuInformes.Controls.Add(this.HsTrabProyectoButton);
+            this.SubMenuInformes.Controls.Add(this.HsObSemanaButton);
             this.SubMenuInformes.Dock = System.Windows.Forms.DockStyle.Top;
             this.SubMenuInformes.Location = new System.Drawing.Point(0, 455);
             this.SubMenuInformes.Name = "SubMenuInformes";
@@ -153,54 +154,86 @@
             this.SubMenuInformes.TabIndex = 11;
             this.SubMenuInformes.Visible = false;
             // 
-            // button3
+            // HsAdeudadasButton
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.Control;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(0, 23);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button3.Size = new System.Drawing.Size(164, 26);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Hs trabajadas por proyecto";
-            this.button3.UseVisualStyleBackColor = false;
+            this.HsAdeudadasButton.BackColor = System.Drawing.SystemColors.Control;
+            this.HsAdeudadasButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.HsAdeudadasButton.FlatAppearance.BorderSize = 0;
+            this.HsAdeudadasButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HsAdeudadasButton.Location = new System.Drawing.Point(0, 75);
+            this.HsAdeudadasButton.Name = "HsAdeudadasButton";
+            this.HsAdeudadasButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.HsAdeudadasButton.Size = new System.Drawing.Size(164, 26);
+            this.HsAdeudadasButton.TabIndex = 3;
+            this.HsAdeudadasButton.Text = "Hs adeudadas";
+            this.HsAdeudadasButton.UseVisualStyleBackColor = false;
+            this.HsAdeudadasButton.Click += new System.EventHandler(this.HsAdeudadasButton_Click);
             // 
-            // button6
+            // HsTrabEmpleadoButton
             // 
-            this.button6.BackColor = System.Drawing.SystemColors.Control;
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(0, 0);
-            this.button6.Name = "button6";
-            this.button6.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button6.Size = new System.Drawing.Size(164, 23);
-            this.button6.TabIndex = 0;
-            this.button6.Text = "Hs ob de la semana";
-            this.button6.UseVisualStyleBackColor = false;
+            this.HsTrabEmpleadoButton.BackColor = System.Drawing.SystemColors.Control;
+            this.HsTrabEmpleadoButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.HsTrabEmpleadoButton.FlatAppearance.BorderSize = 0;
+            this.HsTrabEmpleadoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HsTrabEmpleadoButton.Location = new System.Drawing.Point(0, 49);
+            this.HsTrabEmpleadoButton.Name = "HsTrabEmpleadoButton";
+            this.HsTrabEmpleadoButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.HsTrabEmpleadoButton.Size = new System.Drawing.Size(164, 26);
+            this.HsTrabEmpleadoButton.TabIndex = 2;
+            this.HsTrabEmpleadoButton.Text = "Hs trabajadas por empleado";
+            this.HsTrabEmpleadoButton.UseVisualStyleBackColor = false;
+            this.HsTrabEmpleadoButton.Click += new System.EventHandler(this.HsTrabEmpleadoButton_Click);
             // 
-            // Informes
+            // HsTrabProyectoButton
             // 
-            this.Informes.BackColor = System.Drawing.SystemColors.Control;
-            this.Informes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Informes.FlatAppearance.BorderSize = 0;
-            this.Informes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Informes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Informes.Location = new System.Drawing.Point(0, 432);
-            this.Informes.Name = "Informes";
-            this.Informes.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.Informes.Size = new System.Drawing.Size(164, 23);
-            this.Informes.TabIndex = 10;
-            this.Informes.Text = "Informes";
-            this.Informes.UseVisualStyleBackColor = false;
-            this.Informes.Click += new System.EventHandler(this.Informes_Click);
+            this.HsTrabProyectoButton.BackColor = System.Drawing.SystemColors.Control;
+            this.HsTrabProyectoButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.HsTrabProyectoButton.FlatAppearance.BorderSize = 0;
+            this.HsTrabProyectoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HsTrabProyectoButton.Location = new System.Drawing.Point(0, 23);
+            this.HsTrabProyectoButton.Name = "HsTrabProyectoButton";
+            this.HsTrabProyectoButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.HsTrabProyectoButton.Size = new System.Drawing.Size(164, 26);
+            this.HsTrabProyectoButton.TabIndex = 1;
+            this.HsTrabProyectoButton.Text = "Hs trabajadas por proyecto";
+            this.HsTrabProyectoButton.UseVisualStyleBackColor = false;
+            this.HsTrabProyectoButton.Click += new System.EventHandler(this.HsTrabProyectoButton_Click);
+            // 
+            // HsObSemanaButton
+            // 
+            this.HsObSemanaButton.BackColor = System.Drawing.SystemColors.Control;
+            this.HsObSemanaButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.HsObSemanaButton.FlatAppearance.BorderSize = 0;
+            this.HsObSemanaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HsObSemanaButton.Location = new System.Drawing.Point(0, 0);
+            this.HsObSemanaButton.Name = "HsObSemanaButton";
+            this.HsObSemanaButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.HsObSemanaButton.Size = new System.Drawing.Size(164, 23);
+            this.HsObSemanaButton.TabIndex = 0;
+            this.HsObSemanaButton.Text = "Hs ob de la semana";
+            this.HsObSemanaButton.UseVisualStyleBackColor = false;
+            this.HsObSemanaButton.Click += new System.EventHandler(this.HsObSemanaButton_Click);
+            // 
+            // InformesButton
+            // 
+            this.InformesButton.BackColor = System.Drawing.SystemColors.Control;
+            this.InformesButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.InformesButton.FlatAppearance.BorderSize = 0;
+            this.InformesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InformesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InformesButton.Location = new System.Drawing.Point(0, 432);
+            this.InformesButton.Name = "InformesButton";
+            this.InformesButton.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.InformesButton.Size = new System.Drawing.Size(164, 23);
+            this.InformesButton.TabIndex = 10;
+            this.InformesButton.Text = "Informes";
+            this.InformesButton.UseVisualStyleBackColor = false;
+            this.InformesButton.Click += new System.EventHandler(this.Informes_Click);
             // 
             // SubMenuPerfiles
             // 
-            this.SubMenuPerfiles.Controls.Add(this.button10);
-            this.SubMenuPerfiles.Controls.Add(this.button11);
+            this.SubMenuPerfiles.Controls.Add(this.AgregarPerfilesButton);
+            this.SubMenuPerfiles.Controls.Add(this.VerListaPerfilesButton);
             this.SubMenuPerfiles.Dock = System.Windows.Forms.DockStyle.Top;
             this.SubMenuPerfiles.Location = new System.Drawing.Point(0, 373);
             this.SubMenuPerfiles.Name = "SubMenuPerfiles";
@@ -208,54 +241,56 @@
             this.SubMenuPerfiles.TabIndex = 9;
             this.SubMenuPerfiles.Visible = false;
             // 
-            // button10
+            // AgregarPerfilesButton
             // 
-            this.button10.BackColor = System.Drawing.SystemColors.Control;
-            this.button10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button10.FlatAppearance.BorderSize = 0;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(0, 23);
-            this.button10.Name = "button10";
-            this.button10.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button10.Size = new System.Drawing.Size(164, 26);
-            this.button10.TabIndex = 1;
-            this.button10.Text = "Agregar";
-            this.button10.UseVisualStyleBackColor = false;
+            this.AgregarPerfilesButton.BackColor = System.Drawing.SystemColors.Control;
+            this.AgregarPerfilesButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AgregarPerfilesButton.FlatAppearance.BorderSize = 0;
+            this.AgregarPerfilesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AgregarPerfilesButton.Location = new System.Drawing.Point(0, 23);
+            this.AgregarPerfilesButton.Name = "AgregarPerfilesButton";
+            this.AgregarPerfilesButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.AgregarPerfilesButton.Size = new System.Drawing.Size(164, 26);
+            this.AgregarPerfilesButton.TabIndex = 1;
+            this.AgregarPerfilesButton.Text = "Agregar";
+            this.AgregarPerfilesButton.UseVisualStyleBackColor = false;
+            this.AgregarPerfilesButton.Click += new System.EventHandler(this.AgregarPerfilesButton_Click);
             // 
-            // button11
+            // VerListaPerfilesButton
             // 
-            this.button11.BackColor = System.Drawing.SystemColors.Control;
-            this.button11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button11.FlatAppearance.BorderSize = 0;
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Location = new System.Drawing.Point(0, 0);
-            this.button11.Name = "button11";
-            this.button11.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button11.Size = new System.Drawing.Size(164, 23);
-            this.button11.TabIndex = 0;
-            this.button11.Text = "Ver lista";
-            this.button11.UseVisualStyleBackColor = false;
+            this.VerListaPerfilesButton.BackColor = System.Drawing.SystemColors.Control;
+            this.VerListaPerfilesButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.VerListaPerfilesButton.FlatAppearance.BorderSize = 0;
+            this.VerListaPerfilesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VerListaPerfilesButton.Location = new System.Drawing.Point(0, 0);
+            this.VerListaPerfilesButton.Name = "VerListaPerfilesButton";
+            this.VerListaPerfilesButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.VerListaPerfilesButton.Size = new System.Drawing.Size(164, 23);
+            this.VerListaPerfilesButton.TabIndex = 0;
+            this.VerListaPerfilesButton.Text = "Ver lista";
+            this.VerListaPerfilesButton.UseVisualStyleBackColor = false;
+            this.VerListaPerfilesButton.Click += new System.EventHandler(this.VerListaPerfilesButton_Click);
             // 
-            // Perfiles
+            // PerfilesButton
             // 
-            this.Perfiles.BackColor = System.Drawing.SystemColors.Control;
-            this.Perfiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Perfiles.FlatAppearance.BorderSize = 0;
-            this.Perfiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Perfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Perfiles.Location = new System.Drawing.Point(0, 350);
-            this.Perfiles.Name = "Perfiles";
-            this.Perfiles.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.Perfiles.Size = new System.Drawing.Size(164, 23);
-            this.Perfiles.TabIndex = 8;
-            this.Perfiles.Text = "Perfiles";
-            this.Perfiles.UseVisualStyleBackColor = false;
-            this.Perfiles.Click += new System.EventHandler(this.Perfiles_Click);
+            this.PerfilesButton.BackColor = System.Drawing.SystemColors.Control;
+            this.PerfilesButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PerfilesButton.FlatAppearance.BorderSize = 0;
+            this.PerfilesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PerfilesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PerfilesButton.Location = new System.Drawing.Point(0, 350);
+            this.PerfilesButton.Name = "PerfilesButton";
+            this.PerfilesButton.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.PerfilesButton.Size = new System.Drawing.Size(164, 23);
+            this.PerfilesButton.TabIndex = 8;
+            this.PerfilesButton.Text = "Perfiles";
+            this.PerfilesButton.UseVisualStyleBackColor = false;
+            this.PerfilesButton.Click += new System.EventHandler(this.Perfiles_Click);
             // 
             // SubMenuEmpleados
             // 
-            this.SubMenuEmpleados.Controls.Add(this.button7);
-            this.SubMenuEmpleados.Controls.Add(this.button8);
+            this.SubMenuEmpleados.Controls.Add(this.AgregarEmpleadosButton);
+            this.SubMenuEmpleados.Controls.Add(this.VerListaEmpleadosButton);
             this.SubMenuEmpleados.Dock = System.Windows.Forms.DockStyle.Top;
             this.SubMenuEmpleados.Location = new System.Drawing.Point(0, 291);
             this.SubMenuEmpleados.Name = "SubMenuEmpleados";
@@ -263,54 +298,56 @@
             this.SubMenuEmpleados.TabIndex = 7;
             this.SubMenuEmpleados.Visible = false;
             // 
-            // button7
+            // AgregarEmpleadosButton
             // 
-            this.button7.BackColor = System.Drawing.SystemColors.Control;
-            this.button7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(0, 23);
-            this.button7.Name = "button7";
-            this.button7.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button7.Size = new System.Drawing.Size(164, 26);
-            this.button7.TabIndex = 1;
-            this.button7.Text = "Agregar";
-            this.button7.UseVisualStyleBackColor = false;
+            this.AgregarEmpleadosButton.BackColor = System.Drawing.SystemColors.Control;
+            this.AgregarEmpleadosButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AgregarEmpleadosButton.FlatAppearance.BorderSize = 0;
+            this.AgregarEmpleadosButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AgregarEmpleadosButton.Location = new System.Drawing.Point(0, 23);
+            this.AgregarEmpleadosButton.Name = "AgregarEmpleadosButton";
+            this.AgregarEmpleadosButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.AgregarEmpleadosButton.Size = new System.Drawing.Size(164, 26);
+            this.AgregarEmpleadosButton.TabIndex = 1;
+            this.AgregarEmpleadosButton.Text = "Agregar";
+            this.AgregarEmpleadosButton.UseVisualStyleBackColor = false;
+            this.AgregarEmpleadosButton.Click += new System.EventHandler(this.AgregarEmpleadosButton_Click);
             // 
-            // button8
+            // VerListaEmpleadosButton
             // 
-            this.button8.BackColor = System.Drawing.SystemColors.Control;
-            this.button8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Location = new System.Drawing.Point(0, 0);
-            this.button8.Name = "button8";
-            this.button8.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button8.Size = new System.Drawing.Size(164, 23);
-            this.button8.TabIndex = 0;
-            this.button8.Text = "Ver lista";
-            this.button8.UseVisualStyleBackColor = false;
+            this.VerListaEmpleadosButton.BackColor = System.Drawing.SystemColors.Control;
+            this.VerListaEmpleadosButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.VerListaEmpleadosButton.FlatAppearance.BorderSize = 0;
+            this.VerListaEmpleadosButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VerListaEmpleadosButton.Location = new System.Drawing.Point(0, 0);
+            this.VerListaEmpleadosButton.Name = "VerListaEmpleadosButton";
+            this.VerListaEmpleadosButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.VerListaEmpleadosButton.Size = new System.Drawing.Size(164, 23);
+            this.VerListaEmpleadosButton.TabIndex = 0;
+            this.VerListaEmpleadosButton.Text = "Ver lista";
+            this.VerListaEmpleadosButton.UseVisualStyleBackColor = false;
+            this.VerListaEmpleadosButton.Click += new System.EventHandler(this.VerListaEmpleadosButton_Click);
             // 
-            // Empleados
+            // EmpleadosButton
             // 
-            this.Empleados.BackColor = System.Drawing.SystemColors.Control;
-            this.Empleados.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Empleados.FlatAppearance.BorderSize = 0;
-            this.Empleados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Empleados.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Empleados.Location = new System.Drawing.Point(0, 268);
-            this.Empleados.Name = "Empleados";
-            this.Empleados.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.Empleados.Size = new System.Drawing.Size(164, 23);
-            this.Empleados.TabIndex = 6;
-            this.Empleados.Text = "Empleados";
-            this.Empleados.UseVisualStyleBackColor = false;
-            this.Empleados.Click += new System.EventHandler(this.Empleados_Click);
+            this.EmpleadosButton.BackColor = System.Drawing.SystemColors.Control;
+            this.EmpleadosButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.EmpleadosButton.FlatAppearance.BorderSize = 0;
+            this.EmpleadosButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EmpleadosButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmpleadosButton.Location = new System.Drawing.Point(0, 268);
+            this.EmpleadosButton.Name = "EmpleadosButton";
+            this.EmpleadosButton.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.EmpleadosButton.Size = new System.Drawing.Size(164, 23);
+            this.EmpleadosButton.TabIndex = 6;
+            this.EmpleadosButton.Text = "Empleados";
+            this.EmpleadosButton.UseVisualStyleBackColor = false;
+            this.EmpleadosButton.Click += new System.EventHandler(this.Empleados_Click);
             // 
             // SubMenuProyectos
             // 
-            this.SubMenuProyectos.Controls.Add(this.button4);
-            this.SubMenuProyectos.Controls.Add(this.button5);
+            this.SubMenuProyectos.Controls.Add(this.AgregarProyectosButton);
+            this.SubMenuProyectos.Controls.Add(this.VerListaProyectosButton);
             this.SubMenuProyectos.Dock = System.Windows.Forms.DockStyle.Top;
             this.SubMenuProyectos.Location = new System.Drawing.Point(0, 209);
             this.SubMenuProyectos.Name = "SubMenuProyectos";
@@ -318,55 +355,57 @@
             this.SubMenuProyectos.TabIndex = 5;
             this.SubMenuProyectos.Visible = false;
             // 
-            // button4
+            // AgregarProyectosButton
             // 
-            this.button4.BackColor = System.Drawing.SystemColors.Control;
-            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(0, 23);
-            this.button4.Name = "button4";
-            this.button4.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button4.Size = new System.Drawing.Size(164, 26);
-            this.button4.TabIndex = 1;
-            this.button4.Text = "Agregar";
-            this.button4.UseVisualStyleBackColor = false;
+            this.AgregarProyectosButton.BackColor = System.Drawing.SystemColors.Control;
+            this.AgregarProyectosButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AgregarProyectosButton.FlatAppearance.BorderSize = 0;
+            this.AgregarProyectosButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AgregarProyectosButton.Location = new System.Drawing.Point(0, 23);
+            this.AgregarProyectosButton.Name = "AgregarProyectosButton";
+            this.AgregarProyectosButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.AgregarProyectosButton.Size = new System.Drawing.Size(164, 26);
+            this.AgregarProyectosButton.TabIndex = 1;
+            this.AgregarProyectosButton.Text = "Agregar";
+            this.AgregarProyectosButton.UseVisualStyleBackColor = false;
+            this.AgregarProyectosButton.Click += new System.EventHandler(this.AgregarProyectosButton_Click);
             // 
-            // button5
+            // VerListaProyectosButton
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.Control;
-            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(0, 0);
-            this.button5.Name = "button5";
-            this.button5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button5.Size = new System.Drawing.Size(164, 23);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "Ver lista";
-            this.button5.UseVisualStyleBackColor = false;
+            this.VerListaProyectosButton.BackColor = System.Drawing.SystemColors.Control;
+            this.VerListaProyectosButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.VerListaProyectosButton.FlatAppearance.BorderSize = 0;
+            this.VerListaProyectosButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VerListaProyectosButton.Location = new System.Drawing.Point(0, 0);
+            this.VerListaProyectosButton.Name = "VerListaProyectosButton";
+            this.VerListaProyectosButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.VerListaProyectosButton.Size = new System.Drawing.Size(164, 23);
+            this.VerListaProyectosButton.TabIndex = 0;
+            this.VerListaProyectosButton.Text = "Ver lista";
+            this.VerListaProyectosButton.UseVisualStyleBackColor = false;
+            this.VerListaProyectosButton.Click += new System.EventHandler(this.VerListaProyectosButton_Click);
             // 
-            // Proyectos
+            // ProyectosButton
             // 
-            this.Proyectos.BackColor = System.Drawing.SystemColors.Control;
-            this.Proyectos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Proyectos.FlatAppearance.BorderSize = 0;
-            this.Proyectos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Proyectos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Proyectos.Location = new System.Drawing.Point(0, 186);
-            this.Proyectos.Name = "Proyectos";
-            this.Proyectos.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.Proyectos.Size = new System.Drawing.Size(164, 23);
-            this.Proyectos.TabIndex = 4;
-            this.Proyectos.Text = "Proyectos";
-            this.Proyectos.UseVisualStyleBackColor = false;
-            this.Proyectos.Click += new System.EventHandler(this.Proyectos_Click);
+            this.ProyectosButton.BackColor = System.Drawing.SystemColors.Control;
+            this.ProyectosButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ProyectosButton.FlatAppearance.BorderSize = 0;
+            this.ProyectosButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ProyectosButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProyectosButton.Location = new System.Drawing.Point(0, 186);
+            this.ProyectosButton.Name = "ProyectosButton";
+            this.ProyectosButton.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.ProyectosButton.Size = new System.Drawing.Size(164, 23);
+            this.ProyectosButton.TabIndex = 4;
+            this.ProyectosButton.Text = "Proyectos";
+            this.ProyectosButton.UseVisualStyleBackColor = false;
+            this.ProyectosButton.Click += new System.EventHandler(this.Proyectos_Click);
             // 
             // SubMenuTareas
             // 
-            this.SubMenuTareas.Controls.Add(this.button13);
-            this.SubMenuTareas.Controls.Add(this.button1);
-            this.SubMenuTareas.Controls.Add(this.button2);
+            this.SubMenuTareas.Controls.Add(this.CargarHorasButton);
+            this.SubMenuTareas.Controls.Add(this.AgregarTareasButton);
+            this.SubMenuTareas.Controls.Add(this.VerListaTareasButton);
             this.SubMenuTareas.Dock = System.Windows.Forms.DockStyle.Top;
             this.SubMenuTareas.Location = new System.Drawing.Point(0, 105);
             this.SubMenuTareas.Name = "SubMenuTareas";
@@ -374,54 +413,71 @@
             this.SubMenuTareas.TabIndex = 3;
             this.SubMenuTareas.Visible = false;
             // 
-            // button1
+            // CargarHorasButton
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(0, 23);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(164, 26);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Agregar";
-            this.button1.UseVisualStyleBackColor = false;
+            this.CargarHorasButton.BackColor = System.Drawing.SystemColors.Control;
+            this.CargarHorasButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CargarHorasButton.FlatAppearance.BorderSize = 0;
+            this.CargarHorasButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CargarHorasButton.Location = new System.Drawing.Point(0, 49);
+            this.CargarHorasButton.Name = "CargarHorasButton";
+            this.CargarHorasButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.CargarHorasButton.Size = new System.Drawing.Size(164, 23);
+            this.CargarHorasButton.TabIndex = 2;
+            this.CargarHorasButton.Text = "Cargar Horas";
+            this.CargarHorasButton.UseVisualStyleBackColor = false;
+            this.CargarHorasButton.Click += new System.EventHandler(this.CargarHorasButton_Click);
             // 
-            // button2
+            // AgregarTareasButton
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.Control;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(0, 0);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(164, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Ver lista";
-            this.button2.UseVisualStyleBackColor = false;
+            this.AgregarTareasButton.BackColor = System.Drawing.SystemColors.Control;
+            this.AgregarTareasButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AgregarTareasButton.FlatAppearance.BorderSize = 0;
+            this.AgregarTareasButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AgregarTareasButton.Location = new System.Drawing.Point(0, 23);
+            this.AgregarTareasButton.Name = "AgregarTareasButton";
+            this.AgregarTareasButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.AgregarTareasButton.Size = new System.Drawing.Size(164, 26);
+            this.AgregarTareasButton.TabIndex = 1;
+            this.AgregarTareasButton.Text = "Agregar";
+            this.AgregarTareasButton.UseVisualStyleBackColor = false;
+            this.AgregarTareasButton.Click += new System.EventHandler(this.AgregarTareasButton_Click);
             // 
-            // Tareas
+            // VerListaTareasButton
             // 
-            this.Tareas.BackColor = System.Drawing.SystemColors.Control;
-            this.Tareas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Tareas.FlatAppearance.BorderSize = 0;
-            this.Tareas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Tareas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Tareas.Location = new System.Drawing.Point(0, 82);
-            this.Tareas.Name = "Tareas";
-            this.Tareas.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.Tareas.Size = new System.Drawing.Size(164, 23);
-            this.Tareas.TabIndex = 2;
-            this.Tareas.Text = "Tareas";
-            this.Tareas.UseVisualStyleBackColor = false;
-            this.Tareas.Click += new System.EventHandler(this.Tareas_Click);
+            this.VerListaTareasButton.BackColor = System.Drawing.SystemColors.Control;
+            this.VerListaTareasButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.VerListaTareasButton.FlatAppearance.BorderSize = 0;
+            this.VerListaTareasButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VerListaTareasButton.Location = new System.Drawing.Point(0, 0);
+            this.VerListaTareasButton.Name = "VerListaTareasButton";
+            this.VerListaTareasButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.VerListaTareasButton.Size = new System.Drawing.Size(164, 23);
+            this.VerListaTareasButton.TabIndex = 0;
+            this.VerListaTareasButton.Text = "Ver lista";
+            this.VerListaTareasButton.UseVisualStyleBackColor = false;
+            this.VerListaTareasButton.Click += new System.EventHandler(this.VerListaTareasButton_Click);
+            // 
+            // TareasButton
+            // 
+            this.TareasButton.BackColor = System.Drawing.SystemColors.Control;
+            this.TareasButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TareasButton.FlatAppearance.BorderSize = 0;
+            this.TareasButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TareasButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TareasButton.Location = new System.Drawing.Point(0, 82);
+            this.TareasButton.Name = "TareasButton";
+            this.TareasButton.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.TareasButton.Size = new System.Drawing.Size(164, 23);
+            this.TareasButton.TabIndex = 2;
+            this.TareasButton.Text = "Tareas";
+            this.TareasButton.UseVisualStyleBackColor = false;
+            this.TareasButton.Click += new System.EventHandler(this.Tareas_Click);
             // 
             // SubMenuClientes
             // 
-            this.SubMenuClientes.Controls.Add(this.AgregarClientes);
-            this.SubMenuClientes.Controls.Add(this.VerListaClientes);
+            this.SubMenuClientes.Controls.Add(this.AgregarClientesButton);
+            this.SubMenuClientes.Controls.Add(this.VerListaClientesButton);
             this.SubMenuClientes.Dock = System.Windows.Forms.DockStyle.Top;
             this.SubMenuClientes.Location = new System.Drawing.Point(0, 23);
             this.SubMenuClientes.Name = "SubMenuClientes";
@@ -429,50 +485,51 @@
             this.SubMenuClientes.TabIndex = 1;
             this.SubMenuClientes.Visible = false;
             // 
-            // AgregarClientes
+            // AgregarClientesButton
             // 
-            this.AgregarClientes.BackColor = System.Drawing.SystemColors.Control;
-            this.AgregarClientes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AgregarClientes.FlatAppearance.BorderSize = 0;
-            this.AgregarClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AgregarClientes.Location = new System.Drawing.Point(0, 23);
-            this.AgregarClientes.Name = "AgregarClientes";
-            this.AgregarClientes.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.AgregarClientes.Size = new System.Drawing.Size(164, 26);
-            this.AgregarClientes.TabIndex = 1;
-            this.AgregarClientes.Text = "Agregar";
-            this.AgregarClientes.UseVisualStyleBackColor = false;
+            this.AgregarClientesButton.BackColor = System.Drawing.SystemColors.Control;
+            this.AgregarClientesButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AgregarClientesButton.FlatAppearance.BorderSize = 0;
+            this.AgregarClientesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AgregarClientesButton.Location = new System.Drawing.Point(0, 23);
+            this.AgregarClientesButton.Name = "AgregarClientesButton";
+            this.AgregarClientesButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.AgregarClientesButton.Size = new System.Drawing.Size(164, 26);
+            this.AgregarClientesButton.TabIndex = 1;
+            this.AgregarClientesButton.Text = "Agregar";
+            this.AgregarClientesButton.UseVisualStyleBackColor = false;
+            this.AgregarClientesButton.Click += new System.EventHandler(this.AgregarClientesButton_Click);
             // 
-            // VerListaClientes
+            // VerListaClientesButton
             // 
-            this.VerListaClientes.BackColor = System.Drawing.SystemColors.Control;
-            this.VerListaClientes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.VerListaClientes.FlatAppearance.BorderSize = 0;
-            this.VerListaClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VerListaClientes.Location = new System.Drawing.Point(0, 0);
-            this.VerListaClientes.Name = "VerListaClientes";
-            this.VerListaClientes.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.VerListaClientes.Size = new System.Drawing.Size(164, 23);
-            this.VerListaClientes.TabIndex = 0;
-            this.VerListaClientes.Text = "Ver lista";
-            this.VerListaClientes.UseVisualStyleBackColor = false;
-            this.VerListaClientes.Click += new System.EventHandler(this.VerListaClientes_Click);
+            this.VerListaClientesButton.BackColor = System.Drawing.SystemColors.Control;
+            this.VerListaClientesButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.VerListaClientesButton.FlatAppearance.BorderSize = 0;
+            this.VerListaClientesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VerListaClientesButton.Location = new System.Drawing.Point(0, 0);
+            this.VerListaClientesButton.Name = "VerListaClientesButton";
+            this.VerListaClientesButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.VerListaClientesButton.Size = new System.Drawing.Size(164, 23);
+            this.VerListaClientesButton.TabIndex = 0;
+            this.VerListaClientesButton.Text = "Ver lista";
+            this.VerListaClientesButton.UseVisualStyleBackColor = false;
+            this.VerListaClientesButton.Click += new System.EventHandler(this.VerListaClientes_Click);
             // 
-            // Clientes
+            // ClientesButton
             // 
-            this.Clientes.BackColor = System.Drawing.SystemColors.Control;
-            this.Clientes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Clientes.FlatAppearance.BorderSize = 0;
-            this.Clientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Clientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Clientes.Location = new System.Drawing.Point(0, 0);
-            this.Clientes.Name = "Clientes";
-            this.Clientes.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.Clientes.Size = new System.Drawing.Size(164, 23);
-            this.Clientes.TabIndex = 0;
-            this.Clientes.Text = "Clientes";
-            this.Clientes.UseVisualStyleBackColor = false;
-            this.Clientes.Click += new System.EventHandler(this.Clientes_Click);
+            this.ClientesButton.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientesButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ClientesButton.FlatAppearance.BorderSize = 0;
+            this.ClientesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClientesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientesButton.Location = new System.Drawing.Point(0, 0);
+            this.ClientesButton.Name = "ClientesButton";
+            this.ClientesButton.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.ClientesButton.Size = new System.Drawing.Size(164, 23);
+            this.ClientesButton.TabIndex = 0;
+            this.ClientesButton.Text = "Clientes";
+            this.ClientesButton.UseVisualStyleBackColor = false;
+            this.ClientesButton.Click += new System.EventHandler(this.Clientes_Click);
             // 
             // LogOut
             // 
@@ -481,7 +538,7 @@
             this.LogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogOut.ForeColor = System.Drawing.SystemColors.Window;
-            this.LogOut.Location = new System.Drawing.Point(738, 5);
+            this.LogOut.Location = new System.Drawing.Point(948, 3);
             this.LogOut.Name = "LogOut";
             this.LogOut.Size = new System.Drawing.Size(63, 25);
             this.LogOut.TabIndex = 1;
@@ -492,87 +549,57 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.MediumBlue;
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.TituloLabel);
             this.panel1.Controls.Add(this.LogOut);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(804, 33);
+            this.panel1.Size = new System.Drawing.Size(1023, 33);
             this.panel1.TabIndex = 0;
             // 
-            // label1
+            // TituloLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(268, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Sistema de gestión de empleados - ";
+            this.TituloLabel.AutoSize = true;
+            this.TituloLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TituloLabel.ForeColor = System.Drawing.SystemColors.Window;
+            this.TituloLabel.Location = new System.Drawing.Point(12, 9);
+            this.TituloLabel.Name = "TituloLabel";
+            this.TituloLabel.Size = new System.Drawing.Size(0, 17);
+            this.TituloLabel.TabIndex = 1;
             // 
-            // panel2
+            // Paneldefondo
             // 
-            this.panel2.Controls.Add(this.Menu_lateral);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 33);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(804, 638);
-            this.panel2.TabIndex = 0;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.Paneldefondo.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Paneldefondo.Controls.Add(this.panelChildForm);
+            this.Paneldefondo.Controls.Add(this.Menu_lateral);
+            this.Paneldefondo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Paneldefondo.Location = new System.Drawing.Point(0, 33);
+            this.Paneldefondo.Name = "Paneldefondo";
+            this.Paneldefondo.Size = new System.Drawing.Size(1023, 659);
+            this.Paneldefondo.TabIndex = 0;
             // 
-            // button9
+            // panelChildForm
             // 
-            this.button9.BackColor = System.Drawing.SystemColors.Control;
-            this.button9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Location = new System.Drawing.Point(0, 49);
-            this.button9.Name = "button9";
-            this.button9.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button9.Size = new System.Drawing.Size(164, 26);
-            this.button9.TabIndex = 2;
-            this.button9.Text = "Hs trabajadas por empleado";
-            this.button9.UseVisualStyleBackColor = false;
-            // 
-            // button12
-            // 
-            this.button12.BackColor = System.Drawing.SystemColors.Control;
-            this.button12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button12.FlatAppearance.BorderSize = 0;
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(0, 75);
-            this.button12.Name = "button12";
-            this.button12.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button12.Size = new System.Drawing.Size(164, 26);
-            this.button12.TabIndex = 3;
-            this.button12.Text = "Hs adeudadas";
-            this.button12.UseVisualStyleBackColor = false;
-            // 
-            // button13
-            // 
-            this.button13.BackColor = System.Drawing.SystemColors.Control;
-            this.button13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button13.FlatAppearance.BorderSize = 0;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Location = new System.Drawing.Point(0, 49);
-            this.button13.Name = "button13";
-            this.button13.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button13.Size = new System.Drawing.Size(164, 23);
-            this.button13.TabIndex = 2;
-            this.button13.Text = "Cargar Horas";
-            this.button13.UseVisualStyleBackColor = false;
+            this.panelChildForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelChildForm.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panelChildForm.Location = new System.Drawing.Point(232, 82);
+            this.panelChildForm.Name = "panelChildForm";
+            this.panelChildForm.Size = new System.Drawing.Size(767, 373);
+            this.panelChildForm.TabIndex = 1;
+            this.panelChildForm.Visible = false;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(804, 671);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(1023, 692);
+            this.Controls.Add(this.Paneldefondo);
             this.Controls.Add(this.panel1);
             this.Name = "frmMain";
-            this.Text = "frmMain";
+            this.Text = "Sistema de gestión de empleados ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Menu_lateral.ResumeLayout(false);
@@ -585,7 +612,7 @@
             this.SubMenuClientes.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
+            this.Paneldefondo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -595,37 +622,38 @@
         private System.Windows.Forms.Panel Menu_lateral;
         private System.Windows.Forms.Button LogOut;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel Paneldefondo;
         private System.Windows.Forms.Panel SubMenuClientes;
-        private System.Windows.Forms.Button Clientes;
-        private System.Windows.Forms.Button AgregarClientes;
-        private System.Windows.Forms.Button VerListaClientes;
+        private System.Windows.Forms.Button ClientesButton;
+        private System.Windows.Forms.Button AgregarClientesButton;
+        private System.Windows.Forms.Button VerListaClientesButton;
         private System.Windows.Forms.Panel SubMenuPerfiles;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button Perfiles;
+        private System.Windows.Forms.Button AgregarPerfilesButton;
+        private System.Windows.Forms.Button VerListaPerfilesButton;
+        private System.Windows.Forms.Button PerfilesButton;
         private System.Windows.Forms.Panel SubMenuEmpleados;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button Empleados;
+        private System.Windows.Forms.Button AgregarEmpleadosButton;
+        private System.Windows.Forms.Button VerListaEmpleadosButton;
+        private System.Windows.Forms.Button EmpleadosButton;
         private System.Windows.Forms.Panel SubMenuProyectos;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button Proyectos;
+        private System.Windows.Forms.Button AgregarProyectosButton;
+        private System.Windows.Forms.Button VerListaProyectosButton;
+        private System.Windows.Forms.Button ProyectosButton;
         private System.Windows.Forms.Panel SubMenuTareas;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button Tareas;
+        private System.Windows.Forms.Button AgregarTareasButton;
+        private System.Windows.Forms.Button VerListaTareasButton;
+        private System.Windows.Forms.Button TareasButton;
         private System.Windows.Forms.Panel SubMenuInformes;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button Informes;
+        private System.Windows.Forms.Button HsTrabProyectoButton;
+        private System.Windows.Forms.Button HsObSemanaButton;
+        private System.Windows.Forms.Button InformesButton;
         private System.Windows.Forms.Panel SubMenuLiquidacion;
         private System.Windows.Forms.Button LiquidarButton;
-        private System.Windows.Forms.Button Liquidacion;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button LiquidacionButton;
+        private System.Windows.Forms.Label TituloLabel;
+        private System.Windows.Forms.Button HsAdeudadasButton;
+        private System.Windows.Forms.Button HsTrabEmpleadoButton;
+        private System.Windows.Forms.Button CargarHorasButton;
+        private System.Windows.Forms.Panel panelChildForm;
     }
 }
