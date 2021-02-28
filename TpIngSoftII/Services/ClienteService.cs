@@ -86,7 +86,12 @@ namespace TpIngSoftII.Services
             {
                 ID = x.ID,
                 Nombre = x.Nombre ?? " - ",
-                RazonSocial = x.RazonSocial ?? " - "
+                RazonSocial = x.RazonSocial ?? " - ",
+                Apellido = x.Apellido ?? " - ",
+                Direccion = x.Direccion ?? " - ",
+                DniCuit = x.DniCuit,
+                Email = x.Email ?? " - ",
+                TelefonoContacto = x.TelefonoContacto ?? 0
             })
                 .ToList();
             if (ClientesDto.Count() != 0)
