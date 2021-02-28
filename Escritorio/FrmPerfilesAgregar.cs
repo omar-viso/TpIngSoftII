@@ -18,6 +18,8 @@ namespace Escritorio
     {
         private readonly IPerfilService perfilService;
         private readonly IAppContext2 appContext2;
+        private int ID=0;
+
 
         public FrmPerfilesAgregar(IPerfilService perfilService, IAppContext2 appContext2)
         {
@@ -28,11 +30,16 @@ namespace Escritorio
 
         private void FrmPerfilesAgregar_Load(object sender, EventArgs e)
         {
-
+            var perfiles = perfilService.GetAll();
+            foreach (PerfilDto perfil in perfiles)
+            {
+                ElejirPerfilcomboBox.Items.Add(perfil.Descripcion);
+            }
         }
 
         private void AgregarButton_Click(object sender, EventArgs e)
         {
+            
             if(DescripcionText.Text == "" || ValorHoraNumeric.Value == 0)
             {
                 MessageBox.Show("Por favor complete la descripción de su perfil y el valor horario");
@@ -41,17 +48,55 @@ namespace Escritorio
             PerfilDto perfilDto = new PerfilDto();
             perfilDto.Descripcion = DescripcionText.Text;
             perfilDto.ValorHorario = ValorHoraNumeric.Value;
-            var respuesta= perfilService.Update(perfilDto);
-            if (respuesta != null)
+            if (ID != 0)
             {
-                MessageBox.Show("Perfil creado");
+                var perfilAeditar = perfilService.GetById(ID);
+                perfilAeditar.Descripcion = DescripcionText.Text;
+                perfilAeditar.ValorHorario = ValorHoraNumeric.Value;
+                var respuesta = perfilService.Update(perfilAeditar);
+                if (respuesta != null)
+                {
+                    MessageBox.Show("Perfil creado");
+                }
+                else
+                {
+                    MessageBox.Show("No se a podido crear el perfil");
+                }
             }
             else
             {
-                MessageBox.Show("No se a podido crear el perfil");
+                var respuesta = perfilService.Update(perfilDto);
+                if (respuesta != null)
+                {
+                    MessageBox.Show("Perfil creado");
+                }
+                else
+                {
+                    MessageBox.Show("No se a podido crear el perfil");
+                }
             }
             DescripcionText.Text = "";
             ValorHoraNumeric.Value = 0;
+        }
+
+        private void ElejirPerfilcomboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //PerfilDto perfilElegido = null;
+            var perfiles = perfilService.GetAll();
+            foreach (PerfilDto perfil in perfiles)
+            {
+                if (ElejirPerfilcomboBox.SelectedItem == perfil.Descripcion)
+                {
+                    DescripcionText.Text = perfil.Descripcion;
+                    ValorHoraNumeric.Value = perfil.ValorHorario;
+                    ID=perfil.ID;
+                }
+            }
+            //if (perfilElegido != null)
+            //{
+            //    DescripcionText.Text = perfilElegido.Descripcion;
+            //    ValorHoraNumeric.Value = perfilElegido.ValorHorario;
+            //}
         }
     }
 }
