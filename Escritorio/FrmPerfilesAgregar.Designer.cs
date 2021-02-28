@@ -32,8 +32,8 @@
             this.AgregarButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.ValroHoraNumeric = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.ValroHoraNumeric)).BeginInit();
+            this.ValorHoraNumeric = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.ValorHoraNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // DescripcionText
@@ -55,6 +55,7 @@
             this.AgregarButton.TabIndex = 5;
             this.AgregarButton.Text = "Agregar";
             this.AgregarButton.UseVisualStyleBackColor = false;
+            this.AgregarButton.Click += new System.EventHandler(this.AgregarButton_Click);
             // 
             // label1
             // 
@@ -74,20 +75,25 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Valor Hora:";
             // 
-            // ValroHoraNumeric
+            // ValorHoraNumeric
             // 
-            this.ValroHoraNumeric.DecimalPlaces = 2;
-            this.ValroHoraNumeric.Location = new System.Drawing.Point(277, 50);
-            this.ValroHoraNumeric.Name = "ValroHoraNumeric";
-            this.ValroHoraNumeric.Size = new System.Drawing.Size(120, 20);
-            this.ValroHoraNumeric.TabIndex = 8;
+            this.ValorHoraNumeric.DecimalPlaces = 2;
+            this.ValorHoraNumeric.Location = new System.Drawing.Point(277, 50);
+            this.ValorHoraNumeric.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.ValorHoraNumeric.Name = "ValorHoraNumeric";
+            this.ValorHoraNumeric.Size = new System.Drawing.Size(120, 20);
+            this.ValorHoraNumeric.TabIndex = 8;
             // 
             // FrmPerfilesAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 141);
-            this.Controls.Add(this.ValroHoraNumeric);
+            this.Controls.Add(this.ValorHoraNumeric);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AgregarButton);
@@ -95,7 +101,7 @@
             this.Name = "FrmPerfilesAgregar";
             this.Text = "FrmPerfilesAgregar";
             this.Load += new System.EventHandler(this.FrmPerfilesAgregar_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ValroHoraNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ValorHoraNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,6 +113,6 @@
         private System.Windows.Forms.Button AgregarButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown ValroHoraNumeric;
+        private System.Windows.Forms.NumericUpDown ValorHoraNumeric;
     }
 }

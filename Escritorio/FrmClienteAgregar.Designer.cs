@@ -31,20 +31,22 @@
             this.label1 = new System.Windows.Forms.Label();
             this.TipoPersonaCombo = new System.Windows.Forms.ComboBox();
             this.NombreLabel = new System.Windows.Forms.Label();
-            this.NombretextBox = new System.Windows.Forms.TextBox();
+            this.NombreTextBox = new System.Windows.Forms.TextBox();
             this.ApellidoLabel = new System.Windows.Forms.Label();
-            this.ApellidotextBox = new System.Windows.Forms.TextBox();
+            this.ApellidoTextBox = new System.Windows.Forms.TextBox();
             this.RazonSociallabel = new System.Windows.Forms.Label();
             this.RazonSocialtextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.DireccionTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.EMailTexbox = new System.Windows.Forms.TextBox();
             this.AgregarButton = new System.Windows.Forms.Button();
+            this.DNI_CUIT_numeric = new System.Windows.Forms.NumericUpDown();
+            this.TelefonoNumeric = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.DNI_CUIT_numeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TelefonoNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -79,15 +81,15 @@
             this.NombreLabel.Text = "Nombre:";
             this.NombreLabel.Visible = false;
             // 
-            // NombretextBox
+            // NombreTextBox
             // 
-            this.NombretextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.NombretextBox.Location = new System.Drawing.Point(76, 100);
-            this.NombretextBox.Name = "NombretextBox";
-            this.NombretextBox.Size = new System.Drawing.Size(140, 20);
-            this.NombretextBox.TabIndex = 2;
-            this.NombretextBox.Tag = "";
-            this.NombretextBox.Visible = false;
+            this.NombreTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NombreTextBox.Location = new System.Drawing.Point(76, 100);
+            this.NombreTextBox.Name = "NombreTextBox";
+            this.NombreTextBox.Size = new System.Drawing.Size(140, 20);
+            this.NombreTextBox.TabIndex = 2;
+            this.NombreTextBox.Tag = "";
+            this.NombreTextBox.Visible = false;
             // 
             // ApellidoLabel
             // 
@@ -99,15 +101,15 @@
             this.ApellidoLabel.Text = "Apellido:";
             this.ApellidoLabel.Visible = false;
             // 
-            // ApellidotextBox
+            // ApellidoTextBox
             // 
-            this.ApellidotextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ApellidotextBox.Location = new System.Drawing.Point(341, 100);
-            this.ApellidotextBox.Name = "ApellidotextBox";
-            this.ApellidotextBox.Size = new System.Drawing.Size(140, 20);
-            this.ApellidotextBox.TabIndex = 4;
-            this.ApellidotextBox.Tag = "";
-            this.ApellidotextBox.Visible = false;
+            this.ApellidoTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ApellidoTextBox.Location = new System.Drawing.Point(341, 100);
+            this.ApellidoTextBox.Name = "ApellidoTextBox";
+            this.ApellidoTextBox.Size = new System.Drawing.Size(140, 20);
+            this.ApellidoTextBox.TabIndex = 4;
+            this.ApellidoTextBox.Tag = "";
+            this.ApellidoTextBox.Visible = false;
             // 
             // RazonSociallabel
             // 
@@ -138,15 +140,6 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "DNI/CUIT:";
             // 
-            // textBox4
-            // 
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Location = new System.Drawing.Point(76, 164);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(140, 20);
-            this.textBox4.TabIndex = 8;
-            this.textBox4.Tag = "";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -156,14 +149,14 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Dirección:";
             // 
-            // textBox5
+            // DireccionTextBox
             // 
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.Location = new System.Drawing.Point(351, 164);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(140, 20);
-            this.textBox5.TabIndex = 10;
-            this.textBox5.Tag = "";
+            this.DireccionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DireccionTextBox.Location = new System.Drawing.Point(351, 164);
+            this.DireccionTextBox.Name = "DireccionTextBox";
+            this.DireccionTextBox.Size = new System.Drawing.Size(140, 20);
+            this.DireccionTextBox.TabIndex = 10;
+            this.DireccionTextBox.Tag = "";
             // 
             // label7
             // 
@@ -174,15 +167,6 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "Telefono de contacto:";
             // 
-            // textBox6
-            // 
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox6.Location = new System.Drawing.Point(76, 214);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(140, 20);
-            this.textBox6.TabIndex = 12;
-            this.textBox6.Tag = "";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -192,14 +176,14 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "E-mail:";
             // 
-            // textBox7
+            // EMailTexbox
             // 
-            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox7.Location = new System.Drawing.Point(351, 214);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(140, 20);
-            this.textBox7.TabIndex = 14;
-            this.textBox7.Tag = "";
+            this.EMailTexbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.EMailTexbox.Location = new System.Drawing.Point(351, 214);
+            this.EMailTexbox.Name = "EMailTexbox";
+            this.EMailTexbox.Size = new System.Drawing.Size(140, 20);
+            this.EMailTexbox.TabIndex = 14;
+            this.EMailTexbox.Tag = "";
             // 
             // AgregarButton
             // 
@@ -213,31 +197,59 @@
             this.AgregarButton.TabIndex = 16;
             this.AgregarButton.Text = "Agregar";
             this.AgregarButton.UseVisualStyleBackColor = false;
+            this.AgregarButton.Click += new System.EventHandler(this.AgregarButton_Click);
+            // 
+            // DNI_CUIT_numeric
+            // 
+            this.DNI_CUIT_numeric.Location = new System.Drawing.Point(76, 164);
+            this.DNI_CUIT_numeric.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.DNI_CUIT_numeric.Name = "DNI_CUIT_numeric";
+            this.DNI_CUIT_numeric.Size = new System.Drawing.Size(120, 20);
+            this.DNI_CUIT_numeric.TabIndex = 17;
+            // 
+            // TelefonoNumeric
+            // 
+            this.TelefonoNumeric.Location = new System.Drawing.Point(76, 214);
+            this.TelefonoNumeric.Maximum = new decimal(new int[] {
+            1215752191,
+            23,
+            0,
+            0});
+            this.TelefonoNumeric.Name = "TelefonoNumeric";
+            this.TelefonoNumeric.Size = new System.Drawing.Size(120, 20);
+            this.TelefonoNumeric.TabIndex = 18;
             // 
             // FrmClienteAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 291);
+            this.Controls.Add(this.TelefonoNumeric);
+            this.Controls.Add(this.DNI_CUIT_numeric);
             this.Controls.Add(this.AgregarButton);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.EMailTexbox);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox6);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.DireccionTextBox);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.RazonSociallabel);
             this.Controls.Add(this.RazonSocialtextBox);
             this.Controls.Add(this.ApellidoLabel);
-            this.Controls.Add(this.ApellidotextBox);
+            this.Controls.Add(this.ApellidoTextBox);
             this.Controls.Add(this.NombreLabel);
-            this.Controls.Add(this.NombretextBox);
+            this.Controls.Add(this.NombreTextBox);
             this.Controls.Add(this.TipoPersonaCombo);
             this.Controls.Add(this.label1);
             this.Name = "FrmClienteAgregar";
             this.Text = "FrmClienteAgregar";
+            this.Load += new System.EventHandler(this.FrmClienteAgregar_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.DNI_CUIT_numeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TelefonoNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,19 +260,19 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox TipoPersonaCombo;
         private System.Windows.Forms.Label NombreLabel;
-        private System.Windows.Forms.TextBox NombretextBox;
+        private System.Windows.Forms.TextBox NombreTextBox;
         private System.Windows.Forms.Label ApellidoLabel;
-        private System.Windows.Forms.TextBox ApellidotextBox;
+        private System.Windows.Forms.TextBox ApellidoTextBox;
         private System.Windows.Forms.Label RazonSociallabel;
         private System.Windows.Forms.TextBox RazonSocialtextBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox DireccionTextBox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox EMailTexbox;
         private System.Windows.Forms.Button AgregarButton;
+        private System.Windows.Forms.NumericUpDown DNI_CUIT_numeric;
+        private System.Windows.Forms.NumericUpDown TelefonoNumeric;
     }
 }

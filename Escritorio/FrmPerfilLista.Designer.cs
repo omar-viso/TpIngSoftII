@@ -32,7 +32,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ListaPerfilPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -42,7 +44,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(403, 37);
+            this.panel1.Size = new System.Drawing.Size(403, 29);
             this.panel1.TabIndex = 0;
             // 
             // label2
@@ -67,36 +69,48 @@
             // 
             // ListaPerfilPanel1
             // 
-            this.ListaPerfilPanel1.AutoScroll = true;
             this.ListaPerfilPanel1.AutoSize = true;
             this.ListaPerfilPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ListaPerfilPanel1.BackColor = System.Drawing.SystemColors.Menu;
             this.ListaPerfilPanel1.ColumnCount = 4;
-            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.61776F));
-            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.38224F));
-            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.ListaPerfilPanel1.Location = new System.Drawing.Point(12, 43);
+            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.82906F));
+            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.17094F));
+            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
+            this.ListaPerfilPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
+            this.ListaPerfilPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ListaPerfilPanel1.Location = new System.Drawing.Point(0, 0);
             this.ListaPerfilPanel1.Name = "ListaPerfilPanel1";
             this.ListaPerfilPanel1.RowCount = 1;
-            this.ListaPerfilPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.ListaPerfilPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.ListaPerfilPanel1.Size = new System.Drawing.Size(157, 0);
+            this.ListaPerfilPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.ListaPerfilPanel1.Size = new System.Drawing.Size(403, 30);
             this.ListaPerfilPanel1.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel2.Controls.Add(this.ListaPerfilPanel1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 29);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(403, 193);
+            this.panel2.TabIndex = 0;
             // 
             // FrmPerfilLista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 223);
-            this.Controls.Add(this.ListaPerfilPanel1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "FrmPerfilLista";
             this.Text = "FrmPerfilLista";
             this.Load += new System.EventHandler(this.FrmPerfilLista_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -106,5 +120,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel ListaPerfilPanel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }
