@@ -51,9 +51,6 @@ namespace TpIngSoftII.Services
             {
                 dto.Fecha = DateTime.Now;
                 this.ValidacionesUpdate(dto);
-            } else
-            {
-
             }
 
             return tmp;
@@ -166,6 +163,19 @@ namespace TpIngSoftII.Services
                             hsTrabajadasOBentity.EsOB = true;
 
                             this.entityRepository.Edit(hsTrabajadasOBentity);
+                            this.unitOfWork.Commit();
+                            scope.Complete();
+                        }
+                        /* Sumo las Horas OB a la tarea */
+                        using (var scope = new TransactionScope())
+                        {
+                            /* Se marcan las mismas como Hs OB */
+                            var tareaEntity = this.tareaRepository.AllIncluding()
+                                                                            .ToList()
+                                                                            .FirstOrDefault(x => x.ID == hsTrabajadasOBDto.TareaID);
+                            tareaEntity.HorasOB += hsOBACargar;
+
+                            this.tareaRepository.Edit(tareaEntity);
                             this.unitOfWork.Commit();
                             scope.Complete();
                         }

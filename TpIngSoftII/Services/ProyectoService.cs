@@ -103,10 +103,12 @@ namespace TpIngSoftII.Services
                     ProyectoNombre = proyecto.Nombre,
                     PerfilesHoras = this.DameCantidadHorasPorPerfilDeUnProyecto(proyecto.ID)
                 };
-                /* Agregamos los resultados por cada proyecto */
-                rta.Add(proyectoPerfilesHorasDto);
+                /* Agregamos los resultados por cada proyecto si es que tienen horas */
+                if(proyectoPerfilesHorasDto.PerfilesHoras != null && proyectoPerfilesHorasDto.PerfilesHoras.Count() > 0)
+                {
+                    rta.Add(proyectoPerfilesHorasDto);
+                }
             }
-
             return rta?.OrderBy(x => x.ProyectoNombre);
         }
 
@@ -133,7 +135,10 @@ namespace TpIngSoftII.Services
                     CantidadHoras = this.HorasTrabajadasPorProyectoPorPerfil(proyectoID, perfil.ID)
                 };
                 /* Agrego los datos al resultado */
-                rta.Add(perfilHorasDto);
+                if (perfilHorasDto.CantidadHoras > 0)
+                {
+                    rta.Add(perfilHorasDto);
+                }
             }
 
             return rta;
@@ -779,6 +784,7 @@ namespace TpIngSoftII.Services
         {
             var hsTrabajadasProyectorPerfil = this.HorasTrabajadasPorProyectoPorPerfilTotales();
             var hsTrabajadasProyectorPerfilPdfDto = new List<HsTrabajadasProyectorPerfilPdfDto>(); 
+            var resultadoFinal = new List<HsTrabajadasProyectorPerfilPdfDto>();
             /* Por cada proyecto, creamos las Proyecto-Perfil-Horas */
             foreach (var proyecto in hsTrabajadasProyectorPerfil)
             {
@@ -797,10 +803,12 @@ namespace TpIngSoftII.Services
             {
                 using (var report = new Reportes.PDF.CrystalReportHsProyectoPerfil())
                 {
-                    return this.service.GetReportPDF(report, hsTrabajadasProyectorPerfilPdfDto);
+                    resultadoFinal = hsTrabajadasProyectorPerfilPdfDto.Where(x => x.CantidadHoras > 0)
+                                                                      .OrderBy(x => x.ProyectoNombre)
+                                                                      .ThenBy(x => x.PerfilDescripcion).ToList();
+                    return this.service.GetReportPDF(report, resultadoFinal);
                 }
             }
-
 
             return null;
         }
