@@ -145,14 +145,19 @@ namespace TpIngSoftII.Services
 
         public int Antiguedad(int empleadoID)
         {
-            int antiguedad = 0;
+            TimeSpan antiguedad;
+            int antiguedadAños = 0;
             var empleadoTemp = this.entityRepository.AllIncludingAsNoTracking().Where(x => x.ID == empleadoID);
             if (empleadoTemp.Any())
             {
                var empleadoTmp = empleadoTemp.FirstOrDefault();
-                antiguedad = DateTime.Today.Year - empleadoTmp.FechaIngreso.Year;
+                //antiguedad = DateTime.Today.Year - empleadoTmp.FechaIngreso.Year;
+                antiguedad = DateTime.Now.Date - empleadoTmp.FechaIngreso.Date;
+                antiguedadAños = (int)(antiguedad.TotalDays / 365.25);
             }
-            return antiguedad;
+
+
+            return antiguedadAños;
         }
 
         public EmpleadoDto DameMisDatos()

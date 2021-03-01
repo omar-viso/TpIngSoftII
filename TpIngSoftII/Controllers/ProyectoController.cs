@@ -237,26 +237,25 @@ namespace TpIngSoftII.Controllers
 
         }
 
-        //[HttpPost]
-        //[ResponseType(typeof(Stream))]
-        //[Route("LiquidacionReporte")]
-        //[MyAuthorize()]
-        //public HttpResponseMessage LiquidacionReporte(HttpRequestMessage request, [FromBody] SolicitaLiquidacionDto dto)
-        //{
-        //    HttpResponseMessage response = null;
+        [HttpGet]
+        [Route("LiquidacionReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage LiquidacionReporte(HttpRequestMessage request, [FromUri] SolicitaLiquidacionDto dto)
+        {
+            HttpResponseMessage response = null;
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        response = request.CreateResponse(HttpStatusCode.BadRequest);
-        //    }
-        //    else
-        //    {
-        //        var dtoUpdated = proyectoService.LiquidacionReporte(dto);
-        //        response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
-        //    }
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = proyectoService.LiquidacionReporte(dto);
+                response = ResponsePDF(request, pdf, "Reporte de Liquidacion");
+            }
 
-        //    return response;
-        //}
+            return response;
+        }
     }
 
 }

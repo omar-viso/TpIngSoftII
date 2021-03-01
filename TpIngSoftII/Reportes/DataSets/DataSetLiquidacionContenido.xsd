@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetLiquidacion" targetNamespace="http://tempuri.org/DataSetLiquidacion.xsd" xmlns:mstns="http://tempuri.org/DataSetLiquidacion.xsd" xmlns="http://tempuri.org/DataSetLiquidacion.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetLiquidacion" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetLiquidacion" msprop:Generator_UserDSName="DataSetLiquidacion">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="LiquidacionContenidoPdf" msprop:Generator_TableClassName="LiquidacionContenidoPdfDataTable" msprop:Generator_TableVarName="tableLiquidacionContenidoPdf" msprop:Generator_TablePropName="LiquidacionContenidoPdf" msprop:Generator_RowDeletingName="LiquidacionContenidoPdfRowDeleting" msprop:Generator_RowChangingName="LiquidacionContenidoPdfRowChanging" msprop:Generator_RowEvHandlerName="LiquidacionContenidoPdfRowChangeEventHandler" msprop:Generator_RowDeletedName="LiquidacionContenidoPdfRowDeleted" msprop:Generator_UserTableName="LiquidacionContenidoPdf" msprop:Generator_RowChangedName="LiquidacionContenidoPdfRowChanged" msprop:Generator_RowEvArgName="LiquidacionContenidoPdfRowChangeEvent" msprop:Generator_RowClassName="LiquidacionContenidoPdfRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CantidadProyectosLiquidados" msprop:Generator_ColumnVarNameInTable="columnCantidadProyectosLiquidados" msprop:Generator_ColumnPropNameInRow="CantidadProyectosLiquidados" msprop:Generator_ColumnPropNameInTable="CantidadProyectosLiquidadosColumn" msprop:Generator_UserColumnName="CantidadProyectosLiquidados" type="xs:long" minOccurs="0" />
+              <xs:element name="CantidadTareasLiquidados" msprop:Generator_ColumnVarNameInTable="columnCantidadTareasLiquidados" msprop:Generator_ColumnPropNameInRow="CantidadTareasLiquidados" msprop:Generator_ColumnPropNameInTable="CantidadTareasLiquidadosColumn" msprop:Generator_UserColumnName="CantidadTareasLiquidados" type="xs:long" minOccurs="0" />
+              <xs:element name="CantidadPerfiles" msprop:Generator_ColumnVarNameInTable="columnCantidadPerfiles" msprop:Generator_ColumnPropNameInRow="CantidadPerfiles" msprop:Generator_ColumnPropNameInTable="CantidadPerfilesColumn" msprop:Generator_UserColumnName="CantidadPerfiles" type="xs:long" minOccurs="0" />
+              <xs:element name="AntiguedadEmpleado" msprop:Generator_ColumnVarNameInTable="columnAntiguedadEmpleado" msprop:Generator_ColumnPropNameInRow="AntiguedadEmpleado" msprop:Generator_ColumnPropNameInTable="AntiguedadEmpleadoColumn" msprop:Generator_UserColumnName="AntiguedadEmpleado" type="xs:long" minOccurs="0" />
+              <xs:element name="CantidadHsNoOBLiquidados" msprop:Generator_ColumnVarNameInTable="columnCantidadHsNoOBLiquidados" msprop:Generator_ColumnPropNameInRow="CantidadHsNoOBLiquidados" msprop:Generator_ColumnPropNameInTable="CantidadHsNoOBLiquidadosColumn" msprop:Generator_UserColumnName="CantidadHsNoOBLiquidados" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CantidadHsOBLiquidados" msprop:Generator_ColumnVarNameInTable="columnCantidadHsOBLiquidados" msprop:Generator_ColumnPropNameInRow="CantidadHsOBLiquidados" msprop:Generator_ColumnPropNameInTable="CantidadHsOBLiquidadosColumn" msprop:Generator_UserColumnName="CantidadHsOBLiquidados" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CantidadHsTotalesLiquidados" msprop:Generator_ColumnVarNameInTable="columnCantidadHsTotalesLiquidados" msprop:Generator_ColumnPropNameInRow="CantidadHsTotalesLiquidados" msprop:Generator_ColumnPropNameInTable="CantidadHsTotalesLiquidadosColumn" msprop:Generator_UserColumnName="CantidadHsTotalesLiquidados" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PorcentajeAplicadoAntiguedad" msprop:Generator_ColumnVarNameInTable="columnPorcentajeAplicadoAntiguedad" msprop:Generator_ColumnPropNameInRow="PorcentajeAplicadoAntiguedad" msprop:Generator_ColumnPropNameInTable="PorcentajeAplicadoAntiguedadColumn" msprop:Generator_UserColumnName="PorcentajeAplicadoAntiguedad" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PorcentajeAplicadoCantidadPerfiles" msprop:Generator_ColumnVarNameInTable="columnPorcentajeAplicadoCantidadPerfiles" msprop:Generator_ColumnPropNameInRow="PorcentajeAplicadoCantidadPerfiles" msprop:Generator_ColumnPropNameInTable="PorcentajeAplicadoCantidadPerfilesColumn" msprop:Generator_UserColumnName="PorcentajeAplicadoCantidadPerfiles" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PorcentajeAplicadoCantidadHoras" msprop:Generator_ColumnVarNameInTable="columnPorcentajeAplicadoCantidadHoras" msprop:Generator_ColumnPropNameInRow="PorcentajeAplicadoCantidadHoras" msprop:Generator_ColumnPropNameInTable="PorcentajeAplicadoCantidadHorasColumn" msprop:Generator_UserColumnName="PorcentajeAplicadoCantidadHoras" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalLiquidado" msprop:Generator_ColumnVarNameInTable="columnTotalLiquidado" msprop:Generator_ColumnPropNameInRow="TotalLiquidado" msprop:Generator_ColumnPropNameInTable="TotalLiquidadoColumn" msprop:Generator_UserColumnName="TotalLiquidado" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ValorPorcentajeDeHoraOB" msprop:Generator_ColumnVarNameInTable="columnValorPorcentajeDeHoraOB" msprop:Generator_ColumnPropNameInRow="ValorPorcentajeDeHoraOB" msprop:Generator_ColumnPropNameInTable="ValorPorcentajeDeHoraOBColumn" msprop:Generator_UserColumnName="ValorPorcentajeDeHoraOB" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

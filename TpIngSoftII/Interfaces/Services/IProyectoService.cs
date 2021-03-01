@@ -21,5 +21,7 @@ namespace TpIngSoftII.Interfaces.Services
         IEnumerable<ProyectoPerfilesEmpleadosHorasDto> HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(DateTime desde, DateTime hasta);
         IEnumerable<ProyectoEmpleadoHorasAdeudadasDto> HorasAdeudadasPorProyectoPorEmpleadoTotales();
         Stream ProyectosReporte();
+        Stream LiquidacionReporte(SolicitaLiquidacionDto dto);
+        LiquidacionDto LiquidacionSinPagar(SolicitaLiquidacionDto dto);
     }
 }
