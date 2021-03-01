@@ -324,12 +324,18 @@ namespace TpIngSoftII.Services
                         EmpleadoApellido = empleadoDelProyecto.Apellido,
                         CantidadHorasAdeudadas = this.CalcularHorasAdeudadasProyectoEmpleado(proyecto.ID, empleadoDelProyecto.ID)
                     };
-                    /* Agrego los resultados a EmpleadosHoras */
-                    proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras.Add(EmpleadoNombreHorasDto);
+                    /* Agrego los resultados a EmpleadosHoras si hay horas trabajadas */
+                    if (EmpleadoNombreHorasDto.CantidadHorasAdeudadas > 0)
+                    {
+                        proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras.Add(EmpleadoNombreHorasDto);
+                    }
                 }
 
                 /* Agrego los datos al resultado */
-                rta.Add(proyectoPerfilesEmpleadosHorasDto);
+                if (proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras != null && proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras.Count() > 0)
+                {
+                    rta.Add(proyectoPerfilesEmpleadosHorasDto);
+                }
             }
             return rta;
         }
@@ -806,6 +812,39 @@ namespace TpIngSoftII.Services
                     resultadoFinal = hsTrabajadasProyectorPerfilPdfDto.Where(x => x.CantidadHoras > 0)
                                                                       .OrderBy(x => x.ProyectoNombre)
                                                                       .ThenBy(x => x.PerfilDescripcion).ToList();
+                    return this.service.GetReportPDF(report, resultadoFinal);
+                }
+            }
+
+            return null;
+        }
+
+        public Stream HorasAdeudadasProyectoEmpleadoReporte()
+        {
+            var hsAdeudadasaProyectoEmpleado = this.HorasAdeudadasPorProyectoPorEmpleadoTotales();
+            var hsAdeudadasProyectoEmpleadoPdfDto = new List<HsAdeudadasProyectoEmpleadoPdfDto>();
+            var resultadoFinal = new List<HsAdeudadasProyectoEmpleadoPdfDto>();
+            /* Por cada proyecto, creamos las Proyecto-Perfil-Horas */
+            foreach (var proyecto in hsAdeudadasaProyectoEmpleado)
+            {
+                var empleadoDelProyecto = proyecto.EmpleadoHoras;
+                var listaResultadosAgrega = empleadoDelProyecto.Select(x => new HsAdeudadasProyectoEmpleadoPdfDto
+                {
+                    ProyectoNombre = proyecto.ProyectoNombre,
+                    EmpleadoNombreApellido = x.EmpleadoNombre + " " + x.EmpleadoApellido,
+                    CantidadHorasAdeudadas = x.CantidadHorasAdeudadas
+                }).ToList();
+
+                hsAdeudadasProyectoEmpleadoPdfDto = hsAdeudadasProyectoEmpleadoPdfDto.Concat(listaResultadosAgrega).ToList();
+            }
+
+            if (hsAdeudadasProyectoEmpleadoPdfDto != null && hsAdeudadasProyectoEmpleadoPdfDto.Count() > 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsAdeudadasProyectoEmpleado())
+                {
+                    resultadoFinal = hsAdeudadasProyectoEmpleadoPdfDto.Where(x => x.CantidadHorasAdeudadas > 0)
+                                                                      .OrderBy(x => x.ProyectoNombre)
+                                                                      .ThenBy(x => x.EmpleadoNombreApellido).ToList();
                     return this.service.GetReportPDF(report, resultadoFinal);
                 }
             }

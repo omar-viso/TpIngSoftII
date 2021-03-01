@@ -271,7 +271,27 @@ namespace TpIngSoftII.Controllers
             else
             {
                 Stream pdf = proyectoService.HsTrabajadasProyectorPerfilReporte();
-                response = ResponsePDF(request, pdf, "Reporte de Hs Trabajadas Proyector-Perfil");
+                response = ResponsePDF(request, pdf, "Reporte de Hs Trabajadas Proyecto-Perfil");
+            }
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("HorasAdeudadasProyectoEmpleadoReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage HorasAdeudadasProyectoEmpleadoReporte(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = proyectoService.HorasAdeudadasProyectoEmpleadoReporte();
+                response = ResponsePDF(request, pdf, "Reporte de Hs Adeudadas Proyecto-Empleado");
             }
 
             return response;

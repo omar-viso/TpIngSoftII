@@ -24,5 +24,6 @@ namespace TpIngSoftII.Interfaces.Services
         Stream LiquidacionReporte(SolicitaLiquidacionDto dto);
         LiquidacionDto LiquidacionSinPagar(SolicitaLiquidacionDto dto);
         Stream HsTrabajadasProyectorPerfilReporte();
+        Stream HorasAdeudadasProyectoEmpleadoReporte();
     }
 }
