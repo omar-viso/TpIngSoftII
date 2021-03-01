@@ -739,22 +739,6 @@ namespace TpIngSoftII.Services
                 ValorPorcentajeDeHoraOB = liquidacion.ValorPorcentajeDeHoraOB
             });
 
-            //var liquidacionContenidoPdf = new LiquidacionContenidoPdfDto
-            //{
-            //    AntiguedadEmpleado = liquidacion.AntiguedadEmpleado,
-            //    CantidadHsNoOBLiquidados = liquidacion.CantidadHsNoOBLiquidados,
-            //    CantidadHsOBLiquidados = liquidacion.CantidadHsOBLiquidados,
-            //    CantidadHsTotalesLiquidados = liquidacion.CantidadHsTotalesLiquidados,
-            //    CantidadPerfiles = liquidacion.CantidadPerfiles,
-            //    CantidadProyectosLiquidados = liquidacion.CantidadProyectosLiquidados,
-            //    CantidadTareasLiquidados = liquidacion.CantidadTareasLiquidados,
-            //    PorcentajeAplicadoAntiguedad = liquidacion.PorcentajeAplicadoAntiguedad ?? 0,
-            //    PorcentajeAplicadoCantidadHoras = liquidacion.PorcentajeAplicadoCantidadHoras ?? 0,
-            //    PorcentajeAplicadoCantidadPerfiles = liquidacion.PorcentajeAplicadoCantidadPerfiles ?? 0,
-            //    TotalLiquidado = liquidacion.TotalLiquidado,
-            //    ValorPorcentajeDeHoraOB = liquidacion.ValorPorcentajeDeHoraOB
-            //};
-
             var liquidacionInfoPdf = liquidacion.ValoresInformativosPerfilHora.Select(x => new LiquidacionPieInformativoPdfDto
             {
                 Descripcion = x.Descripcion,
@@ -785,6 +769,35 @@ namespace TpIngSoftII.Services
                 using (var report = new Reportes.PDF.CrystalReportNuevo())
                 {
                     return this.service.GetReportPDF(report, dic);
+                }
+            }
+
+            return null;
+        }
+
+        public Stream HsTrabajadasProyectorPerfilReporte()
+        {
+            var hsTrabajadasProyectorPerfil = this.HorasTrabajadasPorProyectoPorPerfilTotales();
+            var hsTrabajadasProyectorPerfilPdfDto = new List<HsTrabajadasProyectorPerfilPdfDto>(); 
+            /* Por cada proyecto, creamos las Proyecto-Perfil-Horas */
+            foreach (var proyecto in hsTrabajadasProyectorPerfil)
+            {
+                var perfilesDelProyecto = proyecto.PerfilesHoras;
+                var listaResultadosAgrega = perfilesDelProyecto.Select(x => new HsTrabajadasProyectorPerfilPdfDto
+                {
+                    ProyectoNombre = proyecto.ProyectoNombre,
+                    PerfilDescripcion = x.PerfilDescripcion,
+                    CantidadHoras = x.CantidadHoras
+                }).ToList();
+
+                hsTrabajadasProyectorPerfilPdfDto = hsTrabajadasProyectorPerfilPdfDto.Concat(listaResultadosAgrega).ToList();
+            }
+
+            if (hsTrabajadasProyectorPerfilPdfDto != null && hsTrabajadasProyectorPerfilPdfDto.Count() > 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsProyectoPerfil())
+                {
+                    return this.service.GetReportPDF(report, hsTrabajadasProyectorPerfilPdfDto);
                 }
             }
 

@@ -300,6 +300,7 @@
     <Compile Include="Models\DTOs\PerfilHorasDto.cs" />
     <Compile Include="Models\DTOs\ReportesDto\LiquidacionPieInformativoPdfDto.cs" />
     <Compile Include="Models\DTOs\ReportesDto\LiquidacionContenidoPdfDto.cs" />
+    <Compile Include="Models\DTOs\ReportesDto\HsTrabajadasProyectorPerfilPdfDto.cs" />
     <Compile Include="Models\DTOs\ReportesDto\ProyectoPdfDto.cs" />
     <Compile Include="Models\DTOs\ReportesDto\PerfilPdfDto.cs" />
     <Compile Include="Models\DTOs\ReportesDto\EmpleadoPdfDto.cs" />
@@ -346,6 +347,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetEmpleados.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\DataSets\DataSetHsTrabajadasProyectorPerfil.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetHsTrabajadasProyectorPerfil.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\DataSets\DataSetLiquidacionContenido.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -371,6 +377,12 @@
     <Compile Include="Reportes\ISevice.cs" />
     <Compile Include="Reportes\PDF\CrystalReportNuevo.cs">
       <DependentUpon>CrystalReportNuevo.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\PDF\CrystalReportHsProyectoPerfil.cs">
+      <DependentUpon>CrystalReportHsProyectoPerfil.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -472,6 +484,17 @@
     </Content>
     <Content Include="Reportes\DataSets\DataSetLiquidacionContenido.xsc">
       <DependentUpon>DataSetLiquidacionContenido.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reportes\DataSets\DataSetHsTrabajadasProyectorPerfil.xsc">
+      <DependentUpon>DataSetHsTrabajadasProyectorPerfil.xsd</DependentUpon>
+    </Content>
+    <None Include="Reportes\DataSets\DataSetHsTrabajadasProyectorPerfil.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetHsTrabajadasProyectorPerfil.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reportes\DataSets\DataSetHsTrabajadasProyectorPerfil.xss">
+      <DependentUpon>DataSetHsTrabajadasProyectorPerfil.xsd</DependentUpon>
     </Content>
     <None Include="Reportes\DataSets\DataSetLiquidacionContenido.xsd">
       <SubType>Designer</SubType>
@@ -576,6 +599,10 @@
     <EmbeddedResource Include="Reportes\PDF\CrystalReportNuevo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReportNuevo.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\PDF\CrystalReportHsProyectoPerfil.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReportHsProyectoPerfil.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\PDF\CrystalReportProyectos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

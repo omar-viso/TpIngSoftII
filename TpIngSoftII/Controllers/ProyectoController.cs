@@ -256,6 +256,26 @@ namespace TpIngSoftII.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [Route("HsTrabajadasProyectorPerfilReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage HsTrabajadasProyectorPerfilReporte(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = proyectoService.HsTrabajadasProyectorPerfilReporte();
+                response = ResponsePDF(request, pdf, "Reporte de Hs Trabajadas Proyector-Perfil");
+            }
+
+            return response;
+        }
     }
 
 }
