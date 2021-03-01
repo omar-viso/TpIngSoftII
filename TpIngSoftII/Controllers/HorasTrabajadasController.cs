@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,13 +8,14 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Services;
 
 namespace TpIngSoftII.Controllers
 {
     [RoutePrefix("api/HorasTrabajadas")]
-    public class HorasTrabajadasController : ApiController
+    public class HorasTrabajadasController : ApiControllerBase
     {
         private readonly IHorasTrabajadasService horasTrabajadasService;
 
@@ -171,6 +173,26 @@ namespace TpIngSoftII.Controllers
 
             return response;
 
+        }
+
+        [HttpGet]
+        [Route("InformeSemanalHsOBReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage InformeSemanalHsOBReporte(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = horasTrabajadasService.InformeSemanalHsOBReporte();
+                response = ResponsePDF(request, pdf, "Informe Semanal Horas OB");
+            }
+
+            return response;
         }
     }
 
