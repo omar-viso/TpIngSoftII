@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetInformeSemanalHsOB" targetNamespace="http://tempuri.org/DataSetInformeSemanalHsOB.xsd" xmlns:mstns="http://tempuri.org/DataSetInformeSemanalHsOB.xsd" xmlns="http://tempuri.org/DataSetInformeSemanalHsOB.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetInformeSemanalHsOB" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetInformeSemanalHsOB" msprop:Generator_UserDSName="DataSetInformeSemanalHsOB">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="InformeSemanalHsOBPdfDto" msprop:Generator_TableClassName="InformeSemanalHsOBPdfDtoDataTable" msprop:Generator_TableVarName="tableInformeSemanalHsOBPdfDto" msprop:Generator_TablePropName="InformeSemanalHsOBPdfDto" msprop:Generator_RowDeletingName="InformeSemanalHsOBPdfDtoRowDeleting" msprop:Generator_RowChangingName="InformeSemanalHsOBPdfDtoRowChanging" msprop:Generator_RowEvHandlerName="InformeSemanalHsOBPdfDtoRowChangeEventHandler" msprop:Generator_RowDeletedName="InformeSemanalHsOBPdfDtoRowDeleted" msprop:Generator_UserTableName="InformeSemanalHsOBPdfDto" msprop:Generator_RowChangedName="InformeSemanalHsOBPdfDtoRowChanged" msprop:Generator_RowEvArgName="InformeSemanalHsOBPdfDtoRowChangeEvent" msprop:Generator_RowClassName="InformeSemanalHsOBPdfDtoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProyectoNombre" msprop:Generator_ColumnVarNameInTable="columnProyectoNombre" msprop:Generator_ColumnPropNameInRow="ProyectoNombre" msprop:Generator_ColumnPropNameInTable="ProyectoNombreColumn" msprop:Generator_UserColumnName="ProyectoNombre" type="xs:string" minOccurs="0" />
+              <xs:element name="TareaNombre" msprop:Generator_ColumnVarNameInTable="columnTareaNombre" msprop:Generator_ColumnPropNameInRow="TareaNombre" msprop:Generator_ColumnPropNameInTable="TareaNombreColumn" msprop:Generator_UserColumnName="TareaNombre" type="xs:string" minOccurs="0" />
+              <xs:element name="SubtotalHsOB" msprop:Generator_ColumnVarNameInTable="columnSubtotalHsOB" msprop:Generator_ColumnPropNameInRow="SubtotalHsOB" msprop:Generator_ColumnPropNameInTable="SubtotalHsOBColumn" msprop:Generator_UserColumnName="SubtotalHsOB" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

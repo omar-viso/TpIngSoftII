@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace TpIngSoftII.Interfaces.Services
         decimal CantidadHsOB(HorasTrabajadasDto dto);
         IEnumerable<HorasTrabajadasEstadoDto> GetHorasTrabajadasEstado();
         void PagarHoraTrabajada(int horaTrabajadaID);
+        Stream InformeSemanalHsOBReporte();
     }
 }
