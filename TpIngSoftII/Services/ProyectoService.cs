@@ -12,6 +12,8 @@ using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Models.Entities;
 using TpIngSoftII.Models.Constantes;
 using static TpIngSoftII.Models.Entities.Proyecto;
+using System.IO;
+using TpIngSoftII.Reportes;
 
 namespace TpIngSoftII.Services
 {
@@ -28,6 +30,7 @@ namespace TpIngSoftII.Services
 
         private readonly IEmpleadoService empleadoService;
         private readonly IHorasTrabajadasService horasTrabajadasService;
+        private readonly ISevice service;
 
         public ProyectoService(IEntityBaseRepository<Proyecto> entityRepository,
             IEntityBaseRepository<HorasTrabajadas> horasTrabajadasRepository,
@@ -41,7 +44,8 @@ namespace TpIngSoftII.Services
             IEmpleadoService empleadoService,
             IHorasTrabajadasService horasTrabajadasService,
             IAppContext appContext,
-            IEntityBaseRepository<ProyectoEstado> proyectoEstadoRepository) : base(entityRepository, unitOfWork, appContext)
+            IEntityBaseRepository<ProyectoEstado> proyectoEstadoRepository,
+            ISevice service) : base(entityRepository, unitOfWork, appContext)
         {
             this.horasTrabajadasRepository = horasTrabajadasRepository;
             this.perfilRepository = perfilRepository;
@@ -54,6 +58,7 @@ namespace TpIngSoftII.Services
 
             this.empleadoService = empleadoService;
             this.horasTrabajadasService = horasTrabajadasService;
+            this.service = service;
         }
 
         public IEnumerable<ProyectoEstadoDto> ProyectoEstados()
@@ -534,5 +539,61 @@ namespace TpIngSoftII.Services
 
             return rta2;
         }
+
+        public Stream ProyectosReporte()
+        {
+            var EmpleadosDto = Mapper.Map<IEnumerable<Proyecto>, IEnumerable<ProyectoDto>>(this.entityRepository.AllIncludingAsNoTracking()).Select(x => new ProyectoPdfDto
+            {
+                ID = x.ID,
+                Nombre = x.Nombre ?? " - ",
+                ClienteNombre = x.ClienteNombre ?? " - ",
+                ProyectoEstadoDescripcion = x.ProyectoEstadoDescripcion ?? " - "
+            })
+                .ToList();
+            if (EmpleadosDto.Count() != 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReportProyectos())
+                {
+                    return this.service.GetReportPDF(report, EmpleadosDto);
+                }
+            }
+            return null;
+        }
+
+        //public Stream LiquidacionReporte(SolicitaLiquidacionDto dto)
+        //{
+        //    LiquidacionDto liquidacion = this.Liquidacion(dto);
+
+        //    var liquidacionContenidoPdf = new LiquidacionContenidoPdfDto
+        //    {
+        //        AntiguedadEmpleado = liquidacion.AntiguedadEmpleado,
+        //        CantidadHsNoOBLiquidados = liquidacion.CantidadHsNoOBLiquidados,
+        //        CantidadHsOBLiquidados = liquidacion.CantidadHsOBLiquidados,
+        //        CantidadHsTotalesLiquidados = liquidacion.CantidadHsTotalesLiquidados,
+        //        CantidadPerfiles = liquidacion.CantidadPerfiles,
+        //        CantidadProyectosLiquidados = liquidacion.CantidadProyectosLiquidados,
+        //        CantidadTareasLiquidados = liquidacion.CantidadTareasLiquidados,
+        //        PorcentajeAplicadoAntiguedad = liquidacion.PorcentajeAplicadoAntiguedad ?? 0,
+        //        PorcentajeAplicadoCantidadHoras = liquidacion.PorcentajeAplicadoCantidadHoras ?? 0,
+        //        PorcentajeAplicadoCantidadPerfiles = liquidacion.PorcentajeAplicadoCantidadPerfiles ?? 0,
+        //        TotalLiquidado = liquidacion.TotalLiquidado,
+        //        ValorPorcentajeDeHoraOB = liquidacion.ValorPorcentajeDeHoraOB
+        //    };
+
+        //    var liquidacionInfoPdf = liquidacion.ValoresInformativosPerfilHora.Select(x => new LiquidacionPieInformativoPdfDto
+        //    {
+        //        Descripcion = x.Descripcion,
+        //        ValorHorario = x.ValorHorario
+        //    });            
+
+        //    if (liquidacionContenidoPdf != null)
+        //    {
+        //        using (var report = new Reportes.PDF.CrystalReportProyectos())
+        //        {
+        //            return this.service.GetReportPDF(report, <liquidacionContenidoPdf, liquidacionInfoPdf>);
+        //        }
+        //    }
+        //    return null;
+        //}
     }
 }
