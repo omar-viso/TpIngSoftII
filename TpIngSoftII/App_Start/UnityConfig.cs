@@ -4,6 +4,7 @@ using TpIngSoftII.Interfaces;
 using TpIngSoftII.Interfaces.Repositories;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models;
+using TpIngSoftII.Reportes;
 using TpIngSoftII.Repositories;
 using TpIngSoftII.Services;
 using Unity;
@@ -29,6 +30,8 @@ namespace TpIngSoftII
             container.RegisterType<IHorasTrabajadasService, HorasTrabajadasService>(new PerResolveLifetimeManager());
             container.RegisterType<IClienteService, ClienteService>(new PerResolveLifetimeManager());
             container.RegisterType<IReporteService, ReporteService>(new PerResolveLifetimeManager());
+            container.RegisterType<ISevice, Service>(new PerResolveLifetimeManager());
+
 
             container.RegisterType(typeof(IEntityAppServiceBase<,>), typeof(EntityAppServiceBase<,>), new PerResolveLifetimeManager());
             container.RegisterType(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>), new PerResolveLifetimeManager());

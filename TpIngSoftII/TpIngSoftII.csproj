@@ -51,6 +51,18 @@
     <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.2.0\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -286,6 +298,13 @@
     <Compile Include="Models\DTOs\ProyectoEmpleadoHorasAdeudadasDto.cs" />
     <Compile Include="Models\DTOs\ProyectoPerfilesHorasDto.cs" />
     <Compile Include="Models\DTOs\PerfilHorasDto.cs" />
+    <Compile Include="Models\DTOs\ReportesDto\LiquidacionPieInformativoPdfDto.cs" />
+    <Compile Include="Models\DTOs\ReportesDto\LiquidacionContenidoPdfDto.cs" />
+    <Compile Include="Models\DTOs\ReportesDto\HsTrabajadasProyectorPerfilPdfDto.cs" />
+    <Compile Include="Models\DTOs\ReportesDto\ProyectoPdfDto.cs" />
+    <Compile Include="Models\DTOs\ReportesDto\PerfilPdfDto.cs" />
+    <Compile Include="Models\DTOs\ReportesDto\EmpleadoPdfDto.cs" />
+    <Compile Include="Models\DTOs\ReportesDto\ClientePdfDto.cs" />
     <Compile Include="Models\DTOs\SolicitaLiquidacionDto.cs" />
     <Compile Include="Models\DTOs\LiquidacionDto.cs" />
     <Compile Include="Models\DTOs\RolDto.cs" />
@@ -318,8 +337,81 @@
     <Compile Include="Models\Entities\ProyectoEstado.cs" />
     <Compile Include="Models\Entities\Proyecto.cs" />
     <Compile Include="Models\Entities\Tarea.cs" />
-    <Compile Include="Models\Reportes\ExcelExport.cs" />
+    <Compile Include="Reportes\DataSets\DataSetClientes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetClientes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DataSets\DataSetEmpleados.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetEmpleados.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DataSets\DataSetHsTrabajadasProyectorPerfil.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetHsTrabajadasProyectorPerfil.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DataSets\DataSetLiquidacionContenido.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetLiquidacionContenido.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DataSets\DataSetLiquidacionInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetLiquidacionInfo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DataSets\DataSetPerfiles.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetPerfiles.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DataSets\DataSetProyectos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetProyectos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ExcelExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\ISevice.cs" />
+    <Compile Include="Reportes\PDF\CrystalReportNuevo.cs">
+      <DependentUpon>CrystalReportNuevo.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\PDF\CrystalReportHsProyectoPerfil.cs">
+      <DependentUpon>CrystalReportHsProyectoPerfil.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\PDF\CrystalReportProyectos.cs">
+      <DependentUpon>CrystalReportProyectos.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\PDF\CrystalReportPerfiles.cs">
+      <DependentUpon>CrystalReportPerfiles.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\PDF\CrystalReportEmpleados.cs">
+      <DependentUpon>CrystalReportEmpleados.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\PDF\CrystalReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Service.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Models\ApiControllerBase.cs" />
@@ -365,6 +457,83 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Reportes\DataSets\DataSetClientes.xsc">
+      <DependentUpon>DataSetClientes.xsd</DependentUpon>
+    </Content>
+    <None Include="Reportes\DataSets\DataSetClientes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetClientes.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reportes\DataSets\DataSetClientes.xss">
+      <DependentUpon>DataSetClientes.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reportes\DataSets\DataSetEmpleados.xsc">
+      <DependentUpon>DataSetEmpleados.xsd</DependentUpon>
+    </Content>
+    <None Include="Reportes\DataSets\DataSetEmpleados.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetEmpleados.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reportes\DataSets\DataSetEmpleados.xss">
+      <DependentUpon>DataSetEmpleados.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reportes\DataSets\DataSetPerfiles.xsc">
+      <DependentUpon>DataSetPerfiles.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reportes\DataSets\DataSetLiquidacionContenido.xsc">
+      <DependentUpon>DataSetLiquidacionContenido.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reportes\DataSets\DataSetHsTrabajadasProyectorPerfil.xsc">
+      <DependentUpon>DataSetHsTrabajadasProyectorPerfil.xsd</DependentUpon>
+    </Content>
+    <None Include="Reportes\DataSets\DataSetHsTrabajadasProyectorPerfil.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetHsTrabajadasProyectorPerfil.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reportes\DataSets\DataSetHsTrabajadasProyectorPerfil.xss">
+      <DependentUpon>DataSetHsTrabajadasProyectorPerfil.xsd</DependentUpon>
+    </Content>
+    <None Include="Reportes\DataSets\DataSetLiquidacionContenido.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetLiquidacionContenido.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reportes\DataSets\DataSetLiquidacionContenido.xss">
+      <DependentUpon>DataSetLiquidacionContenido.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reportes\DataSets\DataSetLiquidacionInfo.xsc">
+      <DependentUpon>DataSetLiquidacionInfo.xsd</DependentUpon>
+    </Content>
+    <None Include="Reportes\DataSets\DataSetLiquidacionInfo.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetLiquidacionInfo.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reportes\DataSets\DataSetLiquidacionInfo.xss">
+      <DependentUpon>DataSetLiquidacionInfo.xsd</DependentUpon>
+    </Content>
+    <None Include="Reportes\DataSets\DataSetPerfiles.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetPerfiles.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reportes\DataSets\DataSetPerfiles.xss">
+      <DependentUpon>DataSetPerfiles.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reportes\DataSets\DataSetProyectos.xsc">
+      <DependentUpon>DataSetProyectos.xsd</DependentUpon>
+    </Content>
+    <None Include="Reportes\DataSets\DataSetProyectos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetProyectos.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reportes\DataSets\DataSetProyectos.xss">
+      <DependentUpon>DataSetProyectos.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -427,6 +596,33 @@
     <EmbeddedResource Include="Migrations\202102192231165_Migracion_2.resx">
       <DependentUpon>202102192231165_Migracion_2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\PDF\CrystalReportNuevo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReportNuevo.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\PDF\CrystalReportHsProyectoPerfil.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReportHsProyectoPerfil.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\PDF\CrystalReportProyectos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReportProyectos.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\PDF\CrystalReportPerfiles.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReportPerfiles.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\PDF\CrystalReportEmpleados.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReportEmpleados.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\PDF\CrystalReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,13 +8,14 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Services;
 
 namespace TpIngSoftII.Controllers
 {
     [RoutePrefix("api/Proyectos")]
-    public class ProyectoController : ApiController
+    public class ProyectoController : ApiControllerBase
     {
         private readonly IProyectoService proyectoService;
 
@@ -209,6 +211,67 @@ namespace TpIngSoftII.Controllers
             {
                 var dtoUpdated = proyectoService.HorasAdeudadasPorProyectoPorEmpleadoTotales();
                 response = request.CreateResponse(HttpStatusCode.OK, dtoUpdated);
+            }
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("ProyectosReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage ProyectosReporte(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = proyectoService.ProyectosReporte();
+                response = ResponsePDF(request, pdf, "Reporte de Proyectos");
+            }
+
+            return response;
+
+        }
+
+        [HttpGet]
+        [Route("LiquidacionReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage LiquidacionReporte(HttpRequestMessage request, [FromUri] SolicitaLiquidacionDto dto)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = proyectoService.LiquidacionReporte(dto);
+                response = ResponsePDF(request, pdf, "Reporte de Liquidacion");
+            }
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("HsTrabajadasProyectorPerfilReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage HsTrabajadasProyectorPerfilReporte(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = proyectoService.HsTrabajadasProyectorPerfilReporte();
+                response = ResponsePDF(request, pdf, "Reporte de Hs Trabajadas Proyector-Perfil");
             }
 
             return response;
