@@ -33,7 +33,10 @@ namespace Escritorio
             var clientes = clienteService.GetAllAsNoTracking();
             foreach (ClienteDto cliente in clientes)
             {
-                ElejirClienteComboBox.Items.Add(cliente.Nombre + " " + cliente.Apellido);
+                if (cliente.RazonSocial == null || cliente.RazonSocial == "")
+                    ElejirClienteComboBox.Items.Add(cliente.Nombre + " " + cliente.Apellido);
+                else
+                    ElejirClienteComboBox.Items.Add(cliente.RazonSocial);
             }
         }
 
@@ -170,11 +173,11 @@ namespace Escritorio
             var clientes = clienteService.GetAllAsNoTracking();
             foreach (ClienteDto cliente in clientes)
             {
-                if (ElejirClienteComboBox.SelectedItem.ToString() == cliente.Nombre+ " "+cliente.Apellido)
+                if (ElejirClienteComboBox.SelectedItem.ToString() == cliente.Nombre+ " "+cliente.Apellido || ElejirClienteComboBox.SelectedItem.ToString() == cliente.RazonSocial)
                 {
                     NombreTextBox.Text = cliente.Nombre;
                     ApellidoTextBox.Text = cliente.Apellido;
-                    if (cliente.TipoPersona == Const.TipoPersona.Fisica)
+                    if (cliente.RazonSocial == "" || cliente.RazonSocial == null)
                     {
                         TipoPersonaCombo.SelectedItem = "Fisica";
                     }

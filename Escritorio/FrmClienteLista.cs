@@ -48,7 +48,7 @@ namespace Escritorio
                 Label email= new Label();
                 email.Text = cliente.Email;
                 Label tipoPersona= new Label();
-                if (cliente.TipoPersona == Const.TipoPersona.Fisica)
+                if (cliente.RazonSocial=="" || cliente.RazonSocial ==null)
                     tipoPersona.Text = "Fisica";
                 else
                     tipoPersona.Text = "Juridica";
