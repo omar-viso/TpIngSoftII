@@ -12,6 +12,8 @@ using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Models.Entities;
 using TpIngSoftII.Models.Constantes;
 using static TpIngSoftII.Models.Entities.Proyecto;
+using System.IO;
+using TpIngSoftII.Reportes;
 
 namespace TpIngSoftII.Services
 {
@@ -28,6 +30,7 @@ namespace TpIngSoftII.Services
 
         private readonly IEmpleadoService empleadoService;
         private readonly IHorasTrabajadasService horasTrabajadasService;
+        private readonly ISevice service;
 
         public ProyectoService(IEntityBaseRepository<Proyecto> entityRepository,
             IEntityBaseRepository<HorasTrabajadas> horasTrabajadasRepository,
@@ -41,7 +44,8 @@ namespace TpIngSoftII.Services
             IEmpleadoService empleadoService,
             IHorasTrabajadasService horasTrabajadasService,
             IAppContext appContext,
-            IEntityBaseRepository<ProyectoEstado> proyectoEstadoRepository) : base(entityRepository, unitOfWork, appContext)
+            IEntityBaseRepository<ProyectoEstado> proyectoEstadoRepository,
+            ISevice service) : base(entityRepository, unitOfWork, appContext)
         {
             this.horasTrabajadasRepository = horasTrabajadasRepository;
             this.perfilRepository = perfilRepository;
@@ -54,6 +58,7 @@ namespace TpIngSoftII.Services
 
             this.empleadoService = empleadoService;
             this.horasTrabajadasService = horasTrabajadasService;
+            this.service = service;
         }
 
         public IEnumerable<ProyectoEstadoDto> ProyectoEstados()
@@ -98,10 +103,12 @@ namespace TpIngSoftII.Services
                     ProyectoNombre = proyecto.Nombre,
                     PerfilesHoras = this.DameCantidadHorasPorPerfilDeUnProyecto(proyecto.ID)
                 };
-                /* Agregamos los resultados por cada proyecto */
-                rta.Add(proyectoPerfilesHorasDto);
+                /* Agregamos los resultados por cada proyecto si es que tienen horas */
+                if(proyectoPerfilesHorasDto.PerfilesHoras != null && proyectoPerfilesHorasDto.PerfilesHoras.Count() > 0)
+                {
+                    rta.Add(proyectoPerfilesHorasDto);
+                }
             }
-
             return rta?.OrderBy(x => x.ProyectoNombre);
         }
 
@@ -128,7 +135,10 @@ namespace TpIngSoftII.Services
                     CantidadHoras = this.HorasTrabajadasPorProyectoPorPerfil(proyectoID, perfil.ID)
                 };
                 /* Agrego los datos al resultado */
-                rta.Add(perfilHorasDto);
+                if (perfilHorasDto.CantidadHoras > 0)
+                {
+                    rta.Add(perfilHorasDto);
+                }
             }
 
             return rta;
@@ -314,12 +324,18 @@ namespace TpIngSoftII.Services
                         EmpleadoApellido = empleadoDelProyecto.Apellido,
                         CantidadHorasAdeudadas = this.CalcularHorasAdeudadasProyectoEmpleado(proyecto.ID, empleadoDelProyecto.ID)
                     };
-                    /* Agrego los resultados a EmpleadosHoras */
-                    proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras.Add(EmpleadoNombreHorasDto);
+                    /* Agrego los resultados a EmpleadosHoras si hay horas trabajadas */
+                    if (EmpleadoNombreHorasDto.CantidadHorasAdeudadas > 0)
+                    {
+                        proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras.Add(EmpleadoNombreHorasDto);
+                    }
                 }
 
                 /* Agrego los datos al resultado */
-                rta.Add(proyectoPerfilesEmpleadosHorasDto);
+                if (proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras != null && proyectoPerfilesEmpleadosHorasDto.EmpleadoHoras.Count() > 0)
+                {
+                    rta.Add(proyectoPerfilesEmpleadosHorasDto);
+                }
             }
             return rta;
         }
@@ -477,7 +493,7 @@ namespace TpIngSoftII.Services
                 {
                     // aplicamos el aumento x hora
                     costoLiquidacion += costoLiquidacion * porcentajeAumentoCantHorasAplica / 100;
-                    /* Seteamos el Porcentaje por Antiguedad aplicado */
+                    /* Seteamos el Porcentaje por cantidad de horas aplicado */
                     porcentajeAplicadoCantidadHoras = porcentajeAumentoCantHorasAplica;
                 }
 
@@ -490,7 +506,7 @@ namespace TpIngSoftII.Services
                 {
                     // aplicamos el aumento x hora
                     costoLiquidacion += costoLiquidacion * porcentajeAumentoPerfilAplica / 100;
-                    /* Seteamos el Porcentaje por Antiguedad aplicado */
+                    /* Seteamos el Porcentaje por cantidad Perfiles aplicado */
                     porcentajeAplicadoCantidadPerfiles = porcentajeAumentoPerfilAplica;
                 }
 
@@ -533,6 +549,307 @@ namespace TpIngSoftII.Services
             }
 
             return rta2;
+        }
+
+        public LiquidacionDto LiquidacionSinPagar(SolicitaLiquidacionDto dto)
+        {
+            var rta2 = new LiquidacionDto();
+            using (var scope = new TransactionScope())
+            {
+                decimal costoLiquidacion = 0;
+                Empleado empleadoTmp = new Empleado();
+                //Obtengo la cantidad de horas trabajadas por tipo de perfil por empleado y la multipluco por el valor perfil
+                var desde = dto.Desde.Date;
+                var hasta = dto.Hasta.Date;
+                var empleadoTemp = this.empleadoRepository.AllIncludingAsNoTracking(x => x.Perfiles).Where(x => x.ID == dto.EmpleadoID).ToList();
+                if (empleadoTemp.Count() > 0)
+                {
+                    empleadoTmp = empleadoTemp.FirstOrDefault();
+                    if (empleadoTmp.Perfiles.Count() == 0) throw new Exception("No existe perfil para el empleado indicado");
+                }
+                else
+                {
+                    throw new Exception("No existe el empleado indicado");
+                }
+
+                decimal horasTotales = 0;
+                int cantPerfiles = 0;
+                var valorEscalaHsOB = escalaHoraOB.AllIncludingAsNoTracking().ToList().LastOrDefault().PorcentajeAumento;
+                /* variables para usar en la rta */
+                decimal cantidadHsNoOBLiquidados = 0;
+                decimal cantidadHsOBLiquidados = 0;
+                var cantidadProyectosLiquidados = 0;
+                var cantidadTareasLiquidados = 0;
+                decimal? porcentajeAplicadoAntiguedad = null;
+                decimal? porcentajeAplicadoCantidadHoras = null;
+                decimal? porcentajeAplicadoCantidadPerfiles = null;
+
+                //decimal horasOB = 0;
+                //Obtengo todos los perfiles del empleado
+
+                //Para cada perfil obtengo la cantidad de horas trabajadas de ese empleado adeudadas en un periodo de tiempo
+                foreach (EmpleadoPerfil empleadoPerfil in empleadoTmp.Perfiles)
+                {
+                    var horasTrabajadasPerfilEmpleado = this.horasTrabajadasRepository.AllIncludingAsNoTracking(x => x.Tarea,
+                                                                                                            x => x.Tarea.EmpleadoPerfil)
+                                                                                      .Where(x =>
+                                                                                           x.Tarea.EmpleadoPerfil.PerfilID == empleadoPerfil.PerfilID &&
+                                                                                           x.Tarea.EmpleadoPerfil.EmpleadoID == dto.EmpleadoID &&
+                                                                                           DbFunctions.TruncateTime(x.Fecha) >= desde && DbFunctions.TruncateTime(x.Fecha) <= hasta &&
+                                                                                           x.HorasTrabajadasEstadoID == Const.HoraTrabajadaEstado.Adeudada)
+                                                                                      .ToList();
+                    /* Seteamos la cantidad de proyectos que se van a liquidar hs */
+                    cantidadProyectosLiquidados += horasTrabajadasPerfilEmpleado.Select(x => x.ProyectoID)?.Distinct()?.Count() ?? 0;
+                    /* Seteamos la cantidad de tareas que se van a liquidar hs */
+                    cantidadTareasLiquidados += horasTrabajadasPerfilEmpleado.Select(x => x.TareaID)?.Distinct()?.Count() ?? 0;
+
+                    /* Separamos las hs trabajadas OB */
+                    var horasTrabajadasPerfilEmpleadoOB = horasTrabajadasPerfilEmpleado.Where(x => x.EsOB == true);
+
+                    decimal totalHorasTrabajadasPerfilEmpleado = 0;
+                    if (horasTrabajadasPerfilEmpleado.Any())
+                    {
+                        totalHorasTrabajadasPerfilEmpleado = horasTrabajadasPerfilEmpleado.Sum(x => x.CantHoras);
+                        //foreach (var hsProyecto in horasTrabajadasPerfilEmpleado)
+                        //{
+                        //    totalHorasTrabajadasPerfil += hsProyecto.CantHoras;
+                        //}
+                    }
+                    /* Sumo la cantidad de hs totales por perfil para incrementar hasta llegar al total de los perfiles */
+                    horasTotales += totalHorasTrabajadasPerfilEmpleado;
+
+                    decimal totalHorasTrabajadasPerfilEmpleadoOB = 0;
+                    if (horasTrabajadasPerfilEmpleadoOB.Any())
+                    {
+                        totalHorasTrabajadasPerfilEmpleadoOB = horasTrabajadasPerfilEmpleadoOB.Sum(x => x.CantHoras);
+                    }
+                    /* Sumo la cantidad de hs OB por perfil para incrementar hasta llegar al total de los perfiles */
+                    cantidadHsOBLiquidados += totalHorasTrabajadasPerfilEmpleadoOB;
+
+                    decimal totalHorasTrabajadasPerfilEmpleadoSinOB = totalHorasTrabajadasPerfilEmpleado - totalHorasTrabajadasPerfilEmpleadoOB;
+
+                    /* Sumo la cantidad de hs NO OB por perfil para incrementar hasta llegar al total de los perfiles */
+                    cantidadHsNoOBLiquidados += totalHorasTrabajadasPerfilEmpleadoSinOB;
+
+                    //Calculamos el costo = las horas trabajadas que no son OB x el valor del perfil
+                    costoLiquidacion += empleadoPerfil.Perfil.ValorHorario * totalHorasTrabajadasPerfilEmpleadoSinOB;
+
+                    //Calculamos el costo = las horas trabajadas que  son OB x el valor del perfil(se pagan al 50%)
+                    costoLiquidacion += empleadoPerfil.Perfil.ValorHorario * totalHorasTrabajadasPerfilEmpleadoOB * valorEscalaHsOB / 100;
+                }
+
+                cantPerfiles = empleadoTmp.Perfiles.Count;
+
+
+                //existe una escala en la que se indica un porcentaje de aumento x hora
+
+                // ordenamos la escala de mayor a menor
+                var escalaxhora = this.escalaAumentoxhora.AllIncludingAsNoTracking().ToList().OrderByDescending(escalaHoras => escalaHoras.LimiteHoras);
+                // tomamos la prmer escala que cumpla con la condicion
+                var porcentajeAumentoCantHorasAplica = escalaxhora.FirstOrDefault(x => x.LimiteHoras <= horasTotales)?.PorcentajeAumento ?? 0;
+                // aplicamos el aumento x hora
+                if (porcentajeAumentoCantHorasAplica != 0)
+                {
+                    // aplicamos el aumento x hora
+                    costoLiquidacion += costoLiquidacion * porcentajeAumentoCantHorasAplica / 100;
+                    /* Seteamos el Porcentaje por cantidad de horas aplicado */
+                    porcentajeAplicadoCantidadHoras = porcentajeAumentoCantHorasAplica;
+                }
+
+                //si cumplio funciones en mas de un perfil tambien tendra un porcentaje de aumento
+                var escalaxperfil = this.escalaAumentoxPerfil.AllIncludingAsNoTracking().ToList().OrderByDescending(escalaPerfil => escalaPerfil.LimitecantPerfiles);
+                // tomamos la prmer escala que cumpla con la condicion
+                var porcentajeAumentoPerfilAplica = escalaxperfil.FirstOrDefault(x => x.LimitecantPerfiles <= cantPerfiles)?.PorcentajeAumento ?? 0;
+
+                if (porcentajeAumentoPerfilAplica != 0)
+                {
+                    // aplicamos el aumento x hora
+                    costoLiquidacion += costoLiquidacion * porcentajeAumentoPerfilAplica / 100;
+                    /* Seteamos el Porcentaje por cantidad Perfiles aplicado */
+                    porcentajeAplicadoCantidadPerfiles = porcentajeAumentoPerfilAplica;
+                }
+
+                //Habra una escala de incremento en los valores horas por antiguedad
+                var escalaXantiguedad = this.escalaAumentoxAntiguedad.AllIncludingAsNoTracking().ToList().OrderByDescending(escalaAntiguedad => escalaAntiguedad.Limiteanios);
+                // tomamos la prmer escala que cumpla con la condicion
+                int antiguedad = empleadoService.Antiguedad(dto.EmpleadoID);
+                var porcentajeEscalaXantiguedadAplica = escalaXantiguedad.FirstOrDefault(x => x.Limiteanios <= antiguedad)?.PorcentajeAumento ?? 0;
+                // aplicamos el aumento x hora, si el porcentaje es distinto de cero
+                if (porcentajeEscalaXantiguedadAplica != 0)
+                {
+                    costoLiquidacion += costoLiquidacion * porcentajeEscalaXantiguedadAplica / 100;
+                    /* Seteamos el Porcentaje por Antiguedad aplicado */
+                    porcentajeAplicadoAntiguedad = porcentajeEscalaXantiguedadAplica;
+                }
+
+                var perfilesExistentes = this.perfilRepository.AllIncludingAsNoTracking().ToList();
+                var infoPerfilesExistentes = Mapper.Map<IEnumerable<Perfil>, IEnumerable<PerfilDto>>(perfilesExistentes);
+
+                var rta = new LiquidacionDto
+                {
+                    AntiguedadEmpleado = antiguedad,
+                    CantidadHsNoOBLiquidados = cantidadHsNoOBLiquidados,
+                    CantidadHsOBLiquidados = cantidadHsOBLiquidados,
+                    CantidadHsTotalesLiquidados = horasTotales,
+                    CantidadPerfiles = cantPerfiles,
+                    CantidadProyectosLiquidados = cantidadProyectosLiquidados,
+                    CantidadTareasLiquidados = cantidadTareasLiquidados,
+                    PorcentajeAplicadoAntiguedad = porcentajeAplicadoAntiguedad,
+                    PorcentajeAplicadoCantidadHoras = porcentajeAplicadoCantidadHoras,
+                    PorcentajeAplicadoCantidadPerfiles = porcentajeAplicadoCantidadPerfiles,
+                    TotalLiquidado = costoLiquidacion,
+                    ValoresInformativosPerfilHora = infoPerfilesExistentes,
+                    ValorPorcentajeDeHoraOB = valorEscalaHsOB
+                };
+                /* Se setea si no hubo ningun error para devolver los resultados, sino hace rollback y devuelve un dto en blanco */
+                rta2 = rta;
+
+                scope.Complete();
+            }
+
+            return rta2;
+        }
+
+        public Stream ProyectosReporte()
+        {
+            var proyectosDto = Mapper.Map<IEnumerable<Proyecto>, IEnumerable<ProyectoDto>>(this.entityRepository.AllIncludingAsNoTracking()).Select(x => new ProyectoPdfDto
+            {
+                ID = x.ID,
+                Nombre = x.Nombre ?? " - ",
+                ClienteNombre = x.ClienteNombre ?? " - ",
+                ProyectoEstadoDescripcion = x.ProyectoEstadoDescripcion ?? " - "
+            })
+                .ToList();
+            if (proyectosDto.Count() != 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReportProyectos())
+                {
+                    return this.service.GetReportPDF(report, proyectosDto);
+                }
+            }
+            return null;
+        }
+
+        public Stream LiquidacionReporte(SolicitaLiquidacionDto dto)
+        {
+            LiquidacionDto liquidacion = this.LiquidacionSinPagar(dto);
+            var liquidacionContenidoPdf = new List<LiquidacionContenidoPdfDto>();
+            liquidacionContenidoPdf.Add(new LiquidacionContenidoPdfDto
+            {
+                AntiguedadEmpleado = liquidacion.AntiguedadEmpleado,
+                CantidadHsNoOBLiquidados = liquidacion.CantidadHsNoOBLiquidados,
+                CantidadHsOBLiquidados = liquidacion.CantidadHsOBLiquidados,
+                CantidadHsTotalesLiquidados = liquidacion.CantidadHsTotalesLiquidados,
+                CantidadPerfiles = liquidacion.CantidadPerfiles,
+                CantidadProyectosLiquidados = liquidacion.CantidadProyectosLiquidados,
+                CantidadTareasLiquidados = liquidacion.CantidadTareasLiquidados,
+                PorcentajeAplicadoAntiguedad = liquidacion.PorcentajeAplicadoAntiguedad ?? 0,
+                PorcentajeAplicadoCantidadHoras = liquidacion.PorcentajeAplicadoCantidadHoras ?? 0,
+                PorcentajeAplicadoCantidadPerfiles = liquidacion.PorcentajeAplicadoCantidadPerfiles ?? 0,
+                TotalLiquidado = liquidacion.TotalLiquidado,
+                ValorPorcentajeDeHoraOB = liquidacion.ValorPorcentajeDeHoraOB
+            });
+
+            var liquidacionInfoPdf = liquidacion.ValoresInformativosPerfilHora.Select(x => new LiquidacionPieInformativoPdfDto
+            {
+                Descripcion = x.Descripcion,
+                ValorHorario = x.ValorHorario
+            }).ToList();
+
+            var datosEmpleado = this.empleadoRepository.AllIncludingAsNoTracking().Where(x => x.ID == dto.EmpleadoID)
+                                                       .Select(x => new EmpleadoPdfDto
+                                                       {
+                                                           ID = x.ID,
+                                                           Apellido = x.Apellido,
+                                                           Dni = x.Dni,
+                                                           FechaIngreso = x.FechaIngreso,
+                                                           Nombre = x.Nombre,
+                                                           RolDescripcion = "Completar si se necesita el dato.",
+                                                           Usuario = x.Usuario
+                                                       }).ToList();
+
+            Dictionary<string, object> dic = new Dictionary<string, object>
+            {
+                { "LiquidacionContenidoPdf",  liquidacionContenidoPdf},
+                { "LiquidacionPieInformativoPdf",  liquidacionInfoPdf},
+                { "Empleados",  datosEmpleado}
+            };
+
+            if (liquidacionInfoPdf != null)
+            {
+                using (var report = new Reportes.PDF.CrystalReportNuevo())
+                {
+                    return this.service.GetReportPDF(report, dic);
+                }
+            }
+
+            return null;
+        }
+
+        public Stream HsTrabajadasProyectorPerfilReporte()
+        {
+            var hsTrabajadasProyectorPerfil = this.HorasTrabajadasPorProyectoPorPerfilTotales();
+            var hsTrabajadasProyectorPerfilPdfDto = new List<HsTrabajadasProyectorPerfilPdfDto>(); 
+            var resultadoFinal = new List<HsTrabajadasProyectorPerfilPdfDto>();
+            /* Por cada proyecto, creamos las Proyecto-Perfil-Horas */
+            foreach (var proyecto in hsTrabajadasProyectorPerfil)
+            {
+                var perfilesDelProyecto = proyecto.PerfilesHoras;
+                var listaResultadosAgrega = perfilesDelProyecto.Select(x => new HsTrabajadasProyectorPerfilPdfDto
+                {
+                    ProyectoNombre = proyecto.ProyectoNombre,
+                    PerfilDescripcion = x.PerfilDescripcion,
+                    CantidadHoras = x.CantidadHoras
+                }).ToList();
+
+                hsTrabajadasProyectorPerfilPdfDto = hsTrabajadasProyectorPerfilPdfDto.Concat(listaResultadosAgrega).ToList();
+            }
+
+            if (hsTrabajadasProyectorPerfilPdfDto != null && hsTrabajadasProyectorPerfilPdfDto.Count() > 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsProyectoPerfil())
+                {
+                    resultadoFinal = hsTrabajadasProyectorPerfilPdfDto.Where(x => x.CantidadHoras > 0)
+                                                                      .OrderBy(x => x.ProyectoNombre)
+                                                                      .ThenBy(x => x.PerfilDescripcion).ToList();
+                    return this.service.GetReportPDF(report, resultadoFinal);
+                }
+            }
+
+            return null;
+        }
+
+        public Stream HorasAdeudadasProyectoEmpleadoReporte()
+        {
+            var hsAdeudadasaProyectoEmpleado = this.HorasAdeudadasPorProyectoPorEmpleadoTotales();
+            var hsAdeudadasProyectoEmpleadoPdfDto = new List<HsAdeudadasProyectoEmpleadoPdfDto>();
+            var resultadoFinal = new List<HsAdeudadasProyectoEmpleadoPdfDto>();
+            /* Por cada proyecto, creamos las Proyecto-Perfil-Horas */
+            foreach (var proyecto in hsAdeudadasaProyectoEmpleado)
+            {
+                var empleadoDelProyecto = proyecto.EmpleadoHoras;
+                var listaResultadosAgrega = empleadoDelProyecto.Select(x => new HsAdeudadasProyectoEmpleadoPdfDto
+                {
+                    ProyectoNombre = proyecto.ProyectoNombre,
+                    EmpleadoNombreApellido = x.EmpleadoNombre + " " + x.EmpleadoApellido,
+                    CantidadHorasAdeudadas = x.CantidadHorasAdeudadas
+                }).ToList();
+
+                hsAdeudadasProyectoEmpleadoPdfDto = hsAdeudadasProyectoEmpleadoPdfDto.Concat(listaResultadosAgrega).ToList();
+            }
+
+            if (hsAdeudadasProyectoEmpleadoPdfDto != null && hsAdeudadasProyectoEmpleadoPdfDto.Count() > 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsAdeudadasProyectoEmpleado())
+                {
+                    resultadoFinal = hsAdeudadasProyectoEmpleadoPdfDto.Where(x => x.CantidadHorasAdeudadas > 0)
+                                                                      .OrderBy(x => x.ProyectoNombre)
+                                                                      .ThenBy(x => x.EmpleadoNombreApellido).ToList();
+                    return this.service.GetReportPDF(report, resultadoFinal);
+                }
+            }
+
+            return null;
         }
     }
 }

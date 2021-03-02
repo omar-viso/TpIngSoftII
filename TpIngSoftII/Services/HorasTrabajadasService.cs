@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -11,6 +12,7 @@ using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.Constantes;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Models.Entities;
+using TpIngSoftII.Reportes;
 using static TpIngSoftII.Models.Entities.Proyecto;
 
 namespace TpIngSoftII.Services
@@ -23,17 +25,21 @@ namespace TpIngSoftII.Services
         private readonly IEntityBaseRepository<Tarea> tareaRepository;
         private readonly IEntityBaseRepository<HorasTrabajadasEstado> horasTrabajadasEstadoRepository;
         private readonly ITareaService tareaService;
+        private readonly ISevice service;
+
 
         public HorasTrabajadasService(IEntityBaseRepository<HorasTrabajadas> entityRepository,
                                       IUnitOfWork unitOfWork,
                                       IAppContext appContext,
                                       IEntityBaseRepository<Tarea> tareaRepository,
                                       IEntityBaseRepository<HorasTrabajadasEstado> horasTrabajadasEstadoRepository,
-                                      ITareaService tareaService) : base(entityRepository, unitOfWork, appContext)
+                                      ITareaService tareaService,
+                                      ISevice service) : base(entityRepository, unitOfWork, appContext)
         {
             this.tareaRepository = tareaRepository;
             this.horasTrabajadasEstadoRepository = horasTrabajadasEstadoRepository;
             this.tareaService = tareaService;
+            this.service = service;
         }
 
         public IEnumerable<HorasTrabajadasEstadoDto> GetHorasTrabajadasEstado()
@@ -51,9 +57,6 @@ namespace TpIngSoftII.Services
             {
                 dto.Fecha = DateTime.Now;
                 this.ValidacionesUpdate(dto);
-            } else
-            {
-
             }
 
             return tmp;
@@ -166,6 +169,19 @@ namespace TpIngSoftII.Services
                             hsTrabajadasOBentity.EsOB = true;
 
                             this.entityRepository.Edit(hsTrabajadasOBentity);
+                            this.unitOfWork.Commit();
+                            scope.Complete();
+                        }
+                        /* Sumo las Horas OB a la tarea */
+                        using (var scope = new TransactionScope())
+                        {
+                            /* Se marcan las mismas como Hs OB */
+                            var tareaEntity = this.tareaRepository.AllIncluding()
+                                                                            .ToList()
+                                                                            .FirstOrDefault(x => x.ID == hsTrabajadasOBDto.TareaID);
+                            tareaEntity.HorasOB += hsOBACargar;
+
+                            this.tareaRepository.Edit(tareaEntity);
                             this.unitOfWork.Commit();
                             scope.Complete();
                         }
@@ -357,6 +373,32 @@ namespace TpIngSoftII.Services
             actualizarHsOBTareaFlag = true;
 
             this.Update(dto);
+        }
+
+        public Stream InformeSemanalHsOBReporte()
+        {
+            var hsAInformar = this.InformeSemanalHsOB();
+            var hsAInformarPdfDto = new List<InformeSemanalHsOBPdfDto>();
+            var resultadoFinal = new List<InformeSemanalHsOBPdfDto>();
+            hsAInformarPdfDto = hsAInformar.TareasSubtotalesHsOB.Select(x => new InformeSemanalHsOBPdfDto
+            {
+                    ProyectoNombre = x.ProyectoNombre,
+                    TareaNombre = x.TareaNombre,
+                    SubtotalHsOB = x.SubtotalHsOB
+            }).ToList();
+
+            if (hsAInformarPdfDto != null && hsAInformarPdfDto.Count() > 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReportInformeSemanalHsOB())
+                {
+                    resultadoFinal = hsAInformarPdfDto.Where(x => x.SubtotalHsOB > 0)
+                                                      .OrderBy(x => x.ProyectoNombre)
+                                                      .ThenBy(x => x.TareaNombre).ToList();
+                    return this.service.GetReportPDF(report, resultadoFinal);
+                }
+            }
+
+            return null;
         }
     }
 }

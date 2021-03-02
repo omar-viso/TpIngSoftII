@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,13 +8,14 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Services;
 
 namespace TpIngSoftII.Controllers
 {
     [RoutePrefix("api/Empleados")]
-    public class EmpleadoController : ApiController
+    public class EmpleadoController : ApiControllerBase
     {
         private readonly IEmpleadoService empleadoService;
 
@@ -213,6 +215,27 @@ namespace TpIngSoftII.Controllers
             }
 
             return response;
+        }
+
+        [HttpGet]
+        [Route("EmpleadosReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage EmpleadosReporte(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = empleadoService.EmpleadosReporte();
+                response = ResponsePDF(request, pdf, "Reporte de Empleados");
+            }
+
+            return response;
+
         }
     }
 

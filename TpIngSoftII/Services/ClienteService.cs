@@ -11,6 +11,7 @@ using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.Constantes;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Models.Entities;
+using TpIngSoftII.Reportes;
 using static TpIngSoftII.Models.Entities.Proyecto;
 
 namespace TpIngSoftII.Services
@@ -18,14 +19,17 @@ namespace TpIngSoftII.Services
     public class ClienteService : EntityAppServiceBase<Cliente, ClienteDto>, IClienteService
     {
         private readonly IReporteService reporteService;
+        private readonly ISevice service;
 
 
         public ClienteService(IEntityBaseRepository<Cliente> entityRepository, 
                                IUnitOfWork unitOfWork, 
                                IAppContext appContext,
-                               IReporteService reporteService) : base(entityRepository, unitOfWork, appContext)
+                               IReporteService reporteService,
+                               ISevice service) : base(entityRepository, unitOfWork, appContext)
         {
             this.reporteService = reporteService;
+            this.service = service;
         }
 
         public override ClienteDto Update(ClienteDto dto)
@@ -74,6 +78,30 @@ namespace TpIngSoftII.Services
             var exportarCliente = new List<int>();
             exportarCliente.Add(1);
             return this.reporteService.GenerarExcel(exportarCliente);
+        }
+
+        public Stream ClientesReporte()
+        {
+            var ClientesDto = Mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteDto>>(this.entityRepository.AllIncludingAsNoTracking()).Select(x => new ClientePdfDto
+            {
+                ID = x.ID,
+                Nombre = x.Nombre ?? " - ",
+                RazonSocial = x.RazonSocial ?? " - ",
+                Apellido = x.Apellido ?? " - ",
+                Direccion = x.Direccion ?? " - ",
+                DniCuit = x.DniCuit,
+                Email = x.Email ?? " - ",
+                TelefonoContacto = x.TelefonoContacto ?? 0
+            })
+                .ToList();
+            if (ClientesDto.Count() != 0)
+            {
+                using (var report = new Reportes.PDF.CrystalReport1())
+                {
+                    return this.service.GetReportPDF(report, ClientesDto);
+                }
+            }
+            return null;
         }
 
     }

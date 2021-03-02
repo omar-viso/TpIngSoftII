@@ -48,5 +48,20 @@ namespace TpIngSoftII.Models
 
         }
 
+        protected HttpResponseMessage ResponsePDF(HttpRequestMessage request, Stream pdf, string fileName)
+        {
+            HttpResponseMessage response = null;
+
+            response = request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StreamContent(pdf);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = fileName + ".pdf"
+            };
+            return response;
+        }
+
+
     }
 }

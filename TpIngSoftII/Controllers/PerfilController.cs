@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,13 +8,14 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models;
 using TpIngSoftII.Models.DTOs;
 using TpIngSoftII.Services;
 
 namespace TpIngSoftII.Controllers
 {
     [RoutePrefix("api/Perfiles")]
-    public class PerfilController : ApiController
+    public class PerfilController : ApiControllerBase
     {
         private readonly IPerfilService perfilService;
 
@@ -103,6 +105,27 @@ namespace TpIngSoftII.Controllers
             {
                 this.perfilService.DeleteById(id);
                 response = request.CreateResponse(HttpStatusCode.OK, new { sucess = true });
+            }
+
+            return response;
+
+        }
+
+        [HttpGet]
+        [Route("PerfilesReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage PerfilesReporte(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = perfilService.PerfilesReporte();
+                response = ResponsePDF(request, pdf, "Reporte de Perfiles");
             }
 
             return response;

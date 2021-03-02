@@ -17,7 +17,8 @@ namespace TpIngSoftII.Mapping
                 .ForMember(dest => dest.ClienteNombre, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.Cliente.RazonSocial) ? src.Cliente.RazonSocial : src.Cliente.Nombre))                
                 .ForMember(dest => dest.ProyectoEstadoDescripcion, opt => opt.MapFrom(src => src.ProyectoEstado.Descripcion));
             CreateMap<ClienteDto, Cliente>().ReverseMap();
-            CreateMap<EmpleadoDto, Empleado>().ReverseMap();
+            CreateMap<EmpleadoDto, Empleado>().ReverseMap()
+                .ForMember(dest => dest.RolDescripcion, opt => opt.MapFrom(src => src.Rol.Descripcion));
             CreateMap<EmpleadoPerfilDto, EmpleadoPerfil>().ReverseMap()
                 .ForMember(dest => dest.EmpleadoNombre, opt => opt.MapFrom(src => src.Empleado.Nombre))
                 .ForMember(dest => dest.PerfilDescripcion, opt => opt.MapFrom(src => src.Perfil.Descripcion));

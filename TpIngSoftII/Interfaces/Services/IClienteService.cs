@@ -12,5 +12,6 @@ namespace TpIngSoftII.Interfaces.Services
     public interface IClienteService : IEntityAppServiceBase<Cliente, ClienteDto>
     {
         Stream ExportarExcel();
+        Stream ClientesReporte();
     }
 }
