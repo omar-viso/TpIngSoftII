@@ -240,9 +240,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(381, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(187, 13);
+            this.label2.Size = new System.Drawing.Size(191, 13);
             this.label2.TabIndex = 20;
-            this.label2.Text = "Si no elije cliente se creara uno nuevo";
+            this.label2.Text = "Si no elige cliente se creara uno nuevo";
             // 
             // FrmClienteAgregar
             // 

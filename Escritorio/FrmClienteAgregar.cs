@@ -21,7 +21,7 @@ namespace Escritorio
         private readonly IAppContext2 appContext2;
         private int ID = 0;
 
-        public FrmClienteAgregar(IClienteService clienteService, IAppContext2 appContext2)
+        public FrmClienteAgregar(IClienteService clienteService ,IAppContext2 appContext2)
         {
             this.clienteService = clienteService;
             this.appContext2 = appContext2;
@@ -30,14 +30,7 @@ namespace Escritorio
 
         private void FrmClienteAgregar_Load(object sender, EventArgs e)
         {
-            var clientes = clienteService.GetAllAsNoTracking();
-            foreach (ClienteDto cliente in clientes)
-            {
-                if (cliente.RazonSocial == null || cliente.RazonSocial == "")
-                    ElejirClienteComboBox.Items.Add(cliente.Nombre + " " + cliente.Apellido);
-                else
-                    ElejirClienteComboBox.Items.Add(cliente.RazonSocial);
-            }
+            CargarlistaClientes();
         }
 
         private void TipoPersonaCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,6 +139,11 @@ namespace Escritorio
                 {
                     MessageBox.Show("No se a podido editar el cliente");
                 }
+                ID =0;
+                ElejirClienteComboBox.ResetText();
+                ElejirClienteComboBox.Items.Clear();
+                CargarlistaClientes();
+                this.Close();
             }
             else
             {
@@ -161,7 +159,7 @@ namespace Escritorio
             }
             NombreTextBox.Text = "";
             ApellidoTextBox.Text = "";
-            TipoPersonaCombo.SelectedItem = "";
+            TipoPersonaCombo.ResetText();
             DireccionTextBox.Text = "";
             DNI_CUIT_numeric.Value = 0;
             TelefonoNumeric.Value = 0;
@@ -193,6 +191,17 @@ namespace Escritorio
                     EMailTexbox.Text=cliente.Email;
                     ID = cliente.ID;
                 }
+            }
+        }
+        private void CargarlistaClientes()
+        {
+            var clientes = clienteService.GetAllAsNoTracking();
+            foreach (ClienteDto cliente in clientes)
+            {
+                if (cliente.RazonSocial == null || cliente.RazonSocial == "")
+                    ElejirClienteComboBox.Items.Add(cliente.Nombre + " " + cliente.Apellido);
+                else
+                    ElejirClienteComboBox.Items.Add(cliente.RazonSocial);
             }
         }
     }
