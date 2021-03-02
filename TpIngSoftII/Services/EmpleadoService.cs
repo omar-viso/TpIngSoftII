@@ -254,8 +254,8 @@ namespace TpIngSoftII.Services
                 RolDescripcion = x.RolDescripcion ?? " - ",
                 Usuario = x.Usuario ?? " - ",
                 FechaIngreso = x.FechaIngreso.Date
-            })
-                .ToList();
+            })?.OrderBy(x => x.Nombre)?.ThenBy(y => y.Apellido)
+               .ToList();
             if (EmpleadosDto.Count() != 0)
             {
                 using (var report = new Reportes.PDF.CrystalReportEmpleados())

@@ -296,6 +296,26 @@ namespace TpIngSoftII.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [Route("HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotalesReporte")]
+        [MyAuthorize()]
+        public HttpResponseMessage HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotalesReporte(HttpRequestMessage request, [FromUri] DateTime desde, [FromUri] DateTime hasta)
+        {
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                Stream pdf = proyectoService.HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotalesReporte(desde, hasta);
+                response = ResponsePDF(request, pdf, "Reporte de Hs Trabajadas Proyecto-Perfil-Empleado");
+            }
+
+            return response;
+        }
     }
 
 }

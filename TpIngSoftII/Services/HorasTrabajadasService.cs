@@ -391,8 +391,8 @@ namespace TpIngSoftII.Services
             {
                 using (var report = new Reportes.PDF.CrystalReportInformeSemanalHsOB())
                 {
-                    resultadoFinal = hsAInformarPdfDto.Where(x => x.SubtotalHsOB > 0)
-                                                      .OrderBy(x => x.ProyectoNombre)
+                    resultadoFinal = hsAInformarPdfDto.Where(x => x.SubtotalHsOB > 0)?
+                                                      .OrderBy(x => x.ProyectoNombre)?
                                                       .ThenBy(x => x.TareaNombre).ToList();
                     return this.service.GetReportPDF(report, resultadoFinal);
                 }

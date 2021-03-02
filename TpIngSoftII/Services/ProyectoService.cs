@@ -144,6 +144,41 @@ namespace TpIngSoftII.Services
             return rta;
         }
 
+        public Stream HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotalesReporte(DateTime desde, DateTime hasta)
+        {
+            var horasTrabajadasPorProyectoPorPerfilPorEmpleadoTotalesDto = this.HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(desde.Date, hasta.Date);
+            var horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf = new List<ProyectoPerfilesEmpleadosHorasPdfDto>();
+            /* Recorremos por Proyecto */
+            foreach (var proyecto in horasTrabajadasPorProyectoPorPerfilPorEmpleadoTotalesDto)
+            {   /* Recorremos por Perfiles */
+                foreach (var perfiles in proyecto.PerfilesEmpleadosHoras)
+                {
+                    var ProyectoPerfilesEmpleadosHorasPdfTmp = perfiles.EmpleadosHoras.Select(x => new ProyectoPerfilesEmpleadosHorasPdfDto
+                    {
+                        ProyectoNombre = proyecto.ProyectoNombre,
+                        PerfilDescripcion = perfiles.PerfilDescripcion,
+                        NombreApellido = x.Empleado.Nombre + " " + x.Empleado.Apellido,
+                        CantidadHoras = x.CantidadHoras
+                    }).ToList();
+
+                    if (ProyectoPerfilesEmpleadosHorasPdfTmp != null && ProyectoPerfilesEmpleadosHorasPdfTmp.Count() > 0)
+                    {
+                        horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf = horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf.Concat(ProyectoPerfilesEmpleadosHorasPdfTmp).ToList();
+                    }
+                }
+            }
+
+            if (horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf != null)
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsTrabajadasPorProyectoPerfilEmpleado())
+                {
+                    return this.service.GetReportPDF(report, horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf);
+                }
+            }
+
+            return null;
+        }
+
         public IEnumerable<ProyectoPerfilesEmpleadosHorasDto> HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(DateTime desde, DateTime hasta)
         {   /* Buscamos todos los proyectos que existen */
             var proyectos = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
@@ -151,6 +186,7 @@ namespace TpIngSoftII.Services
                                                  .ToList();
 
             ICollection<ProyectoPerfilesEmpleadosHorasDto> rta = new List<ProyectoPerfilesEmpleadosHorasDto>();
+            ICollection<ProyectoPerfilesEmpleadosHorasDto> rtaOrdenada = new List<ProyectoPerfilesEmpleadosHorasDto>();
 
             /* Recorremos todos los proyectos */
             foreach (var proyecto in proyectos)
@@ -160,17 +196,24 @@ namespace TpIngSoftII.Services
                     ProyectoNombre = proyecto.Nombre,
                     PerfilesEmpleadosHoras = (ICollection<PerfilEmpleadosHorasDto>) this.DameCantidadHorasPorPerfilPorEmpleadoDeUnProyecto(proyecto.ID, desde, hasta)
                 };
-                /* Agregamos los resultados por cada proyecto */
-                rta.Add(proyectoPerfilesEmpleadosHorasDto);
+                /* Agregamos los resultados por cada proyecto si poseen PerfilesEmpleadosHoras */
+                if (proyectoPerfilesEmpleadosHorasDto.PerfilesEmpleadosHoras != null && proyectoPerfilesEmpleadosHorasDto.PerfilesEmpleadosHoras.Count() > 0)
+                {
+                    rta.Add(proyectoPerfilesEmpleadosHorasDto);
+                }
             }
 
-            return rta?.OrderBy(x => x.ProyectoNombre);
+            return rtaOrdenada = rta?.OrderBy(x => x.ProyectoNombre)?
+                       .ThenBy(x => x.PerfilesEmpleadosHoras?
+                       .OrderBy(y => y.PerfilDescripcion)?
+                       .ThenBy(z => z.EmpleadosHoras?.OrderBy(w => w.Empleado.Nombre)?.ThenBy(e => e.Empleado.Apellido))).ToList();
         }
 
         public IEnumerable<PerfilEmpleadosHorasDto> DameCantidadHorasPorPerfilPorEmpleadoDeUnProyecto(int proyectoID, DateTime desde, DateTime hasta)
         {
 
             List<PerfilEmpleadosHorasDto> rta = new List<PerfilEmpleadosHorasDto>();
+            List<PerfilEmpleadosHorasDto> rtaOrdenada = new List<PerfilEmpleadosHorasDto>();
 
             if (proyectoID < 0) throw new Exception("El proyecto indicado no es válido.");
             var proyecto = this.entityRepository.AllIncludingAsNoTracking(x => x.Tareas,
@@ -202,19 +245,26 @@ namespace TpIngSoftII.Services
                     /* Si no existe para dicho perfil no se carga */
                     if (empleado.Perfiles.FirstOrDefault(x => x.PerfilID == perfil.ID) != null)
                     {
-                        perfilHorasDto.EmpleadosHoras.Add(new EmpleadoHorasDto
+                        var empleadoHorasTmp = new EmpleadoHorasDto
                         {
                             Empleado = Mapper.Map<Empleado, EmpleadoDto>(empleado),
                             CantidadHoras = this.HorasTrabajadasPorProyectoPorPerfilPorEmpleado(proyectoID, perfil.ID, empleado.ID, desde, hasta)
-                        });
+                        };
+                        /* si las horas son mayores a cero, se agregan */
+                        if (empleadoHorasTmp.CantidadHoras > 0)
+                        {
+                            perfilHorasDto.EmpleadosHoras.Add(empleadoHorasTmp);
+                        }
                     }
                 }
-
-                /* Agrego los datos al resultado */
-                rta.Add(perfilHorasDto);
+                /* Agrego los datos al resultado si hay EmpleadosHoras*/
+                if (perfilHorasDto.EmpleadosHoras != null && perfilHorasDto.EmpleadosHoras.Count() > 0)
+                {
+                    rta.Add(perfilHorasDto);
+                }
             }
 
-            return rta;
+            return rtaOrdenada = rta?.OrderBy(x => x.PerfilDescripcion)?.ThenBy(y => y.EmpleadosHoras?.OrderBy(w => w.Empleado.Nombre)?.ThenBy(e => e.Empleado.Apellido)).ToList();
         }
 
         public decimal HorasTrabajadasPorProyectoPorPerfil(int proyectoID, int perfilID)
@@ -719,7 +769,7 @@ namespace TpIngSoftII.Services
                 ClienteNombre = x.ClienteNombre ?? " - ",
                 ProyectoEstadoDescripcion = x.ProyectoEstadoDescripcion ?? " - "
             })
-                .ToList();
+                ?.OrderBy(x => x.Nombre).ToList();
             if (proyectosDto.Count() != 0)
             {
                 using (var report = new Reportes.PDF.CrystalReportProyectos())
