@@ -38,7 +38,7 @@ namespace TpIngSoftII.Services
                 ID = x.ID,
                 Descripcion = x.Descripcion ?? " - ",
                 ValorHorario = x.ValorHorario,
-            })
+            })?.OrderBy(x => x.Descripcion)
                 .ToList();
             if (EmpleadosDto.Count() != 0)
             {

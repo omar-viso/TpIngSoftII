@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetProyectoPerfilesEmpleadosHoras" targetNamespace="http://tempuri.org/DataSetProyectoPerfilesEmpleadosHoras.xsd" xmlns:mstns="http://tempuri.org/DataSetProyectoPerfilesEmpleadosHoras.xsd" xmlns="http://tempuri.org/DataSetProyectoPerfilesEmpleadosHoras.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetProyectoPerfilesEmpleadosHoras" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetProyectoPerfilesEmpleadosHoras" msprop:Generator_UserDSName="DataSetProyectoPerfilesEmpleadosHoras">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ProyectoPerfilesEmpleadosHorasPdfDto" msprop:Generator_TableClassName="ProyectoPerfilesEmpleadosHorasPdfDtoDataTable" msprop:Generator_TableVarName="tableProyectoPerfilesEmpleadosHorasPdfDto" msprop:Generator_RowChangedName="ProyectoPerfilesEmpleadosHorasPdfDtoRowChanged" msprop:Generator_TablePropName="ProyectoPerfilesEmpleadosHorasPdfDto" msprop:Generator_RowDeletingName="ProyectoPerfilesEmpleadosHorasPdfDtoRowDeleting" msprop:Generator_RowChangingName="ProyectoPerfilesEmpleadosHorasPdfDtoRowChanging" msprop:Generator_RowEvHandlerName="ProyectoPerfilesEmpleadosHorasPdfDtoRowChangeEventHandler" msprop:Generator_RowDeletedName="ProyectoPerfilesEmpleadosHorasPdfDtoRowDeleted" msprop:Generator_RowClassName="ProyectoPerfilesEmpleadosHorasPdfDtoRow" msprop:Generator_UserTableName="ProyectoPerfilesEmpleadosHorasPdfDto" msprop:Generator_RowEvArgName="ProyectoPerfilesEmpleadosHorasPdfDtoRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProyectoNombre" msprop:Generator_ColumnVarNameInTable="columnProyectoNombre" msprop:Generator_ColumnPropNameInRow="ProyectoNombre" msprop:Generator_ColumnPropNameInTable="ProyectoNombreColumn" msprop:Generator_UserColumnName="ProyectoNombre" type="xs:string" minOccurs="0" />
+              <xs:element name="PerfilDescripcion" msprop:Generator_ColumnVarNameInTable="columnPerfilDescripcion" msprop:Generator_ColumnPropNameInRow="PerfilDescripcion" msprop:Generator_ColumnPropNameInTable="PerfilDescripcionColumn" msprop:Generator_UserColumnName="PerfilDescripcion" type="xs:string" minOccurs="0" />
+              <xs:element name="NombreApellido" msprop:Generator_ColumnVarNameInTable="columnNombreApellido" msprop:Generator_ColumnPropNameInRow="NombreApellido" msprop:Generator_ColumnPropNameInTable="NombreApellidoColumn" msprop:Generator_UserColumnName="NombreApellido" type="xs:string" minOccurs="0" />
+              <xs:element name="CantidadHoras" msprop:Generator_ColumnVarNameInTable="columnCantidadHoras" msprop:Generator_ColumnPropNameInRow="CantidadHoras" msprop:Generator_ColumnPropNameInTable="CantidadHorasColumn" msprop:Generator_UserColumnName="CantidadHoras" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
