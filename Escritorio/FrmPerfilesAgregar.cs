@@ -30,11 +30,7 @@ namespace Escritorio
 
         private void FrmPerfilesAgregar_Load(object sender, EventArgs e)
         {
-            var perfiles = perfilService.GetAllAsNoTracking();
-            foreach (PerfilDto perfil in perfiles)
-            {
-                ElejirPerfilcomboBox.Items.Add(perfil.Descripcion);
-            }
+            CargarListaPerfiles();
         }
 
         private void AgregarButton_Click(object sender, EventArgs e)
@@ -62,6 +58,12 @@ namespace Escritorio
                 {
                     MessageBox.Show("No se a podido editar el perfil");
                 }
+                
+                ID = 0;
+                ElejirPerfilcomboBox.ResetText();
+                ElejirPerfilcomboBox.Items.Clear();
+                CargarListaPerfiles();
+                this.Close();
             }
             else
             {
@@ -97,6 +99,15 @@ namespace Escritorio
             //    DescripcionText.Text = perfilElegido.Descripcion;
             //    ValorHoraNumeric.Value = perfilElegido.ValorHorario;
             //}
+        }
+
+        private void CargarListaPerfiles()
+        {
+            var perfiles = perfilService.GetAllAsNoTracking();
+            foreach (PerfilDto perfil in perfiles)
+            {
+                ElejirPerfilcomboBox.Items.Add(perfil.Descripcion);
+            }
         }
     }
 }

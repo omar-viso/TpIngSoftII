@@ -366,7 +366,7 @@
             this.AgregarProyectosButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.AgregarProyectosButton.Size = new System.Drawing.Size(164, 26);
             this.AgregarProyectosButton.TabIndex = 1;
-            this.AgregarProyectosButton.Text = "Agregar";
+            this.AgregarProyectosButton.Text = "Agregar/Editar";
             this.AgregarProyectosButton.UseVisualStyleBackColor = false;
             this.AgregarProyectosButton.Click += new System.EventHandler(this.AgregarProyectosButton_Click);
             // 

@@ -28,21 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.NombreTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ElejirClienteComboBox = new System.Windows.Forms.ComboBox();
             this.CambiarEstadocomboBox = new System.Windows.Forms.ComboBox();
             this.AgregarButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.ElegirProyectocomboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // textBox1
+            // NombreTextBox
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(110, 77);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(140, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Tag = "";
+            this.NombreTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NombreTextBox.Location = new System.Drawing.Point(110, 77);
+            this.NombreTextBox.Name = "NombreTextBox";
+            this.NombreTextBox.Size = new System.Drawing.Size(140, 20);
+            this.NombreTextBox.TabIndex = 0;
+            this.NombreTextBox.Tag = "";
             // 
             // label1
             // 
@@ -53,15 +55,16 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Nombre:";
             // 
-            // comboBox1
+            // ElejirClienteComboBox
             // 
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(316, 76);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
-            this.comboBox1.Text = "Elija un cliente";
+            this.ElejirClienteComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ElejirClienteComboBox.FormattingEnabled = true;
+            this.ElejirClienteComboBox.Location = new System.Drawing.Point(316, 76);
+            this.ElejirClienteComboBox.Name = "ElejirClienteComboBox";
+            this.ElejirClienteComboBox.Size = new System.Drawing.Size(121, 21);
+            this.ElejirClienteComboBox.TabIndex = 2;
+            this.ElejirClienteComboBox.Text = "Elija un cliente";
+            this.ElejirClienteComboBox.SelectedIndexChanged += new System.EventHandler(this.ElejirClienteComboBox_SelectedIndexChanged);
             // 
             // CambiarEstadocomboBox
             // 
@@ -72,6 +75,7 @@
             this.CambiarEstadocomboBox.Size = new System.Drawing.Size(180, 21);
             this.CambiarEstadocomboBox.TabIndex = 3;
             this.CambiarEstadocomboBox.Text = "Cambie el estado de su proyecto";
+            this.CambiarEstadocomboBox.SelectedIndexChanged += new System.EventHandler(this.CambiarEstadocomboBox_SelectedIndexChanged);
             // 
             // AgregarButton
             // 
@@ -85,17 +89,39 @@
             this.AgregarButton.TabIndex = 4;
             this.AgregarButton.Text = "Agregar";
             this.AgregarButton.UseVisualStyleBackColor = false;
+            this.AgregarButton.Click += new System.EventHandler(this.AgregarButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(280, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(201, 13);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "Si no elige proyecto se creara uno nuevo";
+            // 
+            // ElegirProyectocomboBox
+            // 
+            this.ElegirProyectocomboBox.FormattingEnabled = true;
+            this.ElegirProyectocomboBox.Location = new System.Drawing.Point(110, 27);
+            this.ElegirProyectocomboBox.Name = "ElegirProyectocomboBox";
+            this.ElegirProyectocomboBox.Size = new System.Drawing.Size(160, 21);
+            this.ElegirProyectocomboBox.TabIndex = 22;
+            this.ElegirProyectocomboBox.Text = "Proyecto a cambiar...";
+            this.ElegirProyectocomboBox.SelectedIndexChanged += new System.EventHandler(this.ElegirProyectocomboBox_SelectedIndexChanged);
             // 
             // FrmProyectosAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(518, 231);
+            this.Controls.Add(this.ElegirProyectocomboBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.AgregarButton);
             this.Controls.Add(this.CambiarEstadocomboBox);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ElejirClienteComboBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.NombreTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FrmProyectosAgregar";
             this.Text = "FrmProyectosAgregar";
@@ -107,10 +133,12 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox NombreTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ElejirClienteComboBox;
         private System.Windows.Forms.ComboBox CambiarEstadocomboBox;
         private System.Windows.Forms.Button AgregarButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox ElegirProyectocomboBox;
     }
 }
