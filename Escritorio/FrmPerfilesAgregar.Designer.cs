@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.ValorHoraNumeric = new System.Windows.Forms.NumericUpDown();
             this.ElejirPerfilcomboBox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ValorHoraNumeric)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             this.AgregarButton.Name = "AgregarButton";
             this.AgregarButton.Size = new System.Drawing.Size(75, 28);
             this.AgregarButton.TabIndex = 5;
-            this.AgregarButton.Text = "Agregar";
+            this.AgregarButton.Text = "Aceptar";
             this.AgregarButton.UseVisualStyleBackColor = false;
             this.AgregarButton.Click += new System.EventHandler(this.AgregarButton_Click);
             // 
@@ -92,18 +93,28 @@
             // ElejirPerfilcomboBox
             // 
             this.ElejirPerfilcomboBox.FormattingEnabled = true;
-            this.ElejirPerfilcomboBox.Location = new System.Drawing.Point(192, 26);
+            this.ElejirPerfilcomboBox.Location = new System.Drawing.Point(52, 25);
             this.ElejirPerfilcomboBox.Name = "ElejirPerfilcomboBox";
             this.ElejirPerfilcomboBox.Size = new System.Drawing.Size(121, 21);
             this.ElejirPerfilcomboBox.TabIndex = 9;
-            this.ElejirPerfilcomboBox.Text = "PerfilAEditar";
+            this.ElejirPerfilcomboBox.Text = "Perfil a cambiar...";
             this.ElejirPerfilcomboBox.SelectedIndexChanged += new System.EventHandler(this.ElejirPerfilcomboBox_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(179, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(216, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Si no selecciona ninguno agrega uno nuevo";
             // 
             // FrmPerfilesAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 175);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.ElejirPerfilcomboBox);
             this.Controls.Add(this.ValorHoraNumeric);
             this.Controls.Add(this.label2);
@@ -127,5 +138,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown ValorHoraNumeric;
         private System.Windows.Forms.ComboBox ElejirPerfilcomboBox;
+        private System.Windows.Forms.Label label3;
     }
 }

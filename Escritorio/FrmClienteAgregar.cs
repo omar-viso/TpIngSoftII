@@ -19,12 +19,18 @@ namespace Escritorio
     {
         private readonly IClienteService clienteService;
         private readonly IAppContext2 appContext2;
+        private int ID = 0;
 
-        public FrmClienteAgregar(IClienteService clienteService, IAppContext2 appContext2)
+        public FrmClienteAgregar(IClienteService clienteService ,IAppContext2 appContext2)
         {
             this.clienteService = clienteService;
             this.appContext2 = appContext2;
             InitializeComponent();
+        }
+
+        private void FrmClienteAgregar_Load(object sender, EventArgs e)
+        {
+            CargarlistaClientes();
         }
 
         private void TipoPersonaCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,20 +107,102 @@ namespace Escritorio
             }
 
             cliente.TipoPersona = tipoPerson;
-
-            var respuesta = clienteService.Update(cliente);
-            if (respuesta != null)
+            if (ID != 0)
             {
-                MessageBox.Show("Cliente creado con exito");
+                var clienteAEditar = clienteService.GetByIdAsNoTracking(ID);
+                if (TipoPersonaCombo.SelectedItem.Equals("Fisica"))
+                {
+                    clienteAEditar.Nombre = NombreTextBox.Text;
+                    clienteAEditar.Apellido = ApellidoTextBox.Text;
+                }
+                else
+                {
+                    clienteAEditar.RazonSocial = RazonSocialtextBox.Text;
+                }
+                clienteAEditar.TipoPersona = tipoPerson;
+                clienteAEditar.Direccion = DireccionTextBox.Text;
+                clienteAEditar.DniCuit = (long)DNI_CUIT_numeric.Value;
+                if (TelefonoNumeric.Value != 0)
+                {
+                    clienteAEditar.TelefonoContacto = (long)TelefonoNumeric.Value;
+                }
+                if (EMailTexbox.Text != "")
+                {
+                    clienteAEditar.Email = EMailTexbox.Text;
+                }
+                var respuesta = clienteService.Update(clienteAEditar);
+                if (respuesta != null)
+                {
+                    MessageBox.Show("Cliente editado");
+                }
+                else
+                {
+                    MessageBox.Show("No se a podido editar el cliente");
+                }
+                ID =0;
+                ElejirClienteComboBox.ResetText();
+                ElejirClienteComboBox.Items.Clear();
+                CargarlistaClientes();
+                this.Close();
             }
             else
             {
-                MessageBox.Show("No se pudo crear cliente");
+                var respuesta = clienteService.Update(cliente);
+                if (respuesta != null)
+                {
+                    MessageBox.Show("Cliente creado con exito");
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo crear cliente");
+                }
             }
+            NombreTextBox.Text = "";
+            ApellidoTextBox.Text = "";
+            TipoPersonaCombo.ResetText();
+            DireccionTextBox.Text = "";
+            DNI_CUIT_numeric.Value = 0;
+            TelefonoNumeric.Value = 0;
+            EMailTexbox.Text = "";
         }
 
-        private void FrmClienteAgregar_Load(object sender, EventArgs e)
+        private void ElejirClienteComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var clientes = clienteService.GetAllAsNoTracking();
+            foreach (ClienteDto cliente in clientes)
+            {
+                if (ElejirClienteComboBox.SelectedItem.ToString() == cliente.Nombre+ " "+cliente.Apellido || ElejirClienteComboBox.SelectedItem.ToString() == cliente.RazonSocial)
+                {
+                    NombreTextBox.Text = cliente.Nombre;
+                    ApellidoTextBox.Text = cliente.Apellido;
+                    if (cliente.RazonSocial == "" || cliente.RazonSocial == null)
+                    {
+                        TipoPersonaCombo.SelectedItem = "Fisica";
+                    }
+                    else
+                    {
+                        TipoPersonaCombo.SelectedItem = "Juridica";
+                    }
+                    RazonSocialtextBox.Text = cliente.RazonSocial;
+                    DireccionTextBox.Text = cliente.Direccion;
+                    DNI_CUIT_numeric.Value = cliente.DniCuit;
+                    if(cliente.TelefonoContacto!=null)
+                        TelefonoNumeric.Value =(decimal)cliente.TelefonoContacto;
+                    EMailTexbox.Text=cliente.Email;
+                    ID = cliente.ID;
+                }
+            }
+        }
+        private void CargarlistaClientes()
+        {
+            var clientes = clienteService.GetAllAsNoTracking();
+            foreach (ClienteDto cliente in clientes)
+            {
+                if (cliente.RazonSocial == null || cliente.RazonSocial == "")
+                    ElejirClienteComboBox.Items.Add(cliente.Nombre + " " + cliente.Apellido);
+                else
+                    ElejirClienteComboBox.Items.Add(cliente.RazonSocial);
+            }
         }
     }
 }
