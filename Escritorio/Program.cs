@@ -15,6 +15,7 @@ using TpIngSoftII.Interfaces.Repositories;
 using TpIngSoftII.Repositories;
 using TpIngSoftII.Interfaces;
 using TpIngSoftII.Models;
+using TpIngSoftII.Reportes;
 
 namespace Escritorio
 {
@@ -63,6 +64,7 @@ namespace Escritorio
             container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Transient);
             container.Register<IAppContext, TpIngSoftII.Models.AppContext>(Lifestyle.Singleton);
             container.Register<IAppContext2, AppContext2>(Lifestyle.Singleton);
+            container.Register<ISevice, Service>(Lifestyle.Transient);
 
             AutoRegisterWindowsForms(container);
 
