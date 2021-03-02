@@ -47,8 +47,7 @@ namespace Escritorio
             }
             try
             {   // PASAR NO TRACKEADO!!!!
-                var empleado = this.empleadoService.GetById(empleadoService.ValidarCredenciales(new LoginRequest { Username = txt_UserName.Text, Password = txt_Password.Text }));
-                var cliente = this.clienteService.GetById(4);
+                var empleado = this.empleadoService.GetByIdAsNoTracking(empleadoService.ValidarCredenciales(new LoginRequest { Username = txt_UserName.Text, Password = txt_Password.Text }));
 
                 if (empleado != null)
                 {
