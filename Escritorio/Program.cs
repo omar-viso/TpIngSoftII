@@ -16,6 +16,11 @@ using TpIngSoftII.Repositories;
 using TpIngSoftII.Interfaces;
 using TpIngSoftII.Models;
 using TpIngSoftII.Reportes;
+using System.Reflection;
+using Escritorio.Interfaces;
+using Escritorio.Entities;
+using SimpleInjector.Lifestyles;
+using System.Data.Entity;
 
 namespace Escritorio
 {
@@ -38,8 +43,6 @@ namespace Escritorio
             });
 
             var container = Bootstrap();
-            var appContext = container.GetInstance<IAppContext2>();
-            appContext.SetContenedor(container);
 
             Application.Run(container.GetInstance<frmLogin>());
 
@@ -49,6 +52,7 @@ namespace Escritorio
         {
             // Create the container as usual.
             var container = new Container();
+            container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
 
             // Register your types, for instance:
             container.Register<IEmpleadoService, EmpleadoService>(Lifestyle.Transient);
@@ -63,13 +67,12 @@ namespace Escritorio
             container.Register(typeof(IDbFactory<>), typeof(DbFactory<>), Lifestyle.Singleton);
             container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Transient);
             container.Register<IAppContext, TpIngSoftII.Models.AppContext>(Lifestyle.Singleton);
-            container.Register<IAppContext2, AppContext2>(Lifestyle.Singleton);
             container.Register<ISevice, Service>(Lifestyle.Transient);
+            container.Register<DbContext, DBGestionDeProyectosContext>(Lifestyle.Singleton);
 
             AutoRegisterWindowsForms(container);
-
-            container.Verify();
-
+            //container.Verify();
+            container.Options.EnableAutoVerification = false;
             return container;
         }
 

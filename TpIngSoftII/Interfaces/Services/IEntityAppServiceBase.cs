@@ -21,5 +21,8 @@ namespace TpIngSoftII.Interfaces.Services
         D Update(D dto);
 
         void DeleteById(int id);
+
+        void Limpiar();
+
     }
 }

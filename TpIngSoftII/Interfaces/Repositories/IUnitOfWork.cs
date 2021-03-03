@@ -9,5 +9,6 @@ namespace TpIngSoftII.Interfaces.Repositories
     public interface IUnitOfWork
     {
         void Commit();
+        void Limpiar();
     }
 }

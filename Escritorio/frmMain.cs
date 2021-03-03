@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleInjector;
 using TpIngSoftII.Interfaces;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
@@ -15,25 +15,22 @@ namespace Escritorio
 {
     public partial class frmMain : Form
     {
-        private readonly IEmpleadoService empleadoService;
-        private readonly IClienteService clienteService;
+
         private readonly IAppContext appContext;
-        private readonly IAppContext2 appContext2;
+        private readonly Container container;
 
 
-        public frmMain(IEmpleadoService empleadoService, IClienteService clienteService, IAppContext appContext, IAppContext2 appContext2)
+        public frmMain(IAppContext appContext, Container container)
         {
             this.appContext = appContext;
-            this.empleadoService = empleadoService;
-            this.clienteService = clienteService;
-            this.appContext2 = appContext2;
+            this.container = container;
             InitializeComponent();
         }
 
         private void btn_LogOut_Click(object sender, EventArgs e)
         {
             this.Hide();
-            frmLogin fl = appContext2.Contenedor.GetInstance<frmLogin>();
+            frmLogin fl = container.GetInstance<frmLogin>();
             fl.Show();
         }
 
@@ -136,82 +133,82 @@ namespace Escritorio
         #region  Acciones de los Botones del Submenu
         private void VerListaClientes_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmClienteLista>());
+            openChildForm(container.GetInstance<FrmClienteLista>());
         }
 
         private void AgregarProyectosButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmProyectosAgregar>());
+            openChildForm(container.GetInstance<FrmProyectosAgregar>());
         }
 
         private void AgregarPerfilesButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmPerfilesAgregar>());
+            openChildForm(container.GetInstance<FrmPerfilesAgregar>());
         }
 
         private void CargarHorasButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaCargaHoras>());
+            openChildForm(container.GetInstance<FrmTareaCargaHoras>());
         }
 
         private void AgregarTareasButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaAgregar>());
+            openChildForm(container.GetInstance<FrmTareaAgregar>());
         }
 
         private void AgregarClientesButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmClienteAgregar>());
+            openChildForm(container.GetInstance<FrmClienteAgregar>());
         }
 
         private void AgregarEmpleadosButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmEmpleadoAgregar>());
+            openChildForm(container.GetInstance<FrmEmpleadoAgregar>());
         }
 
         private void HsObSemanaButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsObSemana>());
+            openChildForm(container.GetInstance<FrmInformeHsObSemana>());
         }
 
         private void HsTrabEmpleadoButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsTrabPorEmpl>());
+            openChildForm(container.GetInstance<FrmInformeHsTrabPorEmpl>());
         }
 
         private void HsTrabProyectoButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsTrabPorProyect>());
+            openChildForm(container.GetInstance<FrmInformeHsTrabPorProyect>());
         }
 
         private void HsAdeudadasButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmInformeHsAdeudadas>());
+            openChildForm(container.GetInstance<FrmInformeHsAdeudadas>());
         }
 
         private void LiquidarButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmLiquidacion>());
+            openChildForm(container.GetInstance<FrmLiquidacion>());
         }
 
         private void VerListaPerfilesButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmPerfilLista>());
+            openChildForm(container.GetInstance<FrmPerfilLista>());
         }
 
         private void VerListaProyectosButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmProyectoLista>());
+            openChildForm(container.GetInstance<FrmProyectoLista>());
         }
 
         private void VerListaTareasButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmTareaLista>());
+            openChildForm(container.GetInstance<FrmTareaLista>());
         }
 
         private void VerListaEmpleadosButton_Click(object sender, EventArgs e)
         {
-            openChildForm(appContext2.Contenedor.GetInstance<FrmEmpleadoLista>());
+            openChildForm(container.GetInstance<FrmEmpleadoLista>());
         }
     }
 

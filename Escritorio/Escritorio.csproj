@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Constantes\Constantes.cs" />
     <Compile Include="Entities\AppContext2.cs" />
+    <Compile Include="Entities\FormOpener.cs" />
     <Compile Include="FrmClienteAgregar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,6 +202,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IFormOpener.cs" />
     <Compile Include="Metodos estaticos\Metodos.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

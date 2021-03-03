@@ -9,5 +9,6 @@ namespace TpIngSoftII.Interfaces
     public interface IDbFactory<TDbContext> : IDisposable
     {
         TDbContext Init();
+        TDbContext Limpiar();
     }
 }

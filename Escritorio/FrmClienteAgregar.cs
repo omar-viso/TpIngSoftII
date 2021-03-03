@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,19 +11,20 @@ using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
 using Escritorio.Metodos_estaticos;
 using TpIngSoftII.Models.Constantes;
+using SimpleInjector;
 
 namespace Escritorio
 {
     public partial class FrmClienteAgregar : Form
     {
-        private readonly IClienteService clienteService;
-        private readonly IAppContext2 appContext2;
+        //private readonly IClienteService clienteService;
+        private readonly Container container;
         private int ID = 0;
 
-        public FrmClienteAgregar(IClienteService clienteService ,IAppContext2 appContext2)
+        public FrmClienteAgregar(/*IClienteService clienteService ,*/Container container)
         {
-            this.clienteService = clienteService;
-            this.appContext2 = appContext2;
+            //this.clienteService = clienteService;
+            this.container = container;
             InitializeComponent();
         }
 
@@ -109,7 +109,7 @@ namespace Escritorio
             cliente.TipoPersona = tipoPerson;
             if (ID != 0)
             {
-                var clienteAEditar = clienteService.GetByIdAsNoTracking(ID);
+                var clienteAEditar = container.GetInstance<IClienteService>().GetByIdAsNoTracking(ID);
                 if (TipoPersonaCombo.SelectedItem.Equals("Fisica"))
                 {
                     clienteAEditar.Nombre = NombreTextBox.Text;
@@ -130,7 +130,7 @@ namespace Escritorio
                 {
                     clienteAEditar.Email = EMailTexbox.Text;
                 }
-                var respuesta = clienteService.Update(clienteAEditar);
+                var respuesta = container.GetInstance<IClienteService>().Update(clienteAEditar);
                 if (respuesta != null)
                 {
                     MessageBox.Show("Cliente editado");
@@ -143,11 +143,16 @@ namespace Escritorio
                 ElejirClienteComboBox.ResetText();
                 ElejirClienteComboBox.Items.Clear();
                 CargarlistaClientes();
+                var algo = container.ContainerScope.GetAllDisposables();
+                /* Se limpia por llamada al update para no producir error de same key */
+                container.GetInstance<IClienteService>().Limpiar();
+
                 this.Close();
             }
             else
             {
-                var respuesta = clienteService.Update(cliente);
+                var respuesta = container.GetInstance<IClienteService>().Update(cliente);
+
                 if (respuesta != null)
                 {
                     MessageBox.Show("Cliente creado con exito");
@@ -164,11 +169,14 @@ namespace Escritorio
             DNI_CUIT_numeric.Value = 0;
             TelefonoNumeric.Value = 0;
             EMailTexbox.Text = "";
+            
+            /* Se limpia por llamada al update para no producir error de same key */
+            container.GetInstance<IClienteService>().Limpiar();
         }
 
         private void ElejirClienteComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var clientes = clienteService.GetAllAsNoTracking();
+            var clientes = container.GetInstance<IClienteService>().GetAllAsNoTracking();
             foreach (ClienteDto cliente in clientes)
             {
                 if (ElejirClienteComboBox.SelectedItem.ToString() == cliente.Nombre+ " "+cliente.Apellido || ElejirClienteComboBox.SelectedItem.ToString() == cliente.RazonSocial)
@@ -195,7 +203,7 @@ namespace Escritorio
         }
         private void CargarlistaClientes()
         {
-            var clientes = clienteService.GetAllAsNoTracking();
+            var clientes = container.GetInstance<IClienteService>().GetAllAsNoTracking();
             foreach (ClienteDto cliente in clientes)
             {
                 if (cliente.RazonSocial == null || cliente.RazonSocial == "")

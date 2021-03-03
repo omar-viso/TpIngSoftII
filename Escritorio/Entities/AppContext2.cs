@@ -9,12 +9,12 @@ namespace TpIngSoftII.Models
 {
     public class AppContext2 : IAppContext2
     {
-        public Container Contenedor { get; set; }
+        private readonly Container contenedor;
 
 
-        public void SetContenedor(Container contenedor)
+        public AppContext2(Container contenedor)
         {
-            Contenedor = contenedor;
+            this.contenedor = contenedor;
         }
     }
 }

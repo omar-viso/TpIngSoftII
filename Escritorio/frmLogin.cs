@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -11,23 +10,19 @@ using System.Data.SqlClient;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.Entities;
 using TpIngSoftII.Interfaces;
+using SimpleInjector;
 
 namespace Escritorio
 {
     public partial class frmLogin : Form
     {
-        private readonly IEmpleadoService empleadoService;
-        private readonly IClienteService clienteService;
+        private readonly Container container;
         private readonly IAppContext appContext;
-        private readonly IAppContext2 appContext2;
 
-        public frmLogin(IEmpleadoService empleadoService,
-                        IClienteService clienteService, IAppContext appContext, IAppContext2 appContext2)
+        public frmLogin(Container container, IAppContext appContext)
         {
-            this.empleadoService = empleadoService;
-            this.clienteService = clienteService;
             this.appContext = appContext;
-            this.appContext2 = appContext2;
+            this.container = container;
             InitializeComponent();
         }
         //Connection String
@@ -47,7 +42,7 @@ namespace Escritorio
             }
             try
             {   // PASAR NO TRACKEADO!!!!
-                var empleado = this.empleadoService.GetByIdAsNoTracking(empleadoService.ValidarCredenciales(new LoginRequest { Username = txt_UserName.Text, Password = txt_Password.Text }));
+                var empleado = this.container.GetInstance<IEmpleadoService>().GetByIdAsNoTracking(this.container.GetInstance<IEmpleadoService>().ValidarCredenciales(new LoginRequest { Username = txt_UserName.Text, Password = txt_Password.Text }));
 
                 if (empleado != null)
                 {
@@ -57,7 +52,7 @@ namespace Escritorio
                     this.appContext.SetEmpleado(empleado.ID);
                     this.appContext.SetEmpleadoRol(empleado.RolID);
 
-                    var fm = this.appContext2.Contenedor.GetInstance<frmMain>();
+                    var fm = this.container.GetInstance<frmMain>();
                     //frmMain fm = new frmMain(empleadoService, clienteService, appContext, appContext2);
                     fm.Show();
                 }

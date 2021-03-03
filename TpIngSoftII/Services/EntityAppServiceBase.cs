@@ -138,5 +138,10 @@ namespace TpIngSoftII.Services
 
         }
 
+        public void Limpiar()
+        {
+            this.unitOfWork.Limpiar();
+        }
+
     }
 }

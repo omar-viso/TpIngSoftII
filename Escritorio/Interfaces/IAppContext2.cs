@@ -9,9 +9,5 @@ namespace TpIngSoftII.Interfaces
 {
     public interface IAppContext2
     {
-        Container Contenedor { get; set; }
-
-        void SetContenedor(Container contenedor);
-
     }
 }

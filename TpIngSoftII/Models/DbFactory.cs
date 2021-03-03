@@ -22,5 +22,11 @@ namespace TpIngSoftII.Models
                 dbContext.Dispose();
             }
         }
+
+        public TDbContext Limpiar()
+        {
+            return dbContext = null;
+        }
+
     }
 }

@@ -28,5 +28,10 @@ namespace TpIngSoftII.Repositories
             DbContext.Commit();
         }
 
+        public void Limpiar()
+        {
+            this.dbFactory.Limpiar();
+        }
+
     }
 }
