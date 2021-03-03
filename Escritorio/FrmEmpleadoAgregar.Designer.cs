@@ -31,14 +31,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.ContraseniatextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.UsuarioTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.ApellidoLabel = new System.Windows.Forms.Label();
             this.ApellidotextBox = new System.Windows.Forms.TextBox();
             this.NombreLabel = new System.Windows.Forms.Label();
             this.NombretextBox = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.FechaTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.RolCombo = new System.Windows.Forms.ComboBox();
@@ -48,8 +47,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.AgregarPerfilButton = new System.Windows.Forms.Button();
+            this.DNInumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DNInumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label8
@@ -80,14 +81,14 @@
             this.label7.TabIndex = 27;
             this.label7.Text = "Usuario:";
             // 
-            // textBox6
+            // UsuarioTextBox
             // 
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox6.Location = new System.Drawing.Point(48, 186);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(140, 20);
-            this.textBox6.TabIndex = 26;
-            this.textBox6.Tag = "";
+            this.UsuarioTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.UsuarioTextBox.Location = new System.Drawing.Point(48, 186);
+            this.UsuarioTextBox.Name = "UsuarioTextBox";
+            this.UsuarioTextBox.Size = new System.Drawing.Size(140, 20);
+            this.UsuarioTextBox.TabIndex = 26;
+            this.UsuarioTextBox.Tag = "";
             // 
             // label5
             // 
@@ -97,15 +98,6 @@
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 23;
             this.label5.Text = "DNI:";
-            // 
-            // textBox4
-            // 
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Location = new System.Drawing.Point(48, 136);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(140, 20);
-            this.textBox4.TabIndex = 22;
-            this.textBox4.Tag = "";
             // 
             // ApellidoLabel
             // 
@@ -143,14 +135,14 @@
             this.NombretextBox.TabIndex = 16;
             this.NombretextBox.Tag = "";
             // 
-            // dateTimePicker1
+            // FechaTimePicker
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(247, 136);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(85, 20);
-            this.dateTimePicker1.TabIndex = 30;
-            this.dateTimePicker1.Value = new System.DateTime(2021, 2, 27, 0, 0, 0, 0);
+            this.FechaTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.FechaTimePicker.Location = new System.Drawing.Point(247, 136);
+            this.FechaTimePicker.Name = "FechaTimePicker";
+            this.FechaTimePicker.Size = new System.Drawing.Size(85, 20);
+            this.FechaTimePicker.TabIndex = 30;
+            this.FechaTimePicker.Value = new System.DateTime(2021, 2, 27, 0, 0, 0, 0);
             // 
             // label1
             // 
@@ -175,13 +167,14 @@
             // 
             this.RolCombo.FormattingEnabled = true;
             this.RolCombo.Items.AddRange(new object[] {
-            "Fisica",
-            "Juridica"});
+            "Administrador",
+            "Supervisor",
+            "Empleado"});
             this.RolCombo.Location = new System.Drawing.Point(156, 241);
             this.RolCombo.Name = "RolCombo";
             this.RolCombo.Size = new System.Drawing.Size(128, 21);
             this.RolCombo.TabIndex = 33;
-            this.RolCombo.Text = "Elija el tipo de persona";
+            this.RolCombo.Text = "Elija un rol para el empleado";
             // 
             // AgregarButton
             // 
@@ -195,6 +188,7 @@
             this.AgregarButton.TabIndex = 34;
             this.AgregarButton.Text = "Agregar";
             this.AgregarButton.UseVisualStyleBackColor = false;
+            this.AgregarButton.Click += new System.EventHandler(this.AgregarButton_Click);
             // 
             // panel1
             // 
@@ -251,23 +245,45 @@
             this.AgregarPerfilButton.UseVisualStyleBackColor = false;
             this.AgregarPerfilButton.Click += new System.EventHandler(this.AgregarPerfilButton_Click);
             // 
+            // DNInumericUpDown
+            // 
+            this.DNInumericUpDown.Location = new System.Drawing.Point(48, 136);
+            this.DNInumericUpDown.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.DNInumericUpDown.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.DNInumericUpDown.Name = "DNInumericUpDown";
+            this.DNInumericUpDown.Size = new System.Drawing.Size(120, 20);
+            this.DNInumericUpDown.TabIndex = 40;
+            this.DNInumericUpDown.Value = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            // 
             // FrmEmpleadoAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 306);
+            this.Controls.Add(this.DNInumericUpDown);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.AgregarButton);
             this.Controls.Add(this.RolCombo);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.FechaTimePicker);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.ContraseniatextBox);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.UsuarioTextBox);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.ApellidoLabel);
             this.Controls.Add(this.ApellidotextBox);
             this.Controls.Add(this.NombreLabel);
@@ -278,6 +294,7 @@
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DNInumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,14 +305,13 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox ContraseniatextBox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox UsuarioTextBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label ApellidoLabel;
         private System.Windows.Forms.TextBox ApellidotextBox;
         private System.Windows.Forms.Label NombreLabel;
         private System.Windows.Forms.TextBox NombretextBox;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker FechaTimePicker;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox RolCombo;
@@ -305,5 +321,6 @@
         private System.Windows.Forms.Panel PerfilPanel;
         private System.Windows.Forms.Button AgregarPerfilButton;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.NumericUpDown DNInumericUpDown;
     }
 }

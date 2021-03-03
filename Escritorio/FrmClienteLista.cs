@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,24 +11,25 @@ using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
 using Escritorio.Metodos_estaticos;
 using TpIngSoftII.Models.Constantes;
+using SimpleInjector;
 
 namespace Escritorio
 {
     public partial class FrmClienteLista : Form
     {
-        private readonly IClienteService clienteService;
-        private readonly IAppContext2 appContext2;
+        private readonly Container container;
 
-        public FrmClienteLista(IClienteService clienteService, IAppContext2 appContext2)
+        public FrmClienteLista(/*IClienteService clienteService, IAppContext2 appContext2*/Container container)
         {
-            this.clienteService = clienteService;
-            this.appContext2 = appContext2;
+            //this.clienteService = clienteService;
+            //this.appContext2 = appContext2;
+            this.container=container;
             InitializeComponent();
         }
 
         private void FrmClienteLista_Load(object sender, EventArgs e)
         {
-            var clientes = clienteService.GetAllAsNoTracking();
+            var clientes = container.GetInstance<IClienteService>().GetAllAsNoTracking();
             int count = 0;
             foreach (ClienteDto cliente in clientes)
             {
@@ -84,7 +84,7 @@ namespace Escritorio
             //Reference the Button which was clicked.
             Button button = (sender as Button);
             int index = ListaClientePanel1.GetRow(button);
-            clienteService.DeleteById((int)button.Tag);
+            container.GetInstance<IClienteService>().DeleteById((int)button.Tag);
             //ListaPerfilPanel1.SuspendLayout();
             Metodos.RemoveArbitraryRow(ListaClientePanel1, index);
             //ListaPerfilPanel1.ResumeLayout();

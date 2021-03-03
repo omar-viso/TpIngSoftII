@@ -1,23 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TpIngSoftII.Interfaces;
+using TpIngSoftII.Interfaces.Services;
+using TpIngSoftII.Models.DTOs;
+using Escritorio.Metodos_estaticos;
+using SimpleInjector;
 
 namespace Escritorio
 {
     public partial class FrmEmpleadoAgregar : Form
     {
-    
+        //private readonly IEmpleadoService empleadoService;
+        //private readonly IPerfilService perfilService;
+        //private readonly IAppContext2 appContext2;
+        private readonly Container container;
 
-        public FrmEmpleadoAgregar()
+        public FrmEmpleadoAgregar(/*IEmpleadoService empleadoService, IPerfilService perfilService, IAppContext2 appContext2*/Container container)
         {
+            //this.empleadoService = empleadoService;
+            //this.perfilService = perfilService;
+            //this.appContext2 = appContext2;
+            this.container = container;
             InitializeComponent();
         }
+
+        
         private void FrmEmpleadoAgregar_Load(object sender, EventArgs e)
         {
             AgregarBotonElejirPerfil();
@@ -27,6 +40,95 @@ namespace Escritorio
         {
             AgregarBotonElejirPerfil();
         }
+        private void AgregarButton_Click(object sender, EventArgs e)
+        {
+            EmpleadoDto empleadoDto = new EmpleadoDto();
+            if (NombretextBox.Text == "")
+            {
+                MessageBox.Show("Por favor complete el nombre");
+                return;
+            }
+            empleadoDto.Nombre = NombretextBox.Text;
+            if (ApellidotextBox.Text == "")
+            {
+                MessageBox.Show("Por favor complete el Apellido");
+                return;
+            }
+            empleadoDto.Apellido = ApellidotextBox.Text;
+            if (DNInumericUpDown.Value ==0)
+            {
+                MessageBox.Show("Por favor complete el DNI");
+                return;
+            }
+            empleadoDto.Dni =(long)DNInumericUpDown.Value;
+            if (FechaTimePicker.Value ==null)
+            {
+                MessageBox.Show("Por favor complete la fecha de ingreso");
+                return;
+            }
+            empleadoDto.FechaIngreso = FechaTimePicker.Value;
+            if (UsuarioTextBox.Text == "")
+            {
+                MessageBox.Show("Por favor complete el nombre de usuario");
+                return;
+            }
+            empleadoDto.Usuario = UsuarioTextBox.Text;
+            if (ContraseniatextBox.Text == "")
+            {
+                MessageBox.Show("Por favor complete la contraseña");
+                return;
+            }
+            empleadoDto.Clave = ContraseniatextBox.Text;
+            if (RolCombo.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor asigne un rol");
+                return;
+            }
+            empleadoDto.RolID = RolCombo.SelectedIndex;
+
+            var listaElegirPerfiles = PerfilPanel.Controls.OfType<ComboBox>().ToList();
+            bool perfilelegido = false;
+            foreach (ComboBox elegirPerfil in listaElegirPerfiles)
+            {
+                if (elegirPerfil.SelectedItem != null)
+                    perfilelegido = true;
+            }
+            if (!perfilelegido)
+            {
+                MessageBox.Show("Por favor elija al menos un perfil");
+                return;
+            }
+            empleadoDto.Perfiles = new List<EmpleadoPerfilDto>();
+
+            foreach (ComboBox elegirPerfil in listaElegirPerfiles)
+            {
+                if (elegirPerfil.SelectedItem != null)
+                {
+                    EmpleadoPerfilDto empleadoPerfilDto = new EmpleadoPerfilDto();
+                    empleadoPerfilDto.PerfilID= ObtenerPerfilID(elegirPerfil);
+                    empleadoPerfilDto.EmpleadoID = 0;
+                    empleadoPerfilDto.ID = 0;
+                    empleadoDto.Perfiles.Add(empleadoPerfilDto);
+                }
+            }
+            try
+            {
+                var respuesta = container.GetInstance<IEmpleadoService>().Update(empleadoDto);
+                if (respuesta != null)
+                {
+                    MessageBox.Show("Empleado creado");
+                }
+                else
+                {
+                    MessageBox.Show("No se a podido crear el Empleado");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se a podido crear el Empleado. "+ex.Message);
+            }
+        }
+
         private void AgregarBotonElejirPerfil()
         {
             //Create the dynamic TextBox.
@@ -36,7 +138,7 @@ namespace Escritorio
             ElejirPerfil.Size = new System.Drawing.Size(128, 21);
             ElejirPerfil.Name = "ElejirPerfil_" + (count + 1);
             ElejirPerfil.Text = "Elija un perfil";
-            ElejirPerfil.Items.Add(new Point(1, 1));
+            CargarListaPerfiles(ElejirPerfil);
             PerfilPanel.Controls.Add(ElejirPerfil);
 
             //Create the dynamic Button to remove the TextBox.
@@ -58,6 +160,10 @@ namespace Escritorio
         private void PerfilPanel_Paint(object sender, PaintEventArgs e)
         {
            
+        }
+        private void elegirPerfiles(object sender, EventArgs e)
+        {
+            ComboBox Elegir = (sender as ComboBox);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -89,8 +195,27 @@ namespace Escritorio
                 }
             }
         }
+        private void CargarListaPerfiles(ComboBox ElejirPerfilcomboBox)
+        {
+            var perfiles = container.GetInstance<IPerfilService>().GetAllAsNoTracking();
+            foreach (PerfilDto perfil in perfiles)
+            {
+                ElejirPerfilcomboBox.Items.Add(perfil.Descripcion);
+            }
+        }
 
-        
+        private int ObtenerPerfilID(ComboBox ElejirPerfilcomboBox)
+        {
+            int idPerfil = 0;
+            var perfiles = container.GetInstance<IPerfilService>().GetAllAsNoTracking();
+            foreach (PerfilDto perfil in perfiles)
+            {
+                if (ElejirPerfilcomboBox.SelectedItem.ToString() == perfil.Descripcion)
+                    idPerfil= perfil.ID;
+            }
+            return idPerfil;
+        }
+
     }
 
    

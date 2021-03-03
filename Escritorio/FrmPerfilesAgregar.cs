@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -11,20 +10,23 @@ using TpIngSoftII.Interfaces;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
 using Escritorio.Metodos_estaticos;
+using SimpleInjector;
 
 namespace Escritorio
 {
     public partial class FrmPerfilesAgregar : Form
     {
-        private readonly IPerfilService perfilService;
-        private readonly IAppContext2 appContext2;
+        //private readonly IPerfilService perfilService;
+        //private readonly IAppContext2 appContext2;
+        private readonly Container container;
         private int ID=0;
 
 
-        public FrmPerfilesAgregar(IPerfilService perfilService, IAppContext2 appContext2)
+        public FrmPerfilesAgregar(/*IPerfilService perfilService, IAppContext2 appContext2*/Container container)
         {
-            this.perfilService = perfilService;
-            this.appContext2 = appContext2;
+            //this.perfilService = perfilService;
+            //this.appContext2 = appContext2;
+            this.container = container;
             InitializeComponent();
         }
 
@@ -46,10 +48,11 @@ namespace Escritorio
             perfilDto.ValorHorario = ValorHoraNumeric.Value;
             if (ID != 0)
             {
-                var perfilAeditar = perfilService.GetByIdAsNoTracking(ID);
+                var perfilAeditar = container.GetInstance<IPerfilService>().GetByIdAsNoTracking(ID);
                 perfilAeditar.Descripcion = DescripcionText.Text;
                 perfilAeditar.ValorHorario = ValorHoraNumeric.Value;
-                var respuesta = perfilService.Update(perfilAeditar);
+                var respuesta = container.GetInstance<IPerfilService>().Update(perfilAeditar);
+                
                 if (respuesta != null)
                 {
                     MessageBox.Show("Perfil editado");
@@ -63,11 +66,11 @@ namespace Escritorio
                 ElejirPerfilcomboBox.ResetText();
                 ElejirPerfilcomboBox.Items.Clear();
                 CargarListaPerfiles();
-                this.Close();
+                container.GetInstance<IPerfilService>().Limpiar();
             }
             else
             {
-                var respuesta = perfilService.Update(perfilDto);
+                var respuesta = container.GetInstance<IPerfilService>().Update(perfilDto);
                 if (respuesta != null)
                 {
                     MessageBox.Show("Perfil creado");
@@ -76,6 +79,7 @@ namespace Escritorio
                 {
                     MessageBox.Show("No se a podido crear el perfil");
                 }
+                container.GetInstance<IPerfilService>().Limpiar();
             }
             DescripcionText.Text = "";
             ValorHoraNumeric.Value = 0;
@@ -84,7 +88,7 @@ namespace Escritorio
         private void ElejirPerfilcomboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //PerfilDto perfilElegido = null;
-            var perfiles = perfilService.GetAllAsNoTracking();
+            var perfiles = container.GetInstance<IPerfilService>().GetAllAsNoTracking();
             foreach (PerfilDto perfil in perfiles)
             {
                 if (ElejirPerfilcomboBox.SelectedItem.ToString() == perfil.Descripcion)
@@ -103,7 +107,7 @@ namespace Escritorio
 
         private void CargarListaPerfiles()
         {
-            var perfiles = perfilService.GetAllAsNoTracking();
+            var perfiles = container.GetInstance<IPerfilService>().GetAllAsNoTracking();
             foreach (PerfilDto perfil in perfiles)
             {
                 ElejirPerfilcomboBox.Items.Add(perfil.Descripcion);

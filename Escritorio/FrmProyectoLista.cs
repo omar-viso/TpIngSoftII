@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,22 +11,26 @@ using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
 using Escritorio.Metodos_estaticos;
 using TpIngSoftII.Models.Constantes;
+using SimpleInjector;
 
 namespace Escritorio
 {
     public partial class FrmProyectoLista : Form
     {
-        private readonly IProyectoService proyectoService;
-        private readonly IAppContext2 appContext2;
-        public FrmProyectoLista(IProyectoService proyectoService, IAppContext2 appContext2)
+        //private readonly IProyectoService proyectoService;
+        //private readonly IAppContext2 appContext2;
+        private readonly Container container;
+
+        public FrmProyectoLista(/*IProyectoService proyectoService, IAppContext2 appContext2*/Container container)
         {
-            this.proyectoService = proyectoService;
-            this.appContext2 = appContext2;
+            //this.proyectoService = proyectoService;
+            //this.appContext2 = appContext2;
+            this.container = container;
             InitializeComponent();
         }
         private void FrmProyectoLista_Load(object sender, EventArgs e)
         {
-            var proyectos = proyectoService.GetAllAsNoTracking();
+            var proyectos = container.GetInstance<IProyectoService>().GetAllAsNoTracking();
             int count = 0;
             foreach (ProyectoDto proyecto in proyectos)
             {
@@ -58,7 +61,7 @@ namespace Escritorio
             //Reference the Button which was clicked.
             Button button = (sender as Button);
             int index = ListaProyectoPanel1.GetRow(button);
-            proyectoService.DeleteById((int)button.Tag);
+            container.GetInstance<IProyectoService>().DeleteById((int)button.Tag);
             //ListaPerfilPanel1.SuspendLayout();
             Metodos.RemoveArbitraryRow(ListaProyectoPanel1, index);
             //ListaPerfilPanel1.ResumeLayout();

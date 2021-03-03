@@ -105,63 +105,69 @@ namespace Escritorio
             {
                 cliente.Email = EMailTexbox.Text;
             }
-
-            cliente.TipoPersona = tipoPerson;
-            if (ID != 0)
+            try
             {
-                var clienteAEditar = container.GetInstance<IClienteService>().GetByIdAsNoTracking(ID);
-                if (TipoPersonaCombo.SelectedItem.Equals("Fisica"))
+                cliente.TipoPersona = tipoPerson;
+                if (ID != 0)
                 {
-                    clienteAEditar.Nombre = NombreTextBox.Text;
-                    clienteAEditar.Apellido = ApellidoTextBox.Text;
-                }
-                else
-                {
-                    clienteAEditar.RazonSocial = RazonSocialtextBox.Text;
-                }
-                clienteAEditar.TipoPersona = tipoPerson;
-                clienteAEditar.Direccion = DireccionTextBox.Text;
-                clienteAEditar.DniCuit = (long)DNI_CUIT_numeric.Value;
-                if (TelefonoNumeric.Value != 0)
-                {
-                    clienteAEditar.TelefonoContacto = (long)TelefonoNumeric.Value;
-                }
-                if (EMailTexbox.Text != "")
-                {
-                    clienteAEditar.Email = EMailTexbox.Text;
-                }
-                var respuesta = container.GetInstance<IClienteService>().Update(clienteAEditar);
-                if (respuesta != null)
-                {
-                    MessageBox.Show("Cliente editado");
-                }
-                else
-                {
-                    MessageBox.Show("No se a podido editar el cliente");
-                }
-                ID =0;
-                ElejirClienteComboBox.ResetText();
-                ElejirClienteComboBox.Items.Clear();
-                CargarlistaClientes();
-                var algo = container.ContainerScope.GetAllDisposables();
-                /* Se limpia por llamada al update para no producir error de same key */
-                container.GetInstance<IClienteService>().Limpiar();
 
-                this.Close();
-            }
-            else
-            {
-                var respuesta = container.GetInstance<IClienteService>().Update(cliente);
+                    var clienteAEditar = container.GetInstance<IClienteService>().GetByIdAsNoTracking(ID);
 
-                if (respuesta != null)
-                {
-                    MessageBox.Show("Cliente creado con exito");
+                    if (TipoPersonaCombo.SelectedItem.Equals("Fisica"))
+                    {
+                        clienteAEditar.Nombre = NombreTextBox.Text;
+                        clienteAEditar.Apellido = ApellidoTextBox.Text;
+                    }
+                    else
+                    {
+                        clienteAEditar.RazonSocial = RazonSocialtextBox.Text;
+                    }
+                    clienteAEditar.TipoPersona = tipoPerson;
+                    clienteAEditar.Direccion = DireccionTextBox.Text;
+                    clienteAEditar.DniCuit = (long)DNI_CUIT_numeric.Value;
+                    if (TelefonoNumeric.Value != 0)
+                    {
+                        clienteAEditar.TelefonoContacto = (long)TelefonoNumeric.Value;
+                    }
+                    if (EMailTexbox.Text != "")
+                    {
+                        clienteAEditar.Email = EMailTexbox.Text;
+                    }
+                    var respuesta = container.GetInstance<IClienteService>().Update(clienteAEditar);
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Cliente editado");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se a podido editar el cliente");
+                    }
+                    ID = 0;
+                    ElejirClienteComboBox.ResetText();
+                    ElejirClienteComboBox.Items.Clear();
+                    CargarlistaClientes();
+                    var algo = container.ContainerScope.GetAllDisposables();
+                    /* Se limpia por llamada al update para no producir error de same key */
+                    container.GetInstance<IClienteService>().Limpiar();
                 }
+
+                //this.Close();
+
                 else
                 {
-                    MessageBox.Show("No se pudo crear cliente");
+                    var respuesta = container.GetInstance<IClienteService>().Update(cliente);
+
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Cliente creado con exito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo crear cliente");
+                    }
                 }
             }
+            catch (Exception excepcion) { MessageBox.Show(excepcion.Message); }
             NombreTextBox.Text = "";
             ApellidoTextBox.Text = "";
             TipoPersonaCombo.ResetText();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -11,25 +10,27 @@ using TpIngSoftII.Interfaces;
 using TpIngSoftII.Interfaces.Services;
 using TpIngSoftII.Models.DTOs;
 using Escritorio.Metodos_estaticos;
+using SimpleInjector;
 
 namespace Escritorio
 {
     public partial class FrmPerfilLista : Form
     {
-        private readonly IPerfilService perfilService;
-        private readonly IAppContext2 appContext2;
+        //private readonly IPerfilService perfilService;
+        //private readonly IAppContext2 appContext2;
+        private readonly Container container;
 
-
-        public FrmPerfilLista(IPerfilService perfilService, IAppContext2 appContext2)
+        public FrmPerfilLista(/*IPerfilService perfilService, IAppContext2 appContext2*/Container container)
         {
-            this.perfilService = perfilService;
-            this.appContext2 = appContext2;
+            //this.perfilService = perfilService;
+            //this.appContext2 = appContext2;
+            this.container = container;
             InitializeComponent();
         }
 
         private void FrmPerfilLista_Load(object sender, EventArgs e)
         {
-            var perfiles = perfilService.GetAllAsNoTracking();
+            var perfiles = container.GetInstance<IPerfilService>().GetAllAsNoTracking();
             int count = 0;
             foreach (PerfilDto perfil in perfiles)
             {
@@ -65,7 +66,7 @@ namespace Escritorio
             //Reference the Button which was clicked.
             Button button = (sender as Button);
             int index = ListaPerfilPanel1.GetRow(button);
-            perfilService.DeleteById((int)button.Tag);
+            container.GetInstance<IPerfilService>().DeleteById((int)button.Tag);
             //ListaPerfilPanel1.SuspendLayout();
             Metodos.RemoveArbitraryRow(ListaPerfilPanel1, index);
             //ListaPerfilPanel1.ResumeLayout();
