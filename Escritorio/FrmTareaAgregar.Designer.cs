@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.NombreTextBox = new System.Windows.Forms.TextBox();
+            this.ElegirProyectocomboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.ElejirPerfilcomboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.ValroHoraNumeric = new System.Windows.Forms.NumericUpDown();
+            this.ElegirEmpleadocomboBox = new System.Windows.Forms.ComboBox();
+            this.HorasEstimNumeric = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.AgregarButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.ValroHoraNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HorasEstimNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -51,24 +51,25 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Nombre:";
             // 
-            // textBox1
+            // NombreTextBox
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(45, 52);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(140, 20);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Tag = "";
+            this.NombreTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NombreTextBox.Location = new System.Drawing.Point(45, 52);
+            this.NombreTextBox.Name = "NombreTextBox";
+            this.NombreTextBox.Size = new System.Drawing.Size(140, 20);
+            this.NombreTextBox.TabIndex = 2;
+            this.NombreTextBox.Tag = "";
             // 
-            // comboBox1
+            // ElegirProyectocomboBox
             // 
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(285, 51);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(163, 21);
-            this.comboBox1.TabIndex = 4;
-            this.comboBox1.Text = "Elija un proyecto";
+            this.ElegirProyectocomboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ElegirProyectocomboBox.FormattingEnabled = true;
+            this.ElegirProyectocomboBox.Location = new System.Drawing.Point(285, 51);
+            this.ElegirProyectocomboBox.Name = "ElegirProyectocomboBox";
+            this.ElegirProyectocomboBox.Size = new System.Drawing.Size(163, 21);
+            this.ElegirProyectocomboBox.TabIndex = 4;
+            this.ElegirProyectocomboBox.Text = "Elija un proyecto";
+            this.ElegirProyectocomboBox.SelectedIndexChanged += new System.EventHandler(this.ElegirProyectocomboBox_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -88,15 +89,16 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Perfil para la tarea:";
             // 
-            // comboBox2
+            // ElejirPerfilcomboBox
             // 
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(45, 130);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(163, 21);
-            this.comboBox2.TabIndex = 7;
-            this.comboBox2.Text = "Elija un perfil";
+            this.ElejirPerfilcomboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ElejirPerfilcomboBox.FormattingEnabled = true;
+            this.ElejirPerfilcomboBox.Location = new System.Drawing.Point(45, 130);
+            this.ElejirPerfilcomboBox.Name = "ElejirPerfilcomboBox";
+            this.ElejirPerfilcomboBox.Size = new System.Drawing.Size(163, 21);
+            this.ElejirPerfilcomboBox.TabIndex = 7;
+            this.ElejirPerfilcomboBox.Text = "Elija un perfil";
+            this.ElejirPerfilcomboBox.SelectedIndexChanged += new System.EventHandler(this.ElejirPerfilcomboBox_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -107,23 +109,24 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Pertenece al empleado:";
             // 
-            // comboBox3
+            // ElegirEmpleadocomboBox
             // 
-            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(285, 124);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(163, 21);
-            this.comboBox3.TabIndex = 8;
-            this.comboBox3.Text = "Elija un empleado";
+            this.ElegirEmpleadocomboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ElegirEmpleadocomboBox.FormattingEnabled = true;
+            this.ElegirEmpleadocomboBox.Location = new System.Drawing.Point(285, 124);
+            this.ElegirEmpleadocomboBox.Name = "ElegirEmpleadocomboBox";
+            this.ElegirEmpleadocomboBox.Size = new System.Drawing.Size(163, 21);
+            this.ElegirEmpleadocomboBox.TabIndex = 8;
+            this.ElegirEmpleadocomboBox.Text = "Elija un empleado";
+            this.ElegirEmpleadocomboBox.SelectedIndexChanged += new System.EventHandler(this.ElegirEmpleadocomboBox_SelectedIndexChanged);
             // 
-            // ValroHoraNumeric
+            // HorasEstimNumeric
             // 
-            this.ValroHoraNumeric.DecimalPlaces = 2;
-            this.ValroHoraNumeric.Location = new System.Drawing.Point(179, 203);
-            this.ValroHoraNumeric.Name = "ValroHoraNumeric";
-            this.ValroHoraNumeric.Size = new System.Drawing.Size(120, 20);
-            this.ValroHoraNumeric.TabIndex = 11;
+            this.HorasEstimNumeric.DecimalPlaces = 2;
+            this.HorasEstimNumeric.Location = new System.Drawing.Point(179, 203);
+            this.HorasEstimNumeric.Name = "HorasEstimNumeric";
+            this.HorasEstimNumeric.Size = new System.Drawing.Size(120, 20);
+            this.HorasEstimNumeric.TabIndex = 11;
             // 
             // label5
             // 
@@ -146,6 +149,7 @@
             this.AgregarButton.TabIndex = 12;
             this.AgregarButton.Text = "Agregar";
             this.AgregarButton.UseVisualStyleBackColor = false;
+            this.AgregarButton.Click += new System.EventHandler(this.AgregarButton_Click);
             // 
             // FrmTareaAgregar
             // 
@@ -153,20 +157,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 293);
             this.Controls.Add(this.AgregarButton);
-            this.Controls.Add(this.ValroHoraNumeric);
+            this.Controls.Add(this.HorasEstimNumeric);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.ElegirEmpleadocomboBox);
+            this.Controls.Add(this.ElejirPerfilcomboBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ElegirProyectocomboBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.NombreTextBox);
             this.Name = "FrmTareaAgregar";
             this.Text = "FrmTareaAgregar";
             this.Load += new System.EventHandler(this.FrmTareaAgregar_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ValroHoraNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HorasEstimNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,14 +179,14 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox NombreTextBox;
+        private System.Windows.Forms.ComboBox ElegirProyectocomboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox ElejirPerfilcomboBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.NumericUpDown ValroHoraNumeric;
+        private System.Windows.Forms.ComboBox ElegirEmpleadocomboBox;
+        private System.Windows.Forms.NumericUpDown HorasEstimNumeric;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button AgregarButton;
     }

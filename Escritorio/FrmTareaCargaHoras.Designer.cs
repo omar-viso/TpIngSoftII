@@ -45,11 +45,17 @@
             this.TareacomboBox.Size = new System.Drawing.Size(166, 21);
             this.TareacomboBox.TabIndex = 0;
             this.TareacomboBox.Text = "Elija la tarea a la que le carga";
+            this.TareacomboBox.SelectedIndexChanged += new System.EventHandler(this.TareacomboBox_SelectedIndexChanged);
             // 
             // HsTrabajadNumeric
             // 
             this.HsTrabajadNumeric.DecimalPlaces = 2;
             this.HsTrabajadNumeric.Location = new System.Drawing.Point(229, 35);
+            this.HsTrabajadNumeric.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.HsTrabajadNumeric.Name = "HsTrabajadNumeric";
             this.HsTrabajadNumeric.Size = new System.Drawing.Size(120, 20);
             this.HsTrabajadNumeric.TabIndex = 1;
@@ -84,6 +90,7 @@
             this.CargarButton.TabIndex = 6;
             this.CargarButton.Text = "Cargar";
             this.CargarButton.UseVisualStyleBackColor = false;
+            this.CargarButton.Click += new System.EventHandler(this.CargarButton_Click);
             // 
             // FrmTareaCargaHoras
             // 
@@ -97,6 +104,7 @@
             this.Controls.Add(this.TareacomboBox);
             this.Name = "FrmTareaCargaHoras";
             this.Text = "FrmTareaCargaHoras";
+            this.Load += new System.EventHandler(this.FrmTareaCargaHoras_Load);
             ((System.ComponentModel.ISupportInitialize)(this.HsTrabajadNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

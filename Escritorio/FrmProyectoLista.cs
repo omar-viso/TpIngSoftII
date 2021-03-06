@@ -36,6 +36,8 @@ namespace Escritorio
             {
                 Label Nombre = new Label();
                 Nombre.Text = proyecto.Nombre;
+                Nombre.AutoSize = true;
+                Nombre.Dock = DockStyle.Fill;
                 Label EstadoProyecto = new Label();
                 EstadoProyecto.Text = proyecto.ProyectoEstadoDescripcion;
                 Label clienteNombre = new Label();

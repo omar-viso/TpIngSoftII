@@ -84,7 +84,7 @@ namespace Escritorio
                 MessageBox.Show("Por favor asigne un rol");
                 return;
             }
-            empleadoDto.RolID = RolCombo.SelectedIndex;
+            empleadoDto.RolID = RolCombo.SelectedIndex+1;
 
             var listaElegirPerfiles = PerfilPanel.Controls.OfType<ComboBox>().ToList();
             bool perfilelegido = false;
@@ -107,7 +107,7 @@ namespace Escritorio
                     EmpleadoPerfilDto empleadoPerfilDto = new EmpleadoPerfilDto();
                     empleadoPerfilDto.PerfilID= ObtenerPerfilID(elegirPerfil);
                     empleadoPerfilDto.EmpleadoID = 0;
-                    empleadoPerfilDto.ID = 0;
+                    //empleadoPerfilDto.ID = 0;
                     empleadoDto.Perfiles.Add(empleadoPerfilDto);
                 }
             }
@@ -117,6 +117,7 @@ namespace Escritorio
                 if (respuesta != null)
                 {
                     MessageBox.Show("Empleado creado");
+                    container.GetInstance<IEmpleadoService>().Limpiar();
                 }
                 else
                 {
@@ -127,6 +128,7 @@ namespace Escritorio
             {
                 MessageBox.Show("No se a podido crear el Empleado. "+ex.Message);
             }
+            container.GetInstance<IEmpleadoService>().Limpiar();
         }
 
         private void AgregarBotonElejirPerfil()

@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.ListaHsAdeudadasPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -47,13 +49,23 @@
             this.panel1.Size = new System.Drawing.Size(480, 30);
             this.panel1.TabIndex = 0;
             // 
-            // panel2
+            // label3
             // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 30);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(480, 184);
-            this.panel2.TabIndex = 0;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(377, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Horas adeudadas";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(201, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Empleado";
             // 
             // label1
             // 
@@ -64,23 +76,39 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Proyecto";
             // 
-            // label2
+            // panel2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(218, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Empleado";
+            this.panel2.AutoScroll = true;
+            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel2.Controls.Add(this.ListaHsAdeudadasPanel1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 30);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(480, 128);
+            this.panel2.TabIndex = 6;
             // 
-            // label3
+            // ListaHsAdeudadasPanel1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(352, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Horas adeudadas";
+            this.ListaHsAdeudadasPanel1.AutoSize = true;
+            this.ListaHsAdeudadasPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ListaHsAdeudadasPanel1.BackColor = System.Drawing.SystemColors.Menu;
+            this.ListaHsAdeudadasPanel1.ColumnCount = 3;
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.49735F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.50265F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.ListaHsAdeudadasPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ListaHsAdeudadasPanel1.Location = new System.Drawing.Point(0, 0);
+            this.ListaHsAdeudadasPanel1.Name = "ListaHsAdeudadasPanel1";
+            this.ListaHsAdeudadasPanel1.RowCount = 1;
+            this.ListaHsAdeudadasPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.ListaHsAdeudadasPanel1.Size = new System.Drawing.Size(480, 30);
+            this.ListaHsAdeudadasPanel1.TabIndex = 2;
             // 
             // FrmInformeHsAdeudadas
             // 
@@ -91,8 +119,11 @@
             this.Controls.Add(this.panel1);
             this.Name = "FrmInformeHsAdeudadas";
             this.Text = "FrmInformeHsAdeudadas";
+            this.Load += new System.EventHandler(this.FrmInformeHsAdeudadas_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -104,5 +135,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TableLayoutPanel ListaHsAdeudadasPanel1;
     }
 }
