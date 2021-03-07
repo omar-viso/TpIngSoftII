@@ -48,6 +48,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.AgregarPerfilButton = new System.Windows.Forms.Button();
             this.DNInumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.EmpleadocomboBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DNInumericUpDown)).BeginInit();
@@ -267,11 +268,23 @@
             0,
             0});
             // 
+            // EmpleadocomboBox
+            // 
+            this.EmpleadocomboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.EmpleadocomboBox.FormattingEnabled = true;
+            this.EmpleadocomboBox.Location = new System.Drawing.Point(48, 14);
+            this.EmpleadocomboBox.Name = "EmpleadocomboBox";
+            this.EmpleadocomboBox.Size = new System.Drawing.Size(163, 21);
+            this.EmpleadocomboBox.TabIndex = 39;
+            this.EmpleadocomboBox.Text = "Empleado a cambiar...";
+            this.EmpleadocomboBox.SelectedIndexChanged += new System.EventHandler(this.EmpleadocomboBox_SelectedIndexChanged);
+            // 
             // FrmEmpleadoAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 306);
+            this.Controls.Add(this.EmpleadocomboBox);
             this.Controls.Add(this.DNInumericUpDown);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.AgregarButton);
@@ -322,5 +335,6 @@
         private System.Windows.Forms.Button AgregarPerfilButton;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.NumericUpDown DNInumericUpDown;
+        private System.Windows.Forms.ComboBox EmpleadocomboBox;
     }
 }

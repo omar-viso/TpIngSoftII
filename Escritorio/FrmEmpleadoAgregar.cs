@@ -20,6 +20,7 @@ namespace Escritorio
         //private readonly IPerfilService perfilService;
         //private readonly IAppContext2 appContext2;
         private readonly Container container;
+        private int ID = 0;
 
         public FrmEmpleadoAgregar(/*IEmpleadoService empleadoService, IPerfilService perfilService, IAppContext2 appContext2*/Container container)
         {
@@ -34,11 +35,16 @@ namespace Escritorio
         private void FrmEmpleadoAgregar_Load(object sender, EventArgs e)
         {
             AgregarBotonElejirPerfil();
+            CargarlistaEmpleados();
         }
 
         private void AgregarPerfilButton_Click(object sender, EventArgs e)
         {
-            AgregarBotonElejirPerfil();
+            int count = PerfilPanel.Controls.OfType<ComboBox>().ToList().Count;
+            var perfiles = container.GetInstance<IPerfilService>().GetAllAsNoTracking();
+            if(count<perfiles.Count())
+                AgregarBotonElejirPerfil();
+            container.GetInstance<IPerfilService>().Limpiar();
         }
         private void AgregarButton_Click(object sender, EventArgs e)
         {
@@ -111,24 +117,75 @@ namespace Escritorio
                     empleadoDto.Perfiles.Add(empleadoPerfilDto);
                 }
             }
-            try
+            if (ID != 0)
             {
-                var respuesta = container.GetInstance<IEmpleadoService>().Update(empleadoDto);
-                if (respuesta != null)
+                var EmpleadoAEditar = container.GetInstance<IEmpleadoService>().GetByIdAsNoTracking(ID);
+                EmpleadoAEditar.Nombre = NombretextBox.Text;
+                EmpleadoAEditar.Apellido = ApellidotextBox.Text;
+                EmpleadoAEditar.Dni = (long)DNInumericUpDown.Value;
+                EmpleadoAEditar.FechaIngreso = FechaTimePicker.Value;
+                EmpleadoAEditar.Usuario = UsuarioTextBox.Text;
+                EmpleadoAEditar.Clave = ContraseniatextBox.Text;
+                EmpleadoAEditar.RolID = RolCombo.SelectedIndex + 1;
+                EmpleadoAEditar.Perfiles.Clear();
+                foreach (ComboBox elegirPerfil in listaElegirPerfiles)
                 {
-                    MessageBox.Show("Empleado creado");
-                    container.GetInstance<IEmpleadoService>().Limpiar();
+                    if (elegirPerfil.SelectedItem != null)
+                    {
+                        EmpleadoPerfilDto empleadoPerfilDto = new EmpleadoPerfilDto();
+                        empleadoPerfilDto.PerfilID = ObtenerPerfilID(elegirPerfil);
+                        empleadoPerfilDto.EmpleadoID = ID;
+                        //empleadoPerfilDto.ID = 0;
+                        EmpleadoAEditar.Perfiles.Add(empleadoPerfilDto);
+                    }
                 }
-                else
+                try
                 {
-                    MessageBox.Show("No se a podido crear el Empleado");
+                    var respuesta = container.GetInstance<IEmpleadoService>().Update(EmpleadoAEditar);
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Empleado editado");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se a podido editar el empleado. " + ex.Message);
+                }
+                ID = 0;
+                EmpleadocomboBox.ResetText();
+                EmpleadocomboBox.Items.Clear();
+                CargarlistaEmpleados();
+                container.GetInstance<IEmpleadoService>().Limpiar();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("No se a podido crear el Empleado. "+ex.Message);
+                try
+                {
+                    var respuesta = container.GetInstance<IEmpleadoService>().Update(empleadoDto);
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Empleado creado");
+                        container.GetInstance<IEmpleadoService>().Limpiar();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se a podido crear el Empleado");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se a podido crear el Empleado. " + ex.Message);
+                }
             }
             container.GetInstance<IEmpleadoService>().Limpiar();
+            NombretextBox.Text = "";
+            ApellidotextBox.Text = "";
+            DNInumericUpDown.Value = 10000000;
+            FechaTimePicker.Value = new DateTime(2021,2,27);
+            UsuarioTextBox.Text = "";
+            ContraseniatextBox.Text = "";
+            RolCombo.ResetText();
+            PerfilPanel.Controls.Clear();
         }
 
         private void AgregarBotonElejirPerfil()
@@ -206,6 +263,14 @@ namespace Escritorio
             }
         }
 
+        private void CargarlistaEmpleados()
+        {
+            var empleados = container.GetInstance<IEmpleadoService>().GetAllAsNoTracking();
+            foreach (EmpleadoDto empleado in empleados)
+            {
+                EmpleadocomboBox.Items.Add(empleado.Nombre + " " + empleado.Apellido);
+            }
+        }
         private int ObtenerPerfilID(ComboBox ElejirPerfilcomboBox)
         {
             int idPerfil = 0;
@@ -215,8 +280,64 @@ namespace Escritorio
                 if (ElejirPerfilcomboBox.SelectedItem.ToString() == perfil.Descripcion)
                     idPerfil= perfil.ID;
             }
+            container.GetInstance<IPerfilService>().Limpiar(); 
             return idPerfil;
         }
+
+        private void EmpleadocomboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var empleados = container.GetInstance<IEmpleadoService>().GetAllAsNoTracking();
+            foreach (EmpleadoDto empleado in empleados)
+            {
+                if (EmpleadocomboBox.SelectedItem.ToString() == empleado.Nombre + " " + empleado.Apellido)
+                {
+                    NombretextBox.Text= empleado.Nombre;
+                    ApellidotextBox.Text= empleado.Apellido;
+                    DNInumericUpDown.Value= empleado.Dni;
+                    FechaTimePicker.Value= empleado.FechaIngreso;
+                    UsuarioTextBox.Text= empleado.Usuario;
+                    ContraseniatextBox.Text=empleado.Clave ;
+                    RolCombo.SelectedIndex= empleado.RolID-1;
+                    var perfiles =empleado.Perfiles;
+                    PerfilPanel.Controls.Clear();
+                    foreach (EmpleadoPerfilDto perfil in perfiles)
+                    {
+                        AgregarBotonElejirPerfil(perfil.PerfilDescripcion);
+                    }
+                    ID = empleado.ID;
+                }
+            }
+        }
+
+
+        private void AgregarBotonElejirPerfil(string perfilSeleccionado)
+        {
+            //Create the dynamic TextBox.
+            ComboBox ElejirPerfil = new ComboBox();
+            int count = PerfilPanel.Controls.OfType<ComboBox>().ToList().Count;
+            ElejirPerfil.Location = new System.Drawing.Point(26, 25 * count);
+            ElejirPerfil.Size = new System.Drawing.Size(128, 21);
+            ElejirPerfil.Name = "ElejirPerfil_" + (count + 1);
+            ElejirPerfil.Text = "Elija un perfil";
+            CargarListaPerfiles(ElejirPerfil);
+            ElejirPerfil.SelectedItem = perfilSeleccionado;
+            PerfilPanel.Controls.Add(ElejirPerfil);
+
+            //Create the dynamic Button to remove the TextBox.
+            Button button = new Button();
+            button.Location = new System.Drawing.Point(172, 25 * count);
+            button.Size = new System.Drawing.Size(21, 25);
+            button.Name = "btnDelete_" + (count + 1);
+            button.ForeColor = Color.Red;
+            button.BackColor = PerfilPanel.BackColor;
+            button.FlatAppearance.BorderSize = 0;
+            button.FlatAppearance.BorderColor = button.BackColor;
+            button.FlatStyle = FlatStyle.Flat;
+            button.Text = "X";
+            button.Click += new System.EventHandler(this.btnDelete_Click);
+            PerfilPanel.Controls.Add(button);
+        }
+
 
     }
 

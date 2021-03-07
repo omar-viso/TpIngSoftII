@@ -51,15 +51,18 @@ namespace Escritorio
                 var perfilAeditar = container.GetInstance<IPerfilService>().GetByIdAsNoTracking(ID);
                 perfilAeditar.Descripcion = DescripcionText.Text;
                 perfilAeditar.ValorHorario = ValorHoraNumeric.Value;
-                var respuesta = container.GetInstance<IPerfilService>().Update(perfilAeditar);
-                
-                if (respuesta != null)
+                try
                 {
-                    MessageBox.Show("Perfil editado");
+                    var respuesta = container.GetInstance<IPerfilService>().Update(perfilAeditar);
+
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Perfil editado");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No se a podido editar el perfil");
+                    MessageBox.Show("No se a podido editar el perfil. "+ex.Message);
                 }
                 
                 ID = 0;
@@ -70,14 +73,17 @@ namespace Escritorio
             }
             else
             {
-                var respuesta = container.GetInstance<IPerfilService>().Update(perfilDto);
-                if (respuesta != null)
+                try
                 {
-                    MessageBox.Show("Perfil creado");
+                    var respuesta = container.GetInstance<IPerfilService>().Update(perfilDto);
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Perfil creado");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No se a podido crear el perfil");
+                        MessageBox.Show("No se a podido crear el perfil. "+ ex.Message);
                 }
                 container.GetInstance<IPerfilService>().Limpiar();
             }

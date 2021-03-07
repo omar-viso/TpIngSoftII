@@ -39,13 +39,15 @@
             this.HorasEstimNumeric = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.AgregarButton = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TareacomboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.HorasEstimNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 36);
+            this.label1.Location = new System.Drawing.Point(42, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 3;
@@ -54,7 +56,7 @@
             // NombreTextBox
             // 
             this.NombreTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.NombreTextBox.Location = new System.Drawing.Point(45, 52);
+            this.NombreTextBox.Location = new System.Drawing.Point(45, 84);
             this.NombreTextBox.Name = "NombreTextBox";
             this.NombreTextBox.Size = new System.Drawing.Size(140, 20);
             this.NombreTextBox.TabIndex = 2;
@@ -64,7 +66,7 @@
             // 
             this.ElegirProyectocomboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ElegirProyectocomboBox.FormattingEnabled = true;
-            this.ElegirProyectocomboBox.Location = new System.Drawing.Point(285, 51);
+            this.ElegirProyectocomboBox.Location = new System.Drawing.Point(285, 83);
             this.ElegirProyectocomboBox.Name = "ElegirProyectocomboBox";
             this.ElegirProyectocomboBox.Size = new System.Drawing.Size(163, 21);
             this.ElegirProyectocomboBox.TabIndex = 4;
@@ -74,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(282, 25);
+            this.label2.Location = new System.Drawing.Point(282, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(114, 13);
             this.label2.TabIndex = 5;
@@ -83,7 +85,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(42, 98);
+            this.label3.Location = new System.Drawing.Point(42, 130);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 6;
@@ -93,7 +95,7 @@
             // 
             this.ElejirPerfilcomboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ElejirPerfilcomboBox.FormattingEnabled = true;
-            this.ElejirPerfilcomboBox.Location = new System.Drawing.Point(45, 130);
+            this.ElejirPerfilcomboBox.Location = new System.Drawing.Point(45, 162);
             this.ElejirPerfilcomboBox.Name = "ElejirPerfilcomboBox";
             this.ElejirPerfilcomboBox.Size = new System.Drawing.Size(163, 21);
             this.ElejirPerfilcomboBox.TabIndex = 7;
@@ -103,7 +105,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(282, 98);
+            this.label4.Location = new System.Drawing.Point(282, 130);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(119, 13);
             this.label4.TabIndex = 9;
@@ -113,7 +115,7 @@
             // 
             this.ElegirEmpleadocomboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ElegirEmpleadocomboBox.FormattingEnabled = true;
-            this.ElegirEmpleadocomboBox.Location = new System.Drawing.Point(285, 124);
+            this.ElegirEmpleadocomboBox.Location = new System.Drawing.Point(285, 156);
             this.ElegirEmpleadocomboBox.Name = "ElegirEmpleadocomboBox";
             this.ElegirEmpleadocomboBox.Size = new System.Drawing.Size(163, 21);
             this.ElegirEmpleadocomboBox.TabIndex = 8;
@@ -123,7 +125,7 @@
             // HorasEstimNumeric
             // 
             this.HorasEstimNumeric.DecimalPlaces = 2;
-            this.HorasEstimNumeric.Location = new System.Drawing.Point(179, 203);
+            this.HorasEstimNumeric.Location = new System.Drawing.Point(179, 235);
             this.HorasEstimNumeric.Name = "HorasEstimNumeric";
             this.HorasEstimNumeric.Size = new System.Drawing.Size(120, 20);
             this.HorasEstimNumeric.TabIndex = 11;
@@ -131,7 +133,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(176, 187);
+            this.label5.Location = new System.Drawing.Point(176, 219);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 13);
             this.label5.TabIndex = 10;
@@ -143,7 +145,7 @@
             this.AgregarButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.AgregarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AgregarButton.ForeColor = System.Drawing.SystemColors.Window;
-            this.AgregarButton.Location = new System.Drawing.Point(189, 239);
+            this.AgregarButton.Location = new System.Drawing.Point(189, 271);
             this.AgregarButton.Name = "AgregarButton";
             this.AgregarButton.Size = new System.Drawing.Size(75, 28);
             this.AgregarButton.TabIndex = 12;
@@ -151,11 +153,32 @@
             this.AgregarButton.UseVisualStyleBackColor = false;
             this.AgregarButton.Click += new System.EventHandler(this.AgregarButton_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(210, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(216, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Si no selecciona ninguno agrega uno nuevo";
+            // 
+            // TareacomboBox
+            // 
+            this.TareacomboBox.FormattingEnabled = true;
+            this.TareacomboBox.Location = new System.Drawing.Point(45, 22);
+            this.TareacomboBox.Name = "TareacomboBox";
+            this.TareacomboBox.Size = new System.Drawing.Size(160, 21);
+            this.TareacomboBox.TabIndex = 20;
+            this.TareacomboBox.Text = "Tarea a cambiar...";
+            this.TareacomboBox.SelectedIndexChanged += new System.EventHandler(this.TareacomboBox_SelectedIndexChanged);
+            // 
             // FrmTareaAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 293);
+            this.ClientSize = new System.Drawing.Size(511, 311);
+            this.Controls.Add(this.TareacomboBox);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.AgregarButton);
             this.Controls.Add(this.HorasEstimNumeric);
             this.Controls.Add(this.label5);
@@ -189,5 +212,7 @@
         private System.Windows.Forms.NumericUpDown HorasEstimNumeric;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button AgregarButton;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox TareacomboBox;
     }
 }

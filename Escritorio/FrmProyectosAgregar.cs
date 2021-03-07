@@ -79,14 +79,16 @@ namespace Escritorio
                 proyectoAEditar.Nombre = NombreTextBox.Text;
                 proyectoAEditar.ClienteID = ClienteID;
                 proyectoAEditar.ProyectoEstadoID = ProyectoEstadoID;
-                var respuesta = container.GetInstance<IProyectoService>().Update(proyectoAEditar);
-                if (respuesta != null)
+                try
                 {
-                    MessageBox.Show("Proyecto editado");
-                }
-                else
+                    var respuesta = container.GetInstance<IProyectoService>().Update(proyectoAEditar);
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Proyecto editado");
+                    }
+                }catch(Exception ex) 
                 {
-                    MessageBox.Show("No se a podido editar el proyecto");
+                    MessageBox.Show("No se a podido editar el proyecto. "+ex.Message);
                 }
                 ID = 0;
                 ElegirProyectocomboBox.ResetText();
@@ -96,14 +98,17 @@ namespace Escritorio
             }
             else
             {
-                var respuesta = container.GetInstance<IProyectoService>().Update(proyectoDto);
-                if (respuesta != null)
+                try
                 {
-                    MessageBox.Show("Proyecto creado con exito");
+                    var respuesta = container.GetInstance<IProyectoService>().Update(proyectoDto);
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Proyecto creado con exito");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo crear proyecto");
+                    MessageBox.Show("No se pudo crear proyecto. "+ex.Message);
                 }
                 container.GetInstance<IProyectoService>().Limpiar();
             }
@@ -147,8 +152,12 @@ namespace Escritorio
                 {
 
                     NombreTextBox.Text = proyecto.Nombre;
-                    ElejirClienteComboBox.SelectedItem = proyecto.ClienteNombre;
                     ClienteID = proyecto.ClienteID;
+                    var cliente=container.GetInstance<IClienteService>().GetById(ClienteID);
+                    if (cliente.RazonSocial == null || cliente.RazonSocial == "")
+                        ElejirClienteComboBox.SelectedItem = cliente.Nombre + " " + cliente.Apellido;
+                    else
+                        ElejirClienteComboBox.SelectedItem = cliente.RazonSocial;
                     CambiarEstadocomboBox.SelectedItem = proyecto.ProyectoEstadoDescripcion;
                     ProyectoEstadoID = proyecto.ProyectoEstadoID;
                     ID = proyecto.ID;

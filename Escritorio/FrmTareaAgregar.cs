@@ -18,6 +18,7 @@ namespace Escritorio
     public partial class FrmTareaAgregar : Form
     {
         private readonly Container container;
+        private int ID = 0;
         private int empleadoID = 0;
         private int perfilID = 0;
         private int proyectoID = 0;
@@ -33,6 +34,7 @@ namespace Escritorio
             CargarlistaEmpleados();
             CargarListaPerfiles();
             CargarlistaProyectos();
+            CargarListaTareas();
         }
 
         private void AgregarButton_Click(object sender, EventArgs e)
@@ -73,24 +75,52 @@ namespace Escritorio
             container.GetInstance<IEmpleadoService>().Limpiar();
             if (HorasEstimNumeric.Value == 0)
             {
-                MessageBox.Show("El Empleado-Perfil indicado no existe.");
+                MessageBox.Show("Ingrese una cantidad de horas");
                 return;
             }
             tareaDto.HorasEstimadas = HorasEstimNumeric.Value;
 
             tareaDto.HorasOB = 0;//Cuando se crea no tiene hs ob
-            try
+            if (ID != 0)
             {
-                var respuesta = container.GetInstance<ITareaService>().Update(tareaDto);
-                if (respuesta != null)
+                var TareaAEditar = container.GetInstance<ITareaService>().GetByIdAsNoTracking(ID);
+                TareaAEditar.Nombre = NombreTextBox.Text;
+                TareaAEditar.EmpleadoPerfilID = empleadoPerfilID;
+                TareaAEditar.ProyectoID = proyectoID;
+                TareaAEditar.HorasEstimadas = HorasEstimNumeric.Value;
+                try
                 {
-                    MessageBox.Show("Tarea creada");
-                    container.GetInstance<ITareaService>().Limpiar();
+                    var respuesta = container.GetInstance<ITareaService>().Update(TareaAEditar);
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Taread editada");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se a podido editar la tarea. " + ex.Message);
+                }
+                ID = 0;
+                TareacomboBox.ResetText();
+                TareacomboBox.Items.Clear();
+                CargarListaTareas();
+                container.GetInstance<ITareaService>().Limpiar();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("No se a podido crear la tarea. " + ex.Message);
+                try
+                {
+                    var respuesta = container.GetInstance<ITareaService>().Update(tareaDto);
+                    if (respuesta != null)
+                    {
+                        MessageBox.Show("Tarea creada");
+                        container.GetInstance<ITareaService>().Limpiar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se a podido crear la tarea. " + ex.Message);
+                }
             }
             NombreTextBox.Text = "";
             HorasEstimNumeric.Value = 0;
@@ -128,6 +158,15 @@ namespace Escritorio
             }
         }
 
+        private void CargarListaTareas()
+        {
+            var tareas = container.GetInstance<ITareaService>().GetAllAsNoTracking();
+            foreach (TareaDto tarea in tareas)
+            {
+                TareacomboBox.Items.Add(tarea.Nombre);
+            }
+        }
+
         private void ElejirPerfilcomboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var perfiles = container.GetInstance<IPerfilService>().GetAllAsNoTracking();
@@ -160,6 +199,33 @@ namespace Escritorio
                 if (ElegirProyectocomboBox.SelectedItem.ToString() == proyecto.Nombre)
                 {
                     proyectoID = proyecto.ID;
+                }
+            }
+        }
+
+        private void TareacomboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var tareas = container.GetInstance<ITareaService>().GetAllAsNoTracking();
+            foreach (TareaDto tarea in tareas)
+            {
+                if (TareacomboBox.SelectedItem.ToString() == tarea.Nombre)
+                {
+                    NombreTextBox.Text= tarea.Nombre;
+                    ElegirProyectocomboBox.SelectedItem = tarea.ProyectoNombre;
+                    proyectoID = tarea.ProyectoID;
+                    var EmpleadoPerfil = container.GetInstance<IEmpleadoService>().GetEmpleadoPerfil(tarea.EmpleadoPerfilID);
+                    ElejirPerfilcomboBox.SelectedItem = tarea.EmpleadoPerfilDescripcion;
+                    perfilID = EmpleadoPerfil.PerfilID;
+                    empleadoID = EmpleadoPerfil.EmpleadoID;
+                    container.GetInstance<IEmpleadoService>().Limpiar();
+                    var empleado =container.GetInstance<IEmpleadoService>().GetById(empleadoID);
+                    ElegirEmpleadocomboBox.SelectedItem = empleado.Nombre + " " + empleado.Apellido;
+                   
+                    HorasEstimNumeric.Value = tarea.HorasEstimadas;
+                    
+                    ID = tarea.ID;
+
+                    container.GetInstance<IEmpleadoService>().Limpiar();
                 }
             }
         }
