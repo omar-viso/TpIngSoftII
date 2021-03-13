@@ -37,6 +37,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ListaHsOBSeamanPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ReporteButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -82,6 +83,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.ReporteButton);
             this.panel3.Controls.Add(this.TotalObLabel);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -93,7 +95,7 @@
             // TotalObLabel
             // 
             this.TotalObLabel.AutoSize = true;
-            this.TotalObLabel.Location = new System.Drawing.Point(331, 17);
+            this.TotalObLabel.Location = new System.Drawing.Point(311, 17);
             this.TotalObLabel.Name = "TotalObLabel";
             this.TotalObLabel.Size = new System.Drawing.Size(13, 13);
             this.TotalObLabel.TabIndex = 0;
@@ -111,7 +113,7 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel2.BackColor = System.Drawing.SystemColors.Menu;
             this.panel2.Controls.Add(this.ListaHsOBSeamanPanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 36);
@@ -127,7 +129,7 @@
             this.ListaHsOBSeamanPanel1.ColumnCount = 3;
             this.ListaHsOBSeamanPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.3416F));
             this.ListaHsOBSeamanPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.6584F));
-            this.ListaHsOBSeamanPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.ListaHsOBSeamanPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91F));
             this.ListaHsOBSeamanPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
             this.ListaHsOBSeamanPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             this.ListaHsOBSeamanPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
@@ -141,6 +143,16 @@
             this.ListaHsOBSeamanPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.ListaHsOBSeamanPanel1.Size = new System.Drawing.Size(454, 30);
             this.ListaHsOBSeamanPanel1.TabIndex = 2;
+            // 
+            // ReporteButton
+            // 
+            this.ReporteButton.Location = new System.Drawing.Point(374, 12);
+            this.ReporteButton.Name = "ReporteButton";
+            this.ReporteButton.Size = new System.Drawing.Size(68, 23);
+            this.ReporteButton.TabIndex = 9;
+            this.ReporteButton.Text = "Reporte";
+            this.ReporteButton.UseVisualStyleBackColor = true;
+            this.ReporteButton.Click += new System.EventHandler(this.ReporteButton_Click);
             // 
             // FrmInformeHsObSemana
             // 
@@ -174,5 +186,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel ListaHsOBSeamanPanel1;
+        private System.Windows.Forms.Button ReporteButton;
     }
 }

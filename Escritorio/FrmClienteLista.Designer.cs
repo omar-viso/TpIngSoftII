@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ReporteButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -45,6 +46,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ReporteButton);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
@@ -58,6 +60,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(788, 36);
             this.panel1.TabIndex = 0;
+            // 
+            // ReporteButton
+            // 
+            this.ReporteButton.Location = new System.Drawing.Point(717, 4);
+            this.ReporteButton.Name = "ReporteButton";
+            this.ReporteButton.Size = new System.Drawing.Size(68, 23);
+            this.ReporteButton.TabIndex = 2;
+            this.ReporteButton.Text = "Reporte";
+            this.ReporteButton.UseVisualStyleBackColor = true;
+            this.ReporteButton.Click += new System.EventHandler(this.ReporteButton_Click);
             // 
             // label8
             // 
@@ -142,7 +154,7 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel2.BackColor = System.Drawing.SystemColors.Menu;
             this.panel2.Controls.Add(this.ListaClientePanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 36);
@@ -164,7 +176,7 @@
             this.ListaClientePanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.ListaClientePanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 111F));
             this.ListaClientePanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
-            this.ListaClientePanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.ListaClientePanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
             this.ListaClientePanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.ListaClientePanel1.Location = new System.Drawing.Point(0, 0);
             this.ListaClientePanel1.Name = "ListaClientePanel1";
@@ -204,5 +216,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel ListaClientePanel1;
+        private System.Windows.Forms.Button ReporteButton;
     }
 }

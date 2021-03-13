@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ListaHsAdeudadasPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ReporteButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +80,7 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel2.BackColor = System.Drawing.SystemColors.Menu;
             this.panel2.Controls.Add(this.ListaHsAdeudadasPanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 30);
@@ -95,7 +96,7 @@
             this.ListaHsAdeudadasPanel1.ColumnCount = 3;
             this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.49735F));
             this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.50265F));
-            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
+            this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
             this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             this.ListaHsAdeudadasPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
@@ -110,11 +111,22 @@
             this.ListaHsAdeudadasPanel1.Size = new System.Drawing.Size(480, 30);
             this.ListaHsAdeudadasPanel1.TabIndex = 2;
             // 
+            // ReporteButton
+            // 
+            this.ReporteButton.Location = new System.Drawing.Point(400, 164);
+            this.ReporteButton.Name = "ReporteButton";
+            this.ReporteButton.Size = new System.Drawing.Size(68, 23);
+            this.ReporteButton.TabIndex = 9;
+            this.ReporteButton.Text = "Reporte";
+            this.ReporteButton.UseVisualStyleBackColor = true;
+            this.ReporteButton.Click += new System.EventHandler(this.ReporteButton_Click);
+            // 
             // FrmInformeHsAdeudadas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 214);
+            this.ClientSize = new System.Drawing.Size(480, 193);
+            this.Controls.Add(this.ReporteButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "FrmInformeHsAdeudadas";
@@ -136,5 +148,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel ListaHsAdeudadasPanel1;
+        private System.Windows.Forms.Button ReporteButton;
     }
 }

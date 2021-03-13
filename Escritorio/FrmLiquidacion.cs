@@ -84,6 +84,31 @@ namespace Escritorio
             }
         }
 
-        
+        private void ReporteButton_Click(object sender, EventArgs e)
+        {
+            SolicitaLiquidacionDto solicitaLiquidacion = new SolicitaLiquidacionDto();
+            if (empleadoID == 0)
+            {
+                MessageBox.Show("Por favor elija el empleado");
+                return;
+            }
+            solicitaLiquidacion.EmpleadoID = empleadoID;
+            solicitaLiquidacion.Desde = InicioDatePicker.Value;
+            solicitaLiquidacion.Hasta = FinDatePicker.Value;
+
+            var fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+                try
+                {
+                    Metodos.SaveStreamAsFile(fbd.SelectedPath, container.GetInstance<IProyectoService>().LiquidacionReporte(solicitaLiquidacion), "Reporte de Liquidacion.pdf");
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("No se pudo hacer la liquidacion. " + exc.Message);
+                }
+            }
+        }
     }
 }

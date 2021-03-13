@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,24 @@ namespace Escritorio.Metodos_estaticos
                 panel.RowStyles.RemoveAt(removeStyle);
 
             panel.RowCount--;
+        }
+
+        public static void SaveStreamAsFile(string filePath, Stream inputStream, string fileName)
+        {
+            DirectoryInfo info = new DirectoryInfo(filePath);
+            if (!info.Exists)
+            {
+                info.Create();
+            }
+            if (inputStream != null)
+            { 
+                string path = Path.Combine(filePath, fileName);
+                using (FileStream outputFileStream = new FileStream(path, FileMode.Create))
+                {
+                    inputStream.CopyTo(outputFileStream);
+                    outputFileStream.Close();
+                }
+            }
         }
     }
 }

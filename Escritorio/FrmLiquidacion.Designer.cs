@@ -48,18 +48,19 @@
             this.label14 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ListaEmpleadoPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.AntiguedadLabel = new System.Windows.Forms.Label();
-            this.HsNoOBLabel = new System.Windows.Forms.Label();
-            this.HsOBLabel = new System.Windows.Forms.Label();
-            this.HsTotalesLabel = new System.Windows.Forms.Label();
-            this.PerfilesLabel = new System.Windows.Forms.Label();
-            this.ProyectosLabel = new System.Windows.Forms.Label();
-            this.TareasLabel = new System.Windows.Forms.Label();
-            this.PorcentAntigueadadLabel = new System.Windows.Forms.Label();
-            this.PorcentHsTotalesLabel = new System.Windows.Forms.Label();
-            this.PorcentCantPerfilesLabel = new System.Windows.Forms.Label();
             this.TotalLabel = new System.Windows.Forms.Label();
+            this.PorcentCantPerfilesLabel = new System.Windows.Forms.Label();
+            this.PorcentHsTotalesLabel = new System.Windows.Forms.Label();
+            this.PorcentAntigueadadLabel = new System.Windows.Forms.Label();
+            this.TareasLabel = new System.Windows.Forms.Label();
+            this.ProyectosLabel = new System.Windows.Forms.Label();
+            this.PerfilesLabel = new System.Windows.Forms.Label();
+            this.HsTotalesLabel = new System.Windows.Forms.Label();
+            this.HsOBLabel = new System.Windows.Forms.Label();
+            this.HsNoOBLabel = new System.Windows.Forms.Label();
+            this.AntiguedadLabel = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.ReporteButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.ListaEmpleadoPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -252,6 +253,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ReporteButton);
             this.panel1.Controls.Add(this.LiquidacionButton);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label14);
@@ -292,7 +294,7 @@
             this.ListaEmpleadoPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 73F));
             this.ListaEmpleadoPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.ListaEmpleadoPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
-            this.ListaEmpleadoPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.ListaEmpleadoPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44F));
             this.ListaEmpleadoPanel1.Controls.Add(this.TotalLabel, 10, 0);
             this.ListaEmpleadoPanel1.Controls.Add(this.PorcentCantPerfilesLabel, 9, 0);
             this.ListaEmpleadoPanel1.Controls.Add(this.PorcentHsTotalesLabel, 8, 0);
@@ -312,127 +314,6 @@
             this.ListaEmpleadoPanel1.Size = new System.Drawing.Size(753, 30);
             this.ListaEmpleadoPanel1.TabIndex = 2;
             // 
-            // panel2
-            // 
-            this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel2.Controls.Add(this.ListaEmpleadoPanel1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 184);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(753, 41);
-            this.panel2.TabIndex = 31;
-            // 
-            // AntiguedadLabel
-            // 
-            this.AntiguedadLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.AntiguedadLabel.AutoSize = true;
-            this.AntiguedadLabel.Location = new System.Drawing.Point(35, 8);
-            this.AntiguedadLabel.Name = "AntiguedadLabel";
-            this.AntiguedadLabel.Size = new System.Drawing.Size(13, 13);
-            this.AntiguedadLabel.TabIndex = 32;
-            this.AntiguedadLabel.Text = "0";
-            this.AntiguedadLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // HsNoOBLabel
-            // 
-            this.HsNoOBLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.HsNoOBLabel.AutoSize = true;
-            this.HsNoOBLabel.Location = new System.Drawing.Point(99, 8);
-            this.HsNoOBLabel.Name = "HsNoOBLabel";
-            this.HsNoOBLabel.Size = new System.Drawing.Size(13, 13);
-            this.HsNoOBLabel.TabIndex = 33;
-            this.HsNoOBLabel.Text = "0";
-            this.HsNoOBLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // HsOBLabel
-            // 
-            this.HsOBLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.HsOBLabel.AutoSize = true;
-            this.HsOBLabel.Location = new System.Drawing.Point(149, 8);
-            this.HsOBLabel.Name = "HsOBLabel";
-            this.HsOBLabel.Size = new System.Drawing.Size(13, 13);
-            this.HsOBLabel.TabIndex = 34;
-            this.HsOBLabel.Text = "0";
-            this.HsOBLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // HsTotalesLabel
-            // 
-            this.HsTotalesLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.HsTotalesLabel.AutoSize = true;
-            this.HsTotalesLabel.Location = new System.Drawing.Point(204, 8);
-            this.HsTotalesLabel.Name = "HsTotalesLabel";
-            this.HsTotalesLabel.Size = new System.Drawing.Size(13, 13);
-            this.HsTotalesLabel.TabIndex = 35;
-            this.HsTotalesLabel.Text = "0";
-            this.HsTotalesLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // PerfilesLabel
-            // 
-            this.PerfilesLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PerfilesLabel.AutoSize = true;
-            this.PerfilesLabel.Location = new System.Drawing.Point(279, 8);
-            this.PerfilesLabel.Name = "PerfilesLabel";
-            this.PerfilesLabel.Size = new System.Drawing.Size(13, 13);
-            this.PerfilesLabel.TabIndex = 36;
-            this.PerfilesLabel.Text = "0";
-            this.PerfilesLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // ProyectosLabel
-            // 
-            this.ProyectosLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ProyectosLabel.AutoSize = true;
-            this.ProyectosLabel.Location = new System.Drawing.Point(373, 8);
-            this.ProyectosLabel.Name = "ProyectosLabel";
-            this.ProyectosLabel.Size = new System.Drawing.Size(13, 13);
-            this.ProyectosLabel.TabIndex = 37;
-            this.ProyectosLabel.Text = "0";
-            this.ProyectosLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // TareasLabel
-            // 
-            this.TareasLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.TareasLabel.AutoSize = true;
-            this.TareasLabel.Location = new System.Drawing.Point(464, 8);
-            this.TareasLabel.Name = "TareasLabel";
-            this.TareasLabel.Size = new System.Drawing.Size(13, 13);
-            this.TareasLabel.TabIndex = 38;
-            this.TareasLabel.Text = "0";
-            this.TareasLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // PorcentAntigueadadLabel
-            // 
-            this.PorcentAntigueadadLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PorcentAntigueadadLabel.AutoSize = true;
-            this.PorcentAntigueadadLabel.Location = new System.Drawing.Point(545, 8);
-            this.PorcentAntigueadadLabel.Name = "PorcentAntigueadadLabel";
-            this.PorcentAntigueadadLabel.Size = new System.Drawing.Size(13, 13);
-            this.PorcentAntigueadadLabel.TabIndex = 39;
-            this.PorcentAntigueadadLabel.Text = "0";
-            this.PorcentAntigueadadLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // PorcentHsTotalesLabel
-            // 
-            this.PorcentHsTotalesLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PorcentHsTotalesLabel.AutoSize = true;
-            this.PorcentHsTotalesLabel.Location = new System.Drawing.Point(607, 8);
-            this.PorcentHsTotalesLabel.Name = "PorcentHsTotalesLabel";
-            this.PorcentHsTotalesLabel.Size = new System.Drawing.Size(13, 13);
-            this.PorcentHsTotalesLabel.TabIndex = 40;
-            this.PorcentHsTotalesLabel.Text = "0";
-            this.PorcentHsTotalesLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // PorcentCantPerfilesLabel
-            // 
-            this.PorcentCantPerfilesLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PorcentCantPerfilesLabel.AutoSize = true;
-            this.PorcentCantPerfilesLabel.Location = new System.Drawing.Point(668, 8);
-            this.PorcentCantPerfilesLabel.Name = "PorcentCantPerfilesLabel";
-            this.PorcentCantPerfilesLabel.Size = new System.Drawing.Size(13, 13);
-            this.PorcentCantPerfilesLabel.TabIndex = 41;
-            this.PorcentCantPerfilesLabel.Text = "0";
-            this.PorcentCantPerfilesLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // TotalLabel
             // 
             this.TotalLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -443,6 +324,137 @@
             this.TotalLabel.TabIndex = 42;
             this.TotalLabel.Text = "0";
             this.TotalLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // PorcentCantPerfilesLabel
+            // 
+            this.PorcentCantPerfilesLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PorcentCantPerfilesLabel.AutoSize = true;
+            this.PorcentCantPerfilesLabel.Location = new System.Drawing.Point(667, 8);
+            this.PorcentCantPerfilesLabel.Name = "PorcentCantPerfilesLabel";
+            this.PorcentCantPerfilesLabel.Size = new System.Drawing.Size(13, 13);
+            this.PorcentCantPerfilesLabel.TabIndex = 41;
+            this.PorcentCantPerfilesLabel.Text = "0";
+            this.PorcentCantPerfilesLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // PorcentHsTotalesLabel
+            // 
+            this.PorcentHsTotalesLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PorcentHsTotalesLabel.AutoSize = true;
+            this.PorcentHsTotalesLabel.Location = new System.Drawing.Point(606, 8);
+            this.PorcentHsTotalesLabel.Name = "PorcentHsTotalesLabel";
+            this.PorcentHsTotalesLabel.Size = new System.Drawing.Size(13, 13);
+            this.PorcentHsTotalesLabel.TabIndex = 40;
+            this.PorcentHsTotalesLabel.Text = "0";
+            this.PorcentHsTotalesLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // PorcentAntigueadadLabel
+            // 
+            this.PorcentAntigueadadLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PorcentAntigueadadLabel.AutoSize = true;
+            this.PorcentAntigueadadLabel.Location = new System.Drawing.Point(544, 8);
+            this.PorcentAntigueadadLabel.Name = "PorcentAntigueadadLabel";
+            this.PorcentAntigueadadLabel.Size = new System.Drawing.Size(13, 13);
+            this.PorcentAntigueadadLabel.TabIndex = 39;
+            this.PorcentAntigueadadLabel.Text = "0";
+            this.PorcentAntigueadadLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // TareasLabel
+            // 
+            this.TareasLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.TareasLabel.AutoSize = true;
+            this.TareasLabel.Location = new System.Drawing.Point(463, 8);
+            this.TareasLabel.Name = "TareasLabel";
+            this.TareasLabel.Size = new System.Drawing.Size(13, 13);
+            this.TareasLabel.TabIndex = 38;
+            this.TareasLabel.Text = "0";
+            this.TareasLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ProyectosLabel
+            // 
+            this.ProyectosLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ProyectosLabel.AutoSize = true;
+            this.ProyectosLabel.Location = new System.Drawing.Point(372, 8);
+            this.ProyectosLabel.Name = "ProyectosLabel";
+            this.ProyectosLabel.Size = new System.Drawing.Size(13, 13);
+            this.ProyectosLabel.TabIndex = 37;
+            this.ProyectosLabel.Text = "0";
+            this.ProyectosLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // PerfilesLabel
+            // 
+            this.PerfilesLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PerfilesLabel.AutoSize = true;
+            this.PerfilesLabel.Location = new System.Drawing.Point(278, 8);
+            this.PerfilesLabel.Name = "PerfilesLabel";
+            this.PerfilesLabel.Size = new System.Drawing.Size(13, 13);
+            this.PerfilesLabel.TabIndex = 36;
+            this.PerfilesLabel.Text = "0";
+            this.PerfilesLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // HsTotalesLabel
+            // 
+            this.HsTotalesLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.HsTotalesLabel.AutoSize = true;
+            this.HsTotalesLabel.Location = new System.Drawing.Point(203, 8);
+            this.HsTotalesLabel.Name = "HsTotalesLabel";
+            this.HsTotalesLabel.Size = new System.Drawing.Size(13, 13);
+            this.HsTotalesLabel.TabIndex = 35;
+            this.HsTotalesLabel.Text = "0";
+            this.HsTotalesLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // HsOBLabel
+            // 
+            this.HsOBLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.HsOBLabel.AutoSize = true;
+            this.HsOBLabel.Location = new System.Drawing.Point(148, 8);
+            this.HsOBLabel.Name = "HsOBLabel";
+            this.HsOBLabel.Size = new System.Drawing.Size(13, 13);
+            this.HsOBLabel.TabIndex = 34;
+            this.HsOBLabel.Text = "0";
+            this.HsOBLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // HsNoOBLabel
+            // 
+            this.HsNoOBLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.HsNoOBLabel.AutoSize = true;
+            this.HsNoOBLabel.Location = new System.Drawing.Point(98, 8);
+            this.HsNoOBLabel.Name = "HsNoOBLabel";
+            this.HsNoOBLabel.Size = new System.Drawing.Size(13, 13);
+            this.HsNoOBLabel.TabIndex = 33;
+            this.HsNoOBLabel.Text = "0";
+            this.HsNoOBLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // AntiguedadLabel
+            // 
+            this.AntiguedadLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AntiguedadLabel.AutoSize = true;
+            this.AntiguedadLabel.Location = new System.Drawing.Point(34, 8);
+            this.AntiguedadLabel.Name = "AntiguedadLabel";
+            this.AntiguedadLabel.Size = new System.Drawing.Size(13, 13);
+            this.AntiguedadLabel.TabIndex = 32;
+            this.AntiguedadLabel.Text = "0";
+            this.AntiguedadLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.BackColor = System.Drawing.SystemColors.Menu;
+            this.panel2.Controls.Add(this.ListaEmpleadoPanel1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 184);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(753, 41);
+            this.panel2.TabIndex = 31;
+            // 
+            // ReporteButton
+            // 
+            this.ReporteButton.Location = new System.Drawing.Point(677, 6);
+            this.ReporteButton.Name = "ReporteButton";
+            this.ReporteButton.Size = new System.Drawing.Size(68, 23);
+            this.ReporteButton.TabIndex = 32;
+            this.ReporteButton.Text = "Reporte";
+            this.ReporteButton.UseVisualStyleBackColor = true;
+            this.ReporteButton.Click += new System.EventHandler(this.ReporteButton_Click);
             // 
             // FrmLiquidacion
             // 
@@ -498,5 +510,6 @@
         private System.Windows.Forms.Label HsOBLabel;
         private System.Windows.Forms.Label HsNoOBLabel;
         private System.Windows.Forms.Label AntiguedadLabel;
+        private System.Windows.Forms.Button ReporteButton;
     }
 }

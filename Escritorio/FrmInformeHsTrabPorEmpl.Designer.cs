@@ -41,6 +41,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.ListaHsTrabajProyectPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ReporteButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -48,6 +49,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ReporteButton);
             this.panel1.Controls.Add(this.SolicitarButton);
             this.panel1.Controls.Add(this.FinDatePicker);
             this.panel1.Controls.Add(this.InicioDatePicker);
@@ -162,7 +164,7 @@
             // panel3
             // 
             this.panel3.AutoScroll = true;
-            this.panel3.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel3.BackColor = System.Drawing.SystemColors.Menu;
             this.panel3.Controls.Add(this.ListaHsTrabajProyectPanel1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 98);
@@ -179,7 +181,7 @@
             this.ListaHsTrabajProyectPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.20119F));
             this.ListaHsTrabajProyectPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.79882F));
             this.ListaHsTrabajProyectPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 147F));
-            this.ListaHsTrabajProyectPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
+            this.ListaHsTrabajProyectPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
             this.ListaHsTrabajProyectPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             this.ListaHsTrabajProyectPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.ListaHsTrabajProyectPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
@@ -192,6 +194,16 @@
             this.ListaHsTrabajProyectPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.ListaHsTrabajProyectPanel1.Size = new System.Drawing.Size(579, 30);
             this.ListaHsTrabajProyectPanel1.TabIndex = 2;
+            // 
+            // ReporteButton
+            // 
+            this.ReporteButton.Location = new System.Drawing.Point(398, 20);
+            this.ReporteButton.Name = "ReporteButton";
+            this.ReporteButton.Size = new System.Drawing.Size(68, 23);
+            this.ReporteButton.TabIndex = 9;
+            this.ReporteButton.Text = "Reporte";
+            this.ReporteButton.UseVisualStyleBackColor = true;
+            this.ReporteButton.Click += new System.EventHandler(this.ReporteButton_Click);
             // 
             // FrmInformeHsTrabPorEmpl
             // 
@@ -228,5 +240,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TableLayoutPanel ListaHsTrabajProyectPanel1;
+        private System.Windows.Forms.Button ReporteButton;
     }
 }

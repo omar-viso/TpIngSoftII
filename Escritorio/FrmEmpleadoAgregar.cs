@@ -293,7 +293,8 @@ namespace Escritorio
                 {
                     NombretextBox.Text= empleado.Nombre;
                     ApellidotextBox.Text= empleado.Apellido;
-                    DNInumericUpDown.Value= empleado.Dni;
+                    if(empleado.Dni>=DNInumericUpDown.Minimum && empleado.Dni<=DNInumericUpDown.Maximum)
+                        DNInumericUpDown.Value= empleado.Dni;
                     FechaTimePicker.Value= empleado.FechaIngreso;
                     UsuarioTextBox.Text= empleado.Usuario;
                     ContraseniatextBox.Text=empleado.Clave ;

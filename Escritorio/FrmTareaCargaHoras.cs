@@ -52,6 +52,18 @@ namespace Escritorio
 
             try
             {
+                decimal cantHSOB = container.GetInstance<IHorasTrabajadasService>().CantidadHsOB(horasTrabajadasDto);
+                if (cantHSOB > 0)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Las horas por cargar se cargaran como horas over Budget. Desea continuar", "Horas Over Budget", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.No || dialogResult == DialogResult.Cancel)
+                    {
+                        HsTrabajadNumeric.Value = 0;
+                        TareacomboBox.ResetText();
+                        tareaID = 0;
+                        return;
+                    }
+                }
                 var respuesta = container.GetInstance<IHorasTrabajadasService>().Update(horasTrabajadasDto);
                 if (respuesta != null)
                 {

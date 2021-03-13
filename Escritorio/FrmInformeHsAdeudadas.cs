@@ -54,5 +54,15 @@ namespace Escritorio
                 }
             }
         }
+
+        private void ReporteButton_Click(object sender, EventArgs e)
+        {
+            var fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+                Metodos.SaveStreamAsFile(fbd.SelectedPath, container.GetInstance<IProyectoService>().HorasAdeudadasProyectoEmpleadoReporte(), "Reporte de Hs Adeudadas Proyecto-Empleado.pdf");
+            }
+        }
     }
 }

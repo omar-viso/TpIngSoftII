@@ -133,81 +133,97 @@ namespace Escritorio
         #region  Acciones de los Botones del Submenu
         private void VerListaClientes_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Lista de clientes";
             openChildForm(container.GetInstance<FrmClienteLista>());
         }
 
         private void AgregarProyectosButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Nuevo Proyecto";
             openChildForm(container.GetInstance<FrmProyectosAgregar>());
         }
 
         private void AgregarPerfilesButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Nuevo Perfil";
             openChildForm(container.GetInstance<FrmPerfilesAgregar>());
         }
 
         private void CargarHorasButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Carga de Horas";
             openChildForm(container.GetInstance<FrmTareaCargaHoras>());
         }
 
         private void AgregarTareasButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Nueva Tarea";
             openChildForm(container.GetInstance<FrmTareaAgregar>());
         }
 
         private void AgregarClientesButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Nuevo Cliente";
             openChildForm(container.GetInstance<FrmClienteAgregar>());
         }
 
         private void AgregarEmpleadosButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Nuevo Empleado";
             openChildForm(container.GetInstance<FrmEmpleadoAgregar>());
         }
 
         private void HsObSemanaButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Informe semanal de horas over budget";
             openChildForm(container.GetInstance<FrmInformeHsObSemana>());
         }
 
         private void HsTrabEmpleadoButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Horas trabajadas por empleado";
             openChildForm(container.GetInstance<FrmInformeHsTrabPorEmpl>());
         }
 
         private void HsTrabProyectoButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Horas trabajadas por Proyecto";
             openChildForm(container.GetInstance<FrmInformeHsTrabPorProyect>());
         }
 
         private void HsAdeudadasButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Horas Adeudadas";
             openChildForm(container.GetInstance<FrmInformeHsAdeudadas>());
         }
 
         private void LiquidarButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Liquidacion";
             openChildForm(container.GetInstance<FrmLiquidacion>());
         }
 
         private void VerListaPerfilesButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Lista de Perfiles";
             openChildForm(container.GetInstance<FrmPerfilLista>());
         }
 
         private void VerListaProyectosButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Lista de Proyectos";
             openChildForm(container.GetInstance<FrmProyectoLista>());
         }
 
         private void VerListaTareasButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Lista de Tareas";
             openChildForm(container.GetInstance<FrmTareaLista>());
         }
 
         private void VerListaEmpleadosButton_Click(object sender, EventArgs e)
         {
+            TituloLabel.Text = "Lista de Empleados";
             openChildForm(container.GetInstance<FrmEmpleadoLista>());
         }
     }

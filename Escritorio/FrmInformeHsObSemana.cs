@@ -53,5 +53,15 @@ namespace Escritorio
             }
             TotalObLabel.Text = horasOBSemanal.HsOBTotales.ToString();
         }
+
+        private void ReporteButton_Click(object sender, EventArgs e)
+        {
+            var fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+                Metodos.SaveStreamAsFile(fbd.SelectedPath, container.GetInstance<IHorasTrabajadasService>().InformeSemanalHsOBReporte(), "Informe Semanal Horas OB.pdf");
+            }
+        }
     }
 }

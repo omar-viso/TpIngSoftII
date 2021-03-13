@@ -163,6 +163,7 @@ namespace Escritorio
                     ID = proyecto.ID;
                 }
             }
+            container.GetInstance<IClienteService>().Limpiar();
         }
         private void CargarlistaProyectos()
         {

@@ -79,5 +79,7 @@ namespace Escritorio
             //ListaPerfilPanel1.ResumeLayout();
             //ListaPerfilPanel1.PerformLayout();
         }
+
+        
     }
 }

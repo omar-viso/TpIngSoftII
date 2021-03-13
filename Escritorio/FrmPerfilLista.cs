@@ -73,6 +73,16 @@ namespace Escritorio
             //ListaPerfilPanel1.PerformLayout();
         }
 
+        private void ReporteButton_Click(object sender, EventArgs e)
+        {
+            var fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+                Metodos.SaveStreamAsFile(fbd.SelectedPath, container.GetInstance<IPerfilService>().PerfilesReporte(), "Reporte de Perfiles.pdf");
+            }
+        }
+
         //private void btnEditar_Click(object sender, EventArgs e)
         //{
         //    Button button = (sender as Button);
