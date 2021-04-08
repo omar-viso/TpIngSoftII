@@ -82,7 +82,8 @@ namespace Escritorio
 
         private void CargarListaTareas()
         {
-            var tareas = container.GetInstance<ITareaService>().GetAllAsNoTracking();
+            var appContext = container.GetInstance<IAppContext>();
+            var tareas = container.GetInstance<ITareaService>().GetTareasEmpleado(appContext.EmpleadoID);
             foreach (TareaDto tarea in tareas)
             {
                 TareacomboBox.Items.Add(tarea.Nombre);
@@ -91,7 +92,8 @@ namespace Escritorio
 
         private void TareacomboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var tareas = container.GetInstance<ITareaService>().GetAllAsNoTracking();
+            var appContext = container.GetInstance<IAppContext>();
+            var tareas = container.GetInstance<ITareaService>().GetTareasEmpleado(appContext.EmpleadoID);
             foreach (TareaDto tarea in tareas)
             {
                 if (TareacomboBox.SelectedItem.ToString() == tarea.Nombre)

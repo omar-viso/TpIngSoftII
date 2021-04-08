@@ -12,6 +12,7 @@ using TpIngSoftII.Models.DTOs;
 using Escritorio.Metodos_estaticos;
 using TpIngSoftII.Models.Constantes;
 using SimpleInjector;
+using Escritorio.Constantes;
 
 namespace Escritorio
 {
@@ -27,7 +28,12 @@ namespace Escritorio
 
         private void FrmTareaLista_Load(object sender, EventArgs e)
         {
-            var tareas = container.GetInstance<ITareaService>().GetAllAsNoTracking();
+            var appContext = container.GetInstance<IAppContext>();
+            List<TareaDto> tareas;
+            if (appContext.EmpleadoRolID == Rol.Empleado)//Rol empleado
+                tareas = container.GetInstance<ITareaService>().GetTareasEmpleado(appContext.EmpleadoID);
+            else
+                tareas = (List<TareaDto>)container.GetInstance<ITareaService>().GetAllAsNoTracking();
             int count = 0;
             foreach (TareaDto tarea in tareas)
             {

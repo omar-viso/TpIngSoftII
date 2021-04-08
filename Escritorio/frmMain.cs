@@ -103,6 +103,7 @@ namespace Escritorio
             }
             if (this.appContext.EmpleadoRolID == Constantes.Rol.Empleado)
             {
+                this.AgregarTareasButton.Visible = false;
                 this.ClientesButton.Visible = false;
                 this.ProyectosButton.Visible = false;
                 this.EmpleadosButton.Visible = false;
