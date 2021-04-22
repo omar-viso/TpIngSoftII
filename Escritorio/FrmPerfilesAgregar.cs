@@ -62,7 +62,7 @@ namespace Escritorio
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se a podido editar el perfil. "+ex.Message);
+                    MessageBox.Show("No se ha podido editar el perfil. "+ex.Message);
                 }
                 
                 ID = 0;
@@ -83,7 +83,7 @@ namespace Escritorio
                 }
                 catch (Exception ex)
                 {
-                        MessageBox.Show("No se a podido crear el perfil. "+ ex.Message);
+                        MessageBox.Show("No se ha podido crear el perfil. "+ ex.Message);
                 }
                 container.GetInstance<IPerfilService>().Limpiar();
             }

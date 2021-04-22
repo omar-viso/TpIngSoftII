@@ -98,7 +98,7 @@ namespace Escritorio
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se a podido editar la tarea. " + ex.Message);
+                    MessageBox.Show("No se ha podido editar la tarea. " + ex.Message);
                 }
                 ID = 0;
                 TareacomboBox.ResetText();
@@ -119,7 +119,7 @@ namespace Escritorio
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se a podido crear la tarea. " + ex.Message);
+                    MessageBox.Show("No se ha podido crear la tarea. " + ex.Message);
                 }
             }
             NombreTextBox.Text = "";

@@ -149,7 +149,7 @@ namespace Escritorio
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se a podido editar el empleado. " + ex.Message);
+                    MessageBox.Show("No se ha podido editar el empleado. " + ex.Message);
                 }
                 ID = 0;
                 EmpleadocomboBox.ResetText();
@@ -169,12 +169,12 @@ namespace Escritorio
                     }
                     else
                     {
-                        MessageBox.Show("No se a podido crear el Empleado");
+                        MessageBox.Show("No se ha podido crear el Empleado");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se a podido crear el Empleado. " + ex.Message);
+                    MessageBox.Show("No se ha podido crear el Empleado. " + ex.Message);
                 }
             }
             container.GetInstance<IEmpleadoService>().Limpiar();

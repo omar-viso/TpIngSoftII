@@ -140,7 +140,7 @@ namespace Escritorio
                     }
                     else
                     {
-                        MessageBox.Show("No se a podido editar el cliente");
+                        MessageBox.Show("No se ha podido editar el cliente");
                     }
                     ID = 0;
                     ElejirClienteComboBox.ResetText();

@@ -88,7 +88,7 @@ namespace Escritorio
                     }
                 }catch(Exception ex) 
                 {
-                    MessageBox.Show("No se a podido editar el proyecto. "+ex.Message);
+                    MessageBox.Show("No se ha podido editar el proyecto. "+ex.Message);
                 }
                 ID = 0;
                 ElegirProyectocomboBox.ResetText();

@@ -73,7 +73,7 @@ namespace Escritorio
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se a podido cargar las horas para esa tarea. " + ex.Message);
+                MessageBox.Show("No se ha podido cargar las horas para esa tarea. " + ex.Message);
             }
             HsTrabajadNumeric.Value=0;
             TareacomboBox.ResetText();
