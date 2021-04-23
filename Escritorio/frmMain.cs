@@ -100,6 +100,7 @@ namespace Escritorio
             {
                 this.PerfilesButton.Visible = false;
                 this.ClientesButton.Visible = false;
+                this.EmpleadosButton.Visible = false;
             }
             if (this.appContext.EmpleadoRolID == Constantes.Rol.Empleado)
             {
