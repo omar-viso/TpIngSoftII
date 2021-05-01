@@ -33,21 +33,29 @@ namespace TpIngSoftII.Services
 
         public Stream PerfilesReporte()
         {
-            var EmpleadosDto = Mapper.Map<IEnumerable<Perfil>, IEnumerable<PerfilDto>>(this.entityRepository.AllIncludingAsNoTracking()).Select(x => new PerfilPdfDto
+            var perfilesDto = Mapper.Map<IEnumerable<Perfil>, IEnumerable<PerfilDto>>(this.entityRepository.AllIncludingAsNoTracking()).Select(x => new PerfilPdfDto
             {
                 ID = x.ID,
                 Descripcion = x.Descripcion ?? " - ",
-                ValorHorario = x.ValorHorario,
+                ValorHorario = x.ValorHorario
             })?.OrderBy(x => x.Descripcion)
                 .ToList();
-            if (EmpleadosDto.Count() != 0)
+
+            using (var report = new Reportes.PDF.CrystalReportPerfiles())
             {
-                using (var report = new Reportes.PDF.CrystalReportPerfiles())
+                if (perfilesDto.Count() == 0)
                 {
-                    return this.service.GetReportPDF(report, EmpleadosDto);
+                    var vacio = new PerfilPdfDto
+                    {
+                        ID = 0,
+                        Descripcion = "NO EXISTEN PERFILES",
+                        ValorHorario = 0
+                    };
+
+                    perfilesDto.Add(vacio);
                 }
+                return this.service.GetReportPDF(report, perfilesDto);
             }
-            return null;
         }
     }
 }

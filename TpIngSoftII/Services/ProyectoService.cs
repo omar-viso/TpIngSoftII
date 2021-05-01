@@ -168,15 +168,30 @@ namespace TpIngSoftII.Services
                 }
             }
 
-            if (horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf != null)
+            if (horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf.Count() > 0)
             {
                 using (var report = new Reportes.PDF.CrystalReportHsTrabajadasPorProyectoPerfilEmpleado())
                 {
                     return this.service.GetReportPDF(report, horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf);
                 }
             }
+            else
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsTrabajadasPorProyectoPerfilEmpleado())
+                {
+                    var vacio = new ProyectoPerfilesEmpleadosHorasPdfDto
+                    {
+                        ProyectoNombre = "",
+                        PerfilDescripcion = "",
+                        NombreApellido = "",
+                        CantidadHoras = 0
+                    };
 
-            return null;
+                    horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf.Add(vacio);
+
+                    return this.service.GetReportPDF(report, horasTrabajadasPorProyectoPorPerfilPorEmpleadoPdf);
+                }
+            }
         }
 
         public IEnumerable<ProyectoPerfilesEmpleadosHorasDto> HorasTrabajadasPorProyectoPorPerfilPorEmpleadoTotales(DateTime desde, DateTime hasta)
@@ -770,14 +785,30 @@ namespace TpIngSoftII.Services
                 ProyectoEstadoDescripcion = x.ProyectoEstadoDescripcion ?? " - "
             })
                 ?.OrderBy(x => x.Nombre).ToList();
-            if (proyectosDto.Count() != 0)
+            if (proyectosDto.Count() > 0)
             {
                 using (var report = new Reportes.PDF.CrystalReportProyectos())
                 {
                     return this.service.GetReportPDF(report, proyectosDto);
                 }
             }
-            return null;
+            else
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsTrabajadasPorProyectoPerfilEmpleado())
+                {
+                    var vacio = new ProyectoPdfDto
+                    {
+                        ID = 0,
+                        Nombre = "",
+                        ClienteNombre = "",
+                        ProyectoEstadoDescripcion = ""
+                    };
+
+                    proyectosDto.Add(vacio);
+
+                    return this.service.GetReportPDF(report, proyectosDto);
+                }
+            }
         }
 
         public Stream LiquidacionReporte(SolicitaLiquidacionDto dto)
@@ -865,8 +896,21 @@ namespace TpIngSoftII.Services
                     return this.service.GetReportPDF(report, resultadoFinal);
                 }
             }
+            else
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsProyectoPerfil())
+                {
+                    var vacio = new HsTrabajadasProyectorPerfilPdfDto
+                    {
+                        ProyectoNombre = "",
+                        PerfilDescripcion = "",
+                        CantidadHoras = 0
+                    };
 
-            return null;
+                    resultadoFinal.Add(vacio);
+                    return this.service.GetReportPDF(report, resultadoFinal);
+                }
+            }
         }
 
         public Stream HorasAdeudadasProyectoEmpleadoReporte()
@@ -898,8 +942,21 @@ namespace TpIngSoftII.Services
                     return this.service.GetReportPDF(report, resultadoFinal);
                 }
             }
+            else
+            {
+                using (var report = new Reportes.PDF.CrystalReportHsAdeudadasProyectoEmpleado())
+                {
+                    var vacio = new HsAdeudadasProyectoEmpleadoPdfDto
+                    {
+                        ProyectoNombre = "NO SE ENCUENTRAN RESULTADOS",
+                        EmpleadoNombreApellido = "",
+                        CantidadHorasAdeudadas = 0
+                    };
+                    resultadoFinal.Add(vacio);
 
-            return null;
+                    return this.service.GetReportPDF(report, resultadoFinal);
+                }
+            }
         }
     }
 }

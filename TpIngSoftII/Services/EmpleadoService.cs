@@ -256,14 +256,27 @@ namespace TpIngSoftII.Services
                 FechaIngreso = x.FechaIngreso.Date
             })?.OrderBy(x => x.Nombre)?.ThenBy(y => y.Apellido)
                .ToList();
-            if (EmpleadosDto.Count() != 0)
+
+            using (var report = new Reportes.PDF.CrystalReportEmpleados())
             {
-                using (var report = new Reportes.PDF.CrystalReportEmpleados())
+                if (EmpleadosDto.Count() == 0)
                 {
-                    return this.service.GetReportPDF(report, EmpleadosDto);
+                    var vacio = new EmpleadoPdfDto
+                    {
+                        ID = 0,
+                        Nombre = "NO EXISTEN EMPLEADOS",
+                        Dni = 0,
+                        Apellido = "",
+                        RolDescripcion = "",
+                        Usuario = "",
+                        FechaIngreso = DateTime.MinValue
+                    };
+
+                    EmpleadosDto.Add(vacio);
                 }
+
+                return this.service.GetReportPDF(report, EmpleadosDto);
             }
-            return null;
         }
     }
 }

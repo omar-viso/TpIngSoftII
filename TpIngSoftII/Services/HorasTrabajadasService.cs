@@ -387,18 +387,25 @@ namespace TpIngSoftII.Services
                     SubtotalHsOB = x.SubtotalHsOB
             }).ToList();
 
-            if (hsAInformarPdfDto != null && hsAInformarPdfDto.Count() > 0)
+            using (var report = new Reportes.PDF.CrystalReportInformeSemanalHsOB())
             {
-                using (var report = new Reportes.PDF.CrystalReportInformeSemanalHsOB())
+                resultadoFinal = hsAInformarPdfDto.Where(x => x.SubtotalHsOB > 0)?
+                                                  .OrderBy(x => x.ProyectoNombre)?
+                                                  .ThenBy(x => x.TareaNombre).ToList();
+                if (resultadoFinal.Count() == 0)
                 {
-                    resultadoFinal = hsAInformarPdfDto.Where(x => x.SubtotalHsOB > 0)?
-                                                      .OrderBy(x => x.ProyectoNombre)?
-                                                      .ThenBy(x => x.TareaNombre).ToList();
-                    return this.service.GetReportPDF(report, resultadoFinal);
-                }
-            }
+                    var vacio = new InformeSemanalHsOBPdfDto
+                    {
+                        ProyectoNombre = "",
+                        TareaNombre = "",
+                        SubtotalHsOB = 0
+                    };
 
-            return null;
+                    resultadoFinal.Add(vacio);
+                }
+
+                return this.service.GetReportPDF(report, resultadoFinal);
+            }
         }
     }
 }

@@ -92,16 +92,27 @@ namespace TpIngSoftII.Services
                 DniCuit = x.DniCuit,
                 Email = x.Email ?? " - ",
                 TelefonoContacto = x.TelefonoContacto ?? 0
-            })
-                .ToList();
-            if (ClientesDto.Count() != 0)
+            }).ToList();
+
+            using (var report = new Reportes.PDF.CrystalReport1())
             {
-                using (var report = new Reportes.PDF.CrystalReport1())
+                if (ClientesDto.Count() == 0)
                 {
-                    return this.service.GetReportPDF(report, ClientesDto);
+                    var vacio = new ClientePdfDto
+                    {
+                        ID = 0,
+                        Nombre = "",
+                        RazonSocial = "",
+                        Apellido = "",
+                        Direccion = "",
+                        DniCuit = 0,
+                        Email = "",
+                        TelefonoContacto = 0
+                    };
+                    ClientesDto.Add(vacio);
                 }
+                return this.service.GetReportPDF(report, ClientesDto);
             }
-            return null;
         }
 
     }
