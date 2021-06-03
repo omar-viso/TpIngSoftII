@@ -17,6 +17,10 @@ namespace TpIngSoftII.Models.DTOs
         public string EmpleadoPerfilNombreEmplado { get; set; }
         public string EmpleadoPerfilDescripcion { get; set; }
 
+        /* Datos SOLO INFORMATIVOS para el front */
+        public int EmpleadoID {get; set;}
+        public int PerfilID { get; set; }
+
         public string Nombre { get; set; }
         public decimal HorasEstimadas { get; set; }
         public decimal HorasOB { get; set; }
