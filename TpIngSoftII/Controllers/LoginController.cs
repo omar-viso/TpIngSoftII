@@ -4,6 +4,7 @@ using System.Threading;
 using TpIngSoftII.Models.Entities;
 using TpIngSoftII.Services;
 using TpIngSoftII.Interfaces.Services;
+using System.Net.Http;
 
 namespace TpIngSoftII.Controllers
 {
@@ -35,22 +36,38 @@ namespace TpIngSoftII.Controllers
 
         [HttpPost]
         [Route("authenticate")]
-        public IHttpActionResult Authenticate(LoginRequest login)
+        public HttpResponseMessage Authenticate(HttpRequestMessage request, [FromBody] LoginRequest login)
         {
-            if (login == null)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            //TODO: Validate credentials Correctly, this code is only for demo !!
-            int isCredentialValid = this.empleadoService.ValidarCredenciales(login);
-            if (isCredentialValid != 0)
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Username, login.Password, isCredentialValid);
-                return Ok(token);
+                response = request.CreateResponse(HttpStatusCode.BadRequest);
             }
             else
             {
-                return Unauthorized();
+                //TODO: Validate credentials Correctly, this code is only for demo !!
+                //if (login == null) return response = request.CreateResponse(HttpStatusCode.BadRequest, new System.ArgumentException("Los datos de Usuario/Contraseña son obligatorios."));
+                if (login == null) throw new System.ArgumentException("Los datos de Usuario/Contraseña son obligatorios.");
+
+                int isCredentialValid = this.empleadoService.ValidarCredenciales(login);
+                if (isCredentialValid != 0)
+                {
+                    var token = TokenGenerator.GenerateTokenJwt(login.Username, login.Password, isCredentialValid);
+                    response = request.CreateResponse(HttpStatusCode.OK, token);
+
+                    return response;
+                }
+                else
+                {
+                    throw new System.ArgumentException("Login fallido. Verifique usuario y contraseña, por favor.");
+
+                    //return response = request.CreateResponse(HttpStatusCode.Unauthorized, new System.ArgumentException("Login fallido. Verifique usuario y contraseña, por favor."));
+                }
             }
+
+            return response;
         }
     }
 
