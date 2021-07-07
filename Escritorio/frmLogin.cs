@@ -25,8 +25,7 @@ namespace Escritorio
             this.container = container;
             InitializeComponent();
         }
-        //Connection String
-        string cs = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\MyDatabase.mdf;Integrated Security=True;";
+
         //btn_Submit Click event
         private void frmLogin_Load(object sender, EventArgs e)
         {
